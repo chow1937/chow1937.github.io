@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+        <meta charset="utf-8" />
+        <title>Tonychow's Blog - antipattern</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Tonychow's Blog </a></h1>
+                <nav><ul>
+                    <li><a href="/category/linux.html">linux</a></li>
+                    <li><a href="/category/opencourse.html">opencourse</a></li>
+                    <li><a href="/category/python.html">python</a></li>
+                    <li><a href="/category/readings.html">readings</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/antipattern-sql-as.html">SQL 反模式读书笔记-AS</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2013-01-11T00:00:00+08:00">
+                Published: 五 11 一月 2013
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/tonychow.html">tonychow</a>
+        </address>
+<p>In <a href="/category/readings.html">readings</a>.</p>
+<p>tags: <a href="/tag/antipattern.html">antipattern</a> <a href="/tag/sql.html">sql</a> </p>
+</footer><!-- /.post-info --><p>P16</p>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="k">c</span><span class="p">.</span><span class="n">product_id</span><span class="p">,</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">AS</span> <span class="n">products_per_account</span>
+<span class="k">FROM</span> <span class="n">Contacts</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">account_id</span>
+</pre></div>
+
+
+<p>其中 Contacts 表是 Products 表和 Accounts 表的中间表，这个 SQL 查询语句的作用是查询每个账号相关的产品数量。</p>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="k">c</span><span class="p">.</span><span class="n">product_id</span><span class="p">,</span> <span class="k">c</span><span class="p">.</span><span class="n">accounts_per_product</span>
+<span class="k">FROM</span> <span class="p">(</span>
+    <span class="k">SELECT</span> <span class="n">product_id</span><span class="p">,</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">AS</span> <span class="n">accounts_per_product</span>
+    <span class="k">FROM</span> <span class="n">Contacts</span>
+    <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">product_id</span>
+<span class="p">)</span> <span class="k">AS</span> <span class="k">c</span>
+<span class="k">HAVING</span> <span class="k">c</span><span class="p">.</span><span class="n">accounts_per_product</span> <span class="o">=</span> <span class="k">MAX</span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">accounts_per_product</span><span class="p">)</span>
+</pre></div>
+
+
+<!--more-->
+
+<p>这个 SQL 查询语句的作用是查询相关账号最多的产品。在这两个查询语句中我注意到的是 accounts_per_product 和 products_per_account 这两个本来不存在的字段。很明显这两个是通过 AS 得到的字段。AS 也就是 Alias (别名)，通过 Alias 可以方便组织多表查询特别是在涉及到自身对应自身表的时候，比如评论表如果想要父级和子级的结果查询，同时也可以用 Alias 给表的字段起一个别名，便于输出，比如上面的两个 SQL 查询。</p>
+<p>第一个 SQL 查询语句中，通过将 c.product_id，COUNT(*) 这个要查询的字段 alias 成 products_per_account，这样输出的结果类似于：</p>
+<div class="highlight"><pre><span></span><span class="n">products_per_account</span>
+<span class="mi">7</span>
+</pre></div>
+
+
+<p>就很容易阅读了。</p>
+<p>第二个 SQL 查询语句中</p>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">product_id</span><span class="p">,</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">AS</span> <span class="n">accounts_per_product</span>
+<span class="k">FROM</span> <span class="n">Contacts</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">product_id</span>
+</pre></div>
+
+
+<p>这样一段查询得到结果集合被 alias 成了 c ，此外其中也将根据 product_id 查询得到的 products 数量 alias 成了 accounts_per_product，所以 c 这个集合中也多了一个字段 accounts_per_product，通过这样的处理，想要得到关联账号最多的产品的 product_id 就简单得好像以下：</p>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">product_id</span><span class="p">,</span> <span class="n">accounts_per_product</span>
+<span class="k">FROM</span> <span class="k">c</span> 
+<span class="k">HAVING</span> <span class="n">accounts_per_product</span> <span class="o">=</span> <span class="k">MAX</span><span class="p">(</span><span class="n">accounts_per_product</span><span class="p">)</span>
+</pre></div>
+
+
+<p>这个查询语句通过 AS，写得相当优雅，易懂。</p>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

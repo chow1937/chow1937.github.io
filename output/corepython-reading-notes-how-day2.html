@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+        <meta charset="utf-8" />
+        <title>Python 核心编程读书笔记 Day2</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Tonychow's Blog </a></h1>
+                <nav><ul>
+                    <li><a href="/category/linux.html">linux</a></li>
+                    <li><a href="/category/opencourse.html">opencourse</a></li>
+                    <li><a href="/category/python.html">python</a></li>
+                    <li class="active"><a href="/category/readings.html">readings</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/corepython-reading-notes-how-day2.html" rel="bookmark"
+           title="Permalink to Python 核心编程读书笔记 Day2">Python 核心编程读书笔记 Day2</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-07-11T00:00:00+08:00">
+                Published: 五 11 七月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/tonychow.html">tonychow</a>
+        </address>
+<p>In <a href="/category/readings.html">readings</a>.</p>
+<p>tags: <a href="/tag/corepython.html">corepython</a> <a href="/tag/reading-notes.html">reading-notes</a> <a href="/tag/python.html">python</a> </p>
+</footer><!-- /.post-info -->      <p>今天主要阅读了 5 - 7 章的内容，继续总结每章的内容及要点。</p>
+<h3>第五章：数字</h3>
+<p>本章介绍 Python 中的各种数字类型及其运算符和处理数字的内建函数。要点如下：</p>
+<p>1.Python 中的数字类型包括整型，长整型，布尔型，双精度浮点型，十进制浮点型和复数，都是不可变类型，对数字类型变量的变
+更都会产生一个新的对象；</p>
+<p>2.现在的 Python 支持整型自动转换为长整型，不会溢出；</p>
+<p>3.Python 中只采用了双精度浮点型，不实现单精度浮点型，如果需要进行银行等系统编写可以考虑使用 Decimal 模块；</p>
+<p>4.Python 中不同类型数字运算转换规则：存在复数转换为复数，否则存在浮点数则转换为浮点数，否则存在长整数则转换为长整
+数，否则都是普通整数；</p>
+<p>5.divmod 函数用于数值计算，返回一个包含商和余数的元组；</p>
+<p>6.round 函数对数值进行四舍五入取整，返回一个浮点数；</p>
+<p>7.chr 函数将 ASCII 值的数字转换为 ASCII 字符，ord 则相反；</p>
+<!--more-->
+
+<h3>第六章：序列：字符串，列表和元组</h3>
+<p>这一章关注的是 Python 中的序列类型，这些类型的特点是其成员有序排序，可以通过下标以类似偏移量的方式访问其成员，具体
+来说这样的序列类型有三个：字符串，列表和元组。本章详细地介绍了这三个序列类型的操作符内建函数和特性等内容，以下为要
+点：</p>
+<p>1.序列类型可以使用 <code>in</code> 和 <code>not in</code> 来判定某个元素是否属于一个序列；</p>
+<p>2.对于序列使用 <code>+</code> 连接符会导致一个新的序列对象产生；</p>
+<p>3.序列类型支持切片操作，可以使用 seq[start:stop:step] 来进行；</p>
+<p>4.enumerate 函数接受一个可迭代对象，同样返回一个可迭代的 enumerate 对象，内容为之前对象的 index 和 item；</p>
+<p>5.字符串是不可变类型，Python 中没有字符类型，可以用长度为 1 的字符串来表达这个概念；</p>
+<p>6.Python 格式化字符：%[(name)][flags][width].[precision]typecode；</p>
+<p>7.Python 格式化字符默认右对齐，<code>-</code> 改为左对齐，默认填充空格；</p>
+<p>8.<code>r</code> 添加在字符串前表示为原始字符串，不需要对特殊字符进行转义；</p>
+<p>9.Unicode 字符串 encode 为 str 字符串，str 字符串 decode 为 Unicode 字符串；</p>
+<p>10.列表是可变类型，支持添加插入或者删除元素，并不会产生新的元素；</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

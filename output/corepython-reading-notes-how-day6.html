@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+        <meta charset="utf-8" />
+        <title>Python 核心编程读书笔记 Day6</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Tonychow's Blog </a></h1>
+                <nav><ul>
+                    <li><a href="/category/linux.html">linux</a></li>
+                    <li><a href="/category/opencourse.html">opencourse</a></li>
+                    <li><a href="/category/python.html">python</a></li>
+                    <li class="active"><a href="/category/readings.html">readings</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/corepython-reading-notes-how-day6.html" rel="bookmark"
+           title="Permalink to Python 核心编程读书笔记 Day6">Python 核心编程读书笔记 Day6</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-07-17T00:00:00+08:00">
+                Published: 四 17 七月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/tonychow.html">tonychow</a>
+        </address>
+<p>In <a href="/category/readings.html">readings</a>.</p>
+<p>tags: <a href="/tag/corepython.html">corepython</a> <a href="/tag/reading-notes.html">reading-notes</a> <a href="/tag/python.html">python</a> </p>
+</footer><!-- /.post-info -->      <p>今天阅读了 15-19 章的内容，前面的是 Python 中的关键重要内容，而这之后的几章内容都是 Python 的一些高级内容。所谓高级指的是这些章节描述了一些与 Python 相关的比较高的层面的内容，比如正则表达式，网络编程等等内容，下面继续总结今天的阅读笔记。</p>
+<h3>第十五章：正则表达式</h3>
+<p>在文本处理和数据处理中，正则表达式提供了一种模式匹配，搜索文本的方式。正则表达式在很多语言中都被支持，而同样 Python 也提供了对正则表达式支持的模块 re。本章的内容就是 Python 的正则表达式模块，下面是要点：</p>
+<p>1.正则表达式是一个由含有文本和特别字符组成的字符串，通过正则表达式可以描述想要匹配的内容；</p>
+<p>2.<code>re1|re2</code> 表示匹配 re1 或者 re2；</p>
+<p>3.<code>.</code> 表示匹配换行符 '\n' 之外的其他任何字符；</p>
+<p>4.<code>^</code> 表示匹配字符的开始，在 <code>[]</code> 内表示否定；</p>
+<p>5.<code>$</code> 表示匹配字符的结尾；</p>
+<!--more-->
+
+<p>6.<code>*</code> 表示匹配前面的正则表达式零次或者多次；</p>
+<p>7.<code>+</code> 表示匹配前面的正则表达式一次或者多次；</p>
+<p>8.<code>?</code> 表示匹配前面的正则表达式零次或者一次；</p>
+<p>9.<code>{N}</code> 表示匹配前面的正则表达式 N 次；</p>
+<p>10.<code>{M, N}</code> 表示匹配前面的表达式 M 次到 N 次；</p>
+<p>11.<code>[...]</code> 表示匹配里面出现的任意字符，一个；</p>
+<p>12.<code>\d</code> 匹配数字；</p>
+<p>13.<code>\w</code> 匹配数字及字母；</p>
+<p>14.<code>\s</code> 匹配任何空白符；</p>
+<p>15.<code>\b</code> 匹配单词的边界(开始)；</p>
+<p>16.<code>\D</code>，<code>\W</code>，<code>\S</code>，<code>\B</code> 表示和小写相反，即不匹配；</p>
+<p>17.<code>re.search(pattern, string, flags=0)</code> 表示在指定字符串中搜索指定的模式，第一次搜索到则返回匹配结果；</p>
+<p>18.<code>re.match(pattern, string, flags=0)</code> 表示对指定字符串从字符串的开始位置尝试匹配指定模式；</p>
+<p>19.<code>re.findall(pattern, string[, flags])</code> 表示在指定字符串中搜索所有的匹配结果；</p>
+<p>20.<code>re.sub(pattern, repl, string, max=0)</code> 可以对匹配的结果进行替换；</p>
+<p>21.Python 的正则表达式是默认贪婪模式的，在利用通配符的时候会尝试匹配最多的字符，可以用 <code>?</code> 来限制；</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+        <meta charset="utf-8" />
+        <title>CSAPP读书笔记- 一个C程序的编译</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Tonychow's Blog </a></h1>
+                <nav><ul>
+                    <li><a href="/category/linux.html">linux</a></li>
+                    <li><a href="/category/opencourse.html">opencourse</a></li>
+                    <li><a href="/category/python.html">python</a></li>
+                    <li class="active"><a href="/category/readings.html">readings</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/csapp-reading-notes-how-program-compile.html" rel="bookmark"
+           title="Permalink to CSAPP读书笔记- 一个C程序的编译">CSAPP读书笔记- 一个C程序的编译</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2012-10-09T00:00:00+08:00">
+                Published: 二 09 十月 2012
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/tonychow.html">tonychow</a>
+        </address>
+<p>In <a href="/category/readings.html">readings</a>.</p>
+<p>tags: <a href="/tag/csapp.html">csapp</a> <a href="/tag/reading-notes.html">reading-notes</a> </p>
+</footer><!-- /.post-info -->      <p>CSAPP中，1.2节讲到了程序的编译:</p>
+<blockquote>
+<p>Programs Are Translated By Other Programs into Different Forms.</p>
+</blockquote>
+<p>程序由其他程序翻译成不同的形式，其实看下面这张图应该可以很清晰地了解上面这一句：</p>
+<p><img alt="c程序编译" src="http://om3cpjyz4.bkt.clouddn.com/articles/c-program-compilation.jpg"></p>
+<p>上图是一个 hello 的 C 程序由 GCC 编译器从源码文件 hello.c 中读取内容并将其翻译成为一个可执行的对象文件 hello 的过程。这个过程包含了几个阶段：</p>
+<p>首先是源文件，此时是处于文本类型：</p>
+<div class="highlight"><pre><span></span><span class="mi">1</span> <span class="c1">// C 代码</span>
+<span class="mi">2</span> <span class="err">#</span><span class="n">include</span> <span class="o">&lt;</span><span class="n">stdio</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+<span class="mi">3</span> <span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argvs</span><span class="p">)</span>
+<span class="mi">4</span> <span class="p">{</span>
+<span class="mi">5</span>     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;hello, world</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="mi">6</span> <span class="p">}</span>
+</pre></div>
+
+
+<p>然后是预处理阶段，将对以#开始的指令进行修改，比如对于<code>#include &lt;stdio.h&gt;</code>指令，预处理器将会读取系统头文件 stdio.h 内容，然后将其内容直接插入到程序源码文本中，经过预处理之后源码文件被翻译成 hello.i 文件，此时得到的仍然是一个文本类型的 C 源码文件：</p>
+<div class="highlight"><pre><span></span><span class="p">......</span>
+<span class="mi">844</span>
+<span class="mi">845</span> <span class="k">extern</span> <span class="kt">void</span> <span class="n">funlockfile</span> <span class="p">(</span><span class="kt">FILE</span> <span class="o">*</span><span class="n">__stream</span><span class="p">)</span> <span class="n">__attribute__</span> <span class="p">((</span><span class="n">__nothrow__</span><span class="p">));</span>
+<span class="mi">846</span> <span class="err">#</span> <span class="mi">938</span> <span class="s">&quot;/usr/include/stdio.h&quot;</span> <span class="mi">3</span> <span class="mi">4</span>
+<span class="mi">847</span>
+<span class="mi">848</span> <span class="err">#</span> <span class="mi">2</span> <span class="s">&quot;hello.c&quot;</span> <span class="mi">2</span>
+<span class="mi">849</span>
+<span class="mi">850</span> <span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argvs</span><span class="p">)</span>
+<span class="mi">851</span> <span class="p">{</span>
+<span class="mi">852</span>     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;hello, world</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="mi">853</span> <span class="p">}</span>
+</pre></div>
+
+
+<p>以上部分代码可以看出除了<code>#include &lt;stdio.h&gt;</code>指令之外其他指令并未被改变。</p>
+<p>接下来的是编译阶段。在这个阶段中，前一阶段得到的c程序代码将会被编译器翻译成汇编语言的形式，每个汇编语言声明都对应一个机器语言指令。这个阶段得到的是一个文本类型的汇编语言源码文件 hello.s ：</p>
+<div class="highlight"><pre><span></span> <span class="mi">1</span>     <span class="p">.</span><span class="n">file</span>   <span class="s">&quot;hello.c&quot;</span>
+ <span class="mi">2</span>     <span class="p">.</span><span class="n">section</span>    <span class="p">.</span><span class="n">rodata</span>
+ <span class="mi">3</span> <span class="p">.</span><span class="nl">LC0</span><span class="p">:</span>
+ <span class="mi">4</span>     <span class="p">.</span><span class="n">string</span> <span class="s">&quot;hello, world&quot;</span>
+ <span class="mi">5</span>     <span class="p">.</span><span class="n">text</span>
+ <span class="mi">6</span> <span class="p">.</span><span class="n">globl</span> <span class="n">main</span>
+ <span class="mi">7</span>     <span class="p">.</span><span class="n">type</span>   <span class="n">main</span><span class="p">,</span> <span class="err">@</span><span class="n">function</span>
+ <span class="mi">8</span> <span class="nl">main</span><span class="p">:</span>
+ <span class="mi">9</span> <span class="p">.</span><span class="nl">LFB0</span><span class="p">:</span>
+<span class="mi">10</span>     <span class="p">.</span><span class="n">cfi_startproc</span>
+<span class="mi">11</span>     <span class="n">pushq</span>   <span class="o">%</span><span class="n">rbp</span>
+<span class="mi">12</span>     <span class="p">.</span><span class="n">cfi_def_cfa_offset</span> <span class="mi">16</span>
+<span class="mi">13</span>     <span class="n">movq</span>    <span class="o">%</span><span class="n">rsp</span><span class="p">,</span> <span class="o">%</span><span class="n">rbp</span>
+<span class="mi">14</span>     <span class="p">.</span><span class="n">cfi_offset</span> <span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">16</span>
+<span class="mi">15</span>     <span class="p">.</span><span class="n">cfi_def_cfa_register</span> <span class="mi">6</span>
+<span class="mi">16</span>     <span class="n">subq</span>    <span class="err">$</span><span class="mi">16</span><span class="p">,</span> <span class="o">%</span><span class="n">rsp</span>
+<span class="mi">17</span>     <span class="n">movl</span>    <span class="o">%</span><span class="n">edi</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">)</span>
+<span class="mi">18</span>     <span class="n">movq</span>    <span class="o">%</span><span class="n">rsi</span><span class="p">,</span> <span class="o">-</span><span class="mi">16</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">)</span>
+<span class="mi">19</span>     <span class="n">movl</span>    <span class="err">$</span><span class="p">.</span><span class="n">LC0</span><span class="p">,</span> <span class="o">%</span><span class="n">edi</span>
+<span class="mi">20</span>     <span class="n">call</span>    <span class="n">puts</span>
+<span class="mi">21</span>     <span class="n">leave</span>
+<span class="mi">22</span>     <span class="p">.</span><span class="n">cfi_def_cfa</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span>
+<span class="mi">23</span>     <span class="n">ret</span>
+<span class="mi">24</span>     <span class="p">.</span><span class="n">cfi_endproc</span>
+<span class="mi">25</span> <span class="p">.</span><span class="nl">LFE0</span><span class="p">:</span>
+<span class="mi">26</span>     <span class="p">.</span><span class="n">size</span>   <span class="n">main</span><span class="p">,</span> <span class="p">.</span><span class="o">-</span><span class="n">main</span>
+<span class="mi">27</span>     <span class="p">.</span><span class="n">ident</span>  <span class="s">&quot;GCC: (GNU) 4.4.4 20100726 (Red Hat 4.4.4-13)&quot;</span>
+<span class="mi">28</span>     <span class="p">.</span><span class="n">section</span>    <span class="p">.</span><span class="n">note</span><span class="p">.</span><span class="n">GNU</span><span class="o">-</span><span class="n">stack</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="err">@</span><span class="n">progbits</span>
+</pre></div>
+
+
+<p>之后是汇编器将上个阶段得到的汇编程序源码中的每条指令都翻译成机器代码，也就是 01 的形式，生成一个对象类型的文件 hello.o ，在这里用<code>objdump</code>查看下这个文件的内容：</p>
+<div class="highlight"><pre><span></span><span class="n">hello</span><span class="p">.</span><span class="nl">o</span><span class="p">:</span>     <span class="n">file</span> <span class="n">format</span> <span class="n">elf64</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mi">64</span>
+
+<span class="n">Contents</span> <span class="n">of</span> <span class="n">section</span> <span class="p">.</span><span class="nl">text</span><span class="p">:</span>
+ <span class="mo">0000</span> <span class="mf">554889e5</span> <span class="mi">4883</span><span class="n">ec10</span> <span class="mi">897</span><span class="n">dfc48</span> <span class="mf">8975f</span><span class="mi">0</span><span class="n">bf</span>  <span class="n">UH</span><span class="p">..</span><span class="n">H</span><span class="p">....}.</span><span class="n">H</span><span class="p">.</span><span class="n">u</span><span class="p">..</span>
+ <span class="mo">0010</span> <span class="mo">00000000</span> <span class="n">e8000000</span> <span class="mo">00</span><span class="n">c9c3</span>             <span class="p">...........</span>
+<span class="n">Contents</span> <span class="n">of</span> <span class="n">section</span> <span class="p">.</span><span class="nl">rodata</span><span class="p">:</span>
+ <span class="mo">0000</span> <span class="mi">68656</span><span class="n">c6c</span> <span class="mf">6f</span><span class="mi">2</span><span class="n">c2077</span> <span class="mf">6f</span><span class="mi">726</span><span class="n">c64</span> <span class="mo">00</span>        <span class="n">hello</span><span class="p">,</span> <span class="n">world</span><span class="p">.</span>
+<span class="n">Contents</span> <span class="n">of</span> <span class="n">section</span> <span class="p">.</span><span class="nl">comment</span><span class="p">:</span>
+ <span class="mo">0000</span> <span class="mo">00474343</span> <span class="mi">3</span><span class="n">a202847</span> <span class="mf">4e552920</span> <span class="mf">342e342</span><span class="n">e</span>  <span class="p">.</span><span class="nl">GCC</span><span class="p">:</span> <span class="p">(</span><span class="n">GNU</span><span class="p">)</span> <span class="mf">4.4</span><span class="p">.</span>
+ <span class="mo">0010</span> <span class="mi">34203230</span> <span class="mi">31303037</span> <span class="mi">32362028</span> <span class="mi">52656420</span>  <span class="mi">4</span> <span class="mi">20100726</span> <span class="p">(</span><span class="n">Red</span>
+ <span class="mo">0020</span> <span class="mi">48617420</span> <span class="mf">342e342</span><span class="n">e</span> <span class="mi">342</span><span class="n">d3133</span> <span class="mi">2900</span>      <span class="n">Hat</span> <span class="mf">4.4.4</span><span class="o">-</span><span class="mi">13</span><span class="p">).</span>
+<span class="n">Contents</span> <span class="n">of</span> <span class="n">section</span> <span class="p">.</span><span class="nl">eh_frame</span><span class="p">:</span>
+ <span class="mo">0000</span> <span class="mi">14000000</span> <span class="mo">00000000</span> <span class="mo">017</span><span class="n">a5200</span> <span class="mo">017</span><span class="mi">81001</span>  <span class="p">.........</span><span class="n">zR</span><span class="p">..</span><span class="n">x</span><span class="p">..</span>
+ <span class="mo">0010</span> <span class="mi">1</span><span class="n">b0c0708</span> <span class="mi">90010000</span> <span class="mi">1</span><span class="n">c000000</span> <span class="mi">1</span><span class="n">c000000</span>  <span class="p">................</span>
+ <span class="mo">0020</span> <span class="mo">00000000</span> <span class="mi">1</span><span class="n">b000000</span> <span class="mf">00410e10</span> <span class="mi">4386020</span><span class="n">d</span>  <span class="p">.........</span><span class="n">A</span><span class="p">..</span><span class="n">C</span><span class="p">...</span>
+ <span class="mo">0030</span> <span class="mo">06560</span><span class="n">c07</span> <span class="mi">08000000</span>                    <span class="p">.</span><span class="n">V</span><span class="p">......</span>
+</pre></div>
+
+
+<p>最后一个阶段是链接阶段，链接程序将上一个步骤产生的hello.o文件与 C 编译器提供的 printf.o 文件合并到一起，因为 hello 代码中调用了标准 C 库中的 printf 函数。这两个对象文件将会被合并成为一个可执行的对象文件，这个文件可以加载到内存中执行。下面继续用<code>objdump</code>查看下这个 hello 对象文件的内容:</p>
+<div class="highlight"><pre><span></span><span class="nl">hello</span><span class="p">:</span>     <span class="n">file</span> <span class="n">format</span> <span class="n">elf64</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mi">64</span>
+
+<span class="n">Contents</span> <span class="n">of</span> <span class="n">section</span> <span class="p">.</span><span class="nl">interp</span><span class="p">:</span>
+ <span class="mi">400200</span> <span class="mf">2f</span><span class="mi">6</span><span class="n">c6962</span> <span class="mf">36342f</span><span class="mi">6</span><span class="n">c</span> <span class="mi">642</span><span class="n">d6c69</span> <span class="mf">6e75782</span><span class="n">d</span>  <span class="o">/</span><span class="n">lib64</span><span class="o">/</span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span>
+ <span class="mi">400210</span> <span class="mi">7838362</span><span class="n">d</span> <span class="mf">36342e73</span> <span class="mf">6f2e3200</span>           <span class="n">x86</span><span class="o">-</span><span class="mf">64.</span><span class="n">so</span><span class="mf">.2</span><span class="p">.</span>
+<span class="n">Contents</span> <span class="n">of</span> <span class="n">section</span> <span class="p">.</span><span class="n">note</span><span class="p">.</span><span class="n">ABI</span><span class="o">-</span><span class="nl">tag</span><span class="p">:</span>
+ <span class="mi">40021</span><span class="n">c</span> <span class="mo">04000000</span> <span class="mi">10000000</span> <span class="mo">01000000</span> <span class="mf">474e5500</span>  <span class="p">............</span><span class="n">GNU</span><span class="p">.</span>
+ <span class="mi">40022</span><span class="n">c</span> <span class="mo">00000000</span> <span class="mo">02000000</span> <span class="mo">06000000</span> <span class="mi">12000000</span>  <span class="p">................</span>
+<span class="n">Contents</span> <span class="n">of</span> <span class="n">section</span> <span class="p">.</span><span class="n">note</span><span class="p">.</span><span class="n">gnu</span><span class="p">.</span><span class="n">build</span><span class="o">-</span><span class="nl">id</span><span class="p">:</span>
+ <span class="mi">40023</span><span class="n">c</span> <span class="mo">04000000</span> <span class="mi">14000000</span> <span class="mo">03000000</span> <span class="mf">474e5500</span>  <span class="p">............</span><span class="n">GNU</span><span class="p">.</span>
+ <span class="mi">40024</span><span class="n">c</span> <span class="mi">20</span><span class="n">b51099</span> <span class="mi">4</span><span class="n">bd53844</span> <span class="mi">69</span><span class="n">dcba88</span> <span class="mi">4</span><span class="n">bf11585</span>   <span class="p">...</span><span class="n">K</span><span class="mf">.8</span><span class="n">Di</span><span class="p">...</span><span class="n">K</span><span class="p">...</span>
+ <span class="mi">40025</span><span class="n">c</span> <span class="mi">599</span><span class="n">dda4e</span>                             <span class="n">Y</span><span class="p">..</span><span class="n">N</span>
+<span class="n">Contents</span> <span class="n">of</span> <span class="n">section</span> <span class="p">.</span><span class="n">gnu</span><span class="p">.</span><span class="nl">hash</span><span class="p">:</span>
+ <span class="mi">400260</span> <span class="mo">01000000</span> <span class="mo">01000000</span> <span class="mo">01000000</span> <span class="mo">00000000</span>  <span class="p">................</span>
+ <span class="mi">400270</span> <span class="mo">00000000</span> <span class="mo">00000000</span> <span class="mo">00000000</span>           <span class="p">............</span>
+<span class="p">......</span>
+<span class="p">......</span>
+ <span class="mi">600788</span> <span class="mo">07000000</span> <span class="mo">00000000</span> <span class="mi">48034000</span> <span class="mo">00000000</span>  <span class="p">........</span><span class="n">H</span><span class="p">.</span><span class="err">@</span><span class="p">.....</span>
+ <span class="mi">600798</span> <span class="mi">08000000</span> <span class="mo">00000000</span> <span class="mi">18000000</span> <span class="mo">00000000</span>  <span class="p">................</span>
+ <span class="mi">6007</span><span class="n">a8</span> <span class="mi">09000000</span> <span class="mo">00000000</span> <span class="mi">18000000</span> <span class="mo">00000000</span>  <span class="p">................</span>
+ <span class="mi">6007</span><span class="n">b8</span> <span class="n">feffff6f</span> <span class="mo">00000000</span> <span class="mi">28034000</span> <span class="mo">00000000</span>  <span class="p">...</span><span class="n">o</span><span class="p">....(.</span><span class="err">@</span><span class="p">.....</span>
+ <span class="mi">6007</span><span class="n">c8</span> <span class="n">ffffff6f</span> <span class="mo">00000000</span> <span class="mo">01000000</span> <span class="mo">00000000</span>  <span class="p">...</span><span class="n">o</span><span class="p">............</span>
+ <span class="mi">6007</span><span class="n">d8</span> <span class="n">f0ffff6f</span> <span class="mo">00000000</span> <span class="mf">1e034000</span> <span class="mo">00000000</span>  <span class="p">...</span><span class="n">o</span><span class="p">......</span><span class="err">@</span><span class="p">.....</span>
+ <span class="mf">6007e8</span> <span class="mo">00000000</span> <span class="mo">00000000</span> <span class="mo">00000000</span> <span class="mo">00000000</span>  <span class="p">................</span>
+ <span class="mf">6007f</span><span class="mi">8</span> <span class="mo">00000000</span> <span class="mo">00000000</span> <span class="mo">00000000</span> <span class="mo">00000000</span>  <span class="p">................</span>
+ <span class="mi">600808</span> <span class="mo">00000000</span> <span class="mo">00000000</span> <span class="mo">00000000</span> <span class="mo">00000000</span>  <span class="p">................</span>
+ <span class="mi">600818</span> <span class="mo">00000000</span> <span class="mo">00000000</span> <span class="mo">00000000</span> <span class="mo">00000000</span>  <span class="p">................</span>
+ <span class="mi">600828</span> <span class="mo">00000000</span> <span class="mo">00000000</span> <span class="mo">00000000</span> <span class="mo">00000000</span>  <span class="p">................</span>
+ <span class="mi">600838</span> <span class="mo">00000000</span> <span class="mo">00000000</span> <span class="mo">00000000</span> <span class="mo">00000000</span>  <span class="p">................</span>
+<span class="n">Contents</span> <span class="n">of</span> <span class="n">section</span> <span class="p">.</span><span class="nl">got</span><span class="p">:</span>
+ <span class="mi">600848</span> <span class="mo">00000000</span> <span class="mo">00000000</span>                    <span class="p">........</span>
+<span class="n">Contents</span> <span class="n">of</span> <span class="n">section</span> <span class="p">.</span><span class="n">got</span><span class="p">.</span><span class="nl">plt</span><span class="p">:</span>
+ <span class="mi">600850</span> <span class="n">b8066000</span> <span class="mo">00000000</span> <span class="mo">00000000</span> <span class="mo">00000000</span>  <span class="p">..</span><span class="err">`</span><span class="p">.............</span>
+ <span class="mi">600860</span> <span class="mo">00000000</span> <span class="mo">00000000</span> <span class="n">be034000</span> <span class="mo">00000000</span>  <span class="p">..........</span><span class="err">@</span><span class="p">.....</span>
+ <span class="mi">600870</span> <span class="n">ce034000</span> <span class="mo">00000000</span>                    <span class="p">..</span><span class="err">@</span><span class="p">.....</span>
+<span class="n">Contents</span> <span class="n">of</span> <span class="n">section</span> <span class="p">.</span><span class="nl">data</span><span class="p">:</span>
+ <span class="mi">600878</span> <span class="mo">00000000</span>                             <span class="p">....</span>
+<span class="n">Contents</span> <span class="n">of</span> <span class="n">section</span> <span class="p">.</span><span class="nl">comment</span><span class="p">:</span>
+ <span class="mo">0000</span> <span class="mi">4743433</span><span class="n">a</span> <span class="mi">2028474</span><span class="n">e</span> <span class="mi">55292034</span> <span class="mf">2e342</span><span class="n">e34</span>  <span class="nl">GCC</span><span class="p">:</span> <span class="p">(</span><span class="n">GNU</span><span class="p">)</span> <span class="mf">4.4.4</span>
+ <span class="mo">0010</span> <span class="mi">20323031</span> <span class="mi">30303732</span> <span class="mi">36202852</span> <span class="mi">65642048</span>   <span class="mi">20100726</span> <span class="p">(</span><span class="n">Red</span> <span class="n">H</span>
+ <span class="mo">0020</span> <span class="mi">61742034</span> <span class="mf">2e342</span><span class="n">e34</span> <span class="mi">2</span><span class="n">d313329</span> <span class="mo">00</span>        <span class="n">at</span> <span class="mf">4.4.4</span><span class="o">-</span><span class="mi">13</span><span class="p">).</span>
+</pre></div>
+
+
+<p>以上就是一个简单 C 语言 hello 程序的编译过程，已夜，晚安。</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

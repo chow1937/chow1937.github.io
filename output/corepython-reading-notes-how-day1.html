@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+        <meta charset="utf-8" />
+        <title>Python 核心编程读书笔记 Day1</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Tonychow's Blog </a></h1>
+                <nav><ul>
+                    <li><a href="/category/linux.html">linux</a></li>
+                    <li><a href="/category/opencourse.html">opencourse</a></li>
+                    <li><a href="/category/python.html">python</a></li>
+                    <li class="active"><a href="/category/readings.html">readings</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/corepython-reading-notes-how-day1.html" rel="bookmark"
+           title="Permalink to Python 核心编程读书笔记 Day1">Python 核心编程读书笔记 Day1</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-07-10T00:00:00+08:00">
+                Published: 四 10 七月 2014
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/tonychow.html">tonychow</a>
+        </address>
+<p>In <a href="/category/readings.html">readings</a>.</p>
+<p>tags: <a href="/tag/corepython.html">corepython</a> <a href="/tag/reading-notes.html">reading-notes</a> <a href="/tag/python.html">python</a> </p>
+</footer><!-- /.post-info -->      <p>今天主要阅读了 1 - 4 章的内容，下面总结下每章的主要内容和一些要点。</p>
+<h3>第一章：Python 核心</h3>
+<p>书本的开始只是一些关于 Python 的常识性的内容，包括但不限于起源、各个特性、各个系统的安装
+方式还有其他语言(C 语言之外)的实现方式，下面是一些要点：</p>
+<p>1.Python 是一门解释性的语言，但是却有个编译成字节码的编译过程，这一点和 Java 是类似的，
+因为编译成字节码可以得到性能上的增强；</p>
+<p>2.标准的 Python 官方发行的是 C 实现的 Python 版本，被称为 CPython，此外也有其他语言实现
+的版本，比如 Java 实现的 Jython，运行在 JVM 上，可以利用到 JVM 的 JIT 技术，并且可以使用
+Java 的类库。此外还有 C# 语言实现的 IronPython，可以运行在 .NET 及 Mono 环境上。还有一个
+基于 CPython 修改的 Stackless Python ，这个版本对 CPython 解释器进行了大量的修改，实现了
+用户级别的微线程。</p>
+<!--more-->
+
+<h3>第二章：快速入门</h3>
+<p>第二章非常简略地过了一遍 Python 的一些特性和语言结构数据类型等，以下是要点：</p>
+<p>1.用 "Docstring" 或者 """Docstring""" 在模块，类或者函数起始添加可以实现运行时访问这个文
+档字符串；</p>
+<p>2.<code>**</code> 是乘方运算符，<code>//</code>是取比商小的最大整数运算；</p>
+<p>3.Python 支持复数数字类型，形式类似 4 + 5j；</p>
+<p>4.元组和列表都是可以保存任意数量任意类型的 Python 对象的容器对象，并且都是从 0 开始索引
+访问元素，元组可以看成只读的列表，两者都支持切片；</p>
+<p>5.Python 通过缩进来区分代码块；</p>
+<p>6.可以通过列表解释来生成一个列表；</p>
+<h3>第三章：Python 基础</h3>
+<p>这章的主要内容是基本的 Python 语法，也介绍了标识符，变量和关键字等内容。要点如下：</p>
+<p>1.可以通过 <code>\</code> 连接多行的 Python 代码，也可以在含有小括号，中括号和花括号的时候跨行；</p>
+<p>2.Python 中，对象是通过引用传递的，将一个对象赋值给一个变量，就是将这个对象的引用赋给
+这个变量；</p>
+<p>3.Python 中支持增量赋值 <code>+=</code>，但不支持 <code>++</code> 这种自增符；</p>
+<p>4.Python 中支持多元赋值，可以同时将多个对象赋给多个变量，这种方式的赋值等号两边其实是两个元组；</p>
+<p>5.Python 中下划线对解释器有特殊的意义， <code>_xx</code> 表示模块私有，<code>__xxx__</code> 表示系统定义的</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

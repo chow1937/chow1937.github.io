@@ -4,9 +4,14 @@ from __future__ import unicode_literals
 
 AUTHOR = u'tonychow'
 SITENAME = u"Tonychow's Blog"
-SITEURL = ''
+SITEURL = 'http://blog.tonychow.me'
 
 PATH = 'content'
+STATIC_PATHS = ['images', 'extra/CNAME', 'extra/favicon.ico']
+EXTRA_PATH_METADATA = {
+    'extra/CNAME': {'path': 'CNAME'},
+    'extra/favicon.ico': {'path': 'favicon.ico'},
+}
 
 TIMEZONE = 'Asia/Shanghai'
 

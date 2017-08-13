@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
         <meta charset="utf-8" />
-        <title>Tonychow's Blog</title>
+        <title>Tonychow's Blog - readings</title>
         <link rel="stylesheet" href="http://blog.tonychow.me/theme/css/main.css" />
         <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom Feed" />
 
@@ -18,83 +18,13 @@
                     <li><a href="http://blog.tonychow.me/category/linux.html">linux</a></li>
                     <li><a href="http://blog.tonychow.me/category/opencourse.html">opencourse</a></li>
                     <li><a href="http://blog.tonychow.me/category/python.html">python</a></li>
-                    <li><a href="http://blog.tonychow.me/category/readings.html">readings</a></li>
+                    <li class="active"><a href="http://blog.tonychow.me/category/readings.html">readings</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://blog.tonychow.me/thoughts-about-python-iterator.html">关于 Python iterator 协议的一点思考</a></h1>
-<footer class="post-info">
-        <abbr class="published" title="2015-04-06T00:00:00+08:00">
-                Published: 一 06 四月 2015
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/python.html">python</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/python.html">python</a> <a href="http://blog.tonychow.me/tag/iterator.html">iterator</a> <a href="http://blog.tonychow.me/tag/thoughts.html">thoughts</a> </p>
-</footer><!-- /.post-info --><p>Python 中有好几种容器或者序列类型：<code>list</code> <code>tuple</code> <code>dict</code> <code>set</code> <code>str</code>，对于这些类型中的内容，往往需要一种方式去遍历获取它们来进行操作。所以 Python 提供了迭代器的类型来对这些类型的内容进行迭代遍历，迭代类型新增于 Python 2.2。</p>
-<p>迭代器类型指的是遵循迭代器协议的类型，对于 Python2.x 版本来说就是实现了 <code>__iter__</code> 和 <code>next</code> 函数的对象类型。如果一个对象实现了迭代器协议，则可以用 <code>for</code> 语句遍历这个对象的内容。其中 <code>__iter__</code> 函数返回一个迭代器对象，而 <code>next</code> 函数则需要返回容器的下一个内容，如果没有下一个则抛出 StopIteration 异常，这个异常在 <code>for ... in</code> 语句中将会被捕获然后结束迭代。迭代器协议详细内容可以查看 <a href="https://www.python.org/dev/peps/pep-0234/">PEP234</a> 。Python3.x 将 <code>next</code> 函数改成了 <code>__next__</code> 函数，以和其他内置的函数保持一致的双下划线风格。</p>
-<!--more-->
-
-<p>以前看迭代器协议的时候，经常可以看到这样一个实现：</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Reverse</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span>
-
-    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">StopIteration</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">-=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
-</pre></div>
-
-
-<p>最近看到了这么一个写法：</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IterObj</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
-
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
-
-
-<p>这个写法没有 <code>next</code> 函数了，初看起来好像没有完全实现迭代器协议的样子，但是仔细考虑下的话，<code>__iter__</code> 函数内部调用了内置函数 <code>iter</code> ，实际上是返回了一个迭代器对象，而这个迭代器对象当然是实现了迭代器协议的。所以第二种写法也是完全可以的，并且对比第一种写法来说更加简单。</p>
-<p>在官方文档 <a href="https://docs.python.org/2/library/stdtypes.html?highlight=iterator#iterator-types">迭代器类型</a> 中可以看到，对于 <code>list</code> <code>dict</code> 等容器对象来说，它们的 <code>__iter__</code> 函数返回的不是其自身，而是一个迭代器对象： <code>container.__iter__()</code> 。所以当一个容器对象需要提供迭代的功能的时候，不是把这个容器对象变成一个迭代器对象，而是返回一个迭代器对象，将迭代的功能委托给这个迭代器对象。所以上面两种写法的区别在于一个是实现了迭代器对象，一个是实现了可迭代的容器对象。所以第二种写法如果稍稍微修改下：</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IterObj</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
-
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Reverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
-
-
-<p>这样就利用了之前定义的迭代器对象 <code>Reverse</code> 来给对象 <code>IterObj</code> 提供了反向迭代的功能。可以看到，这样的处理方式将迭代的逻辑和容器对象分离了，更加的灵活，容器对象本身也更加精简。</p>
-<p>Python 的迭代器协议统一了  Python 中容器对象进行迭代的方式，另一方面来说，也为用户自定义类型添加迭代的功能添加了方便的实现方式，所以无论是从语言的标准化来说还是从用户使用角度的来说都是非常有用的一个协议。</p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://blog.tonychow.me/corepython-reading-notes-how-day7.html" rel="bookmark"
-                           title="Permalink to Python 核心编程读书笔记 Day7">Python 核心编程读书笔记 Day7</a></h1>
-                </header>
-
-                <div class="entry-content">
+                    <h1 class="entry-title"><a href="http://blog.tonychow.me/corepython-reading-notes-how-day7.html">Python 核心编程读书笔记 Day7</a></h1>
 <footer class="post-info">
         <abbr class="published" title="2014-07-18T00:00:00+08:00">
                 Published: 五 18 七月 2014
@@ -105,10 +35,42 @@
         </address>
 <p>In <a href="http://blog.tonychow.me/category/readings.html">readings</a>.</p>
 <p>tags: <a href="http://blog.tonychow.me/tag/corepython.html">corepython</a> <a href="http://blog.tonychow.me/tag/reading-notes.html">reading-notes</a> <a href="http://blog.tonychow.me/tag/python.html">python</a> </p>
-</footer><!-- /.post-info -->                
-                <a class="readmore" href="http://blog.tonychow.me/corepython-reading-notes-how-day7.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
+</footer><!-- /.post-info --><p>今天把剩下的 20-23 章的内容阅读完毕了，这几章也是与 Python 相关的高级内容，包括 Web 编程，数据库接口和 Python 扩展等内容，下面稍微总结下每章的内容。</p>
+<h3>第二十章：Web 编程</h3>
+<p>这一章所谓的 Web 编程内容实际上讲的是利用 urllib 模块进行的 Web 相关的编程，同时也讲到了利用 cgi 模块进行的
+原始的 cgi 编程。从内容来说的话主要介绍了 urllib 和 cgi 模块的一些使用。cgi 是比较早期的服务器处理客户端的
+请求的方式，目前的 Python Web 编程已经不使用这种技术了。但是总的来说，过去和现在的 Web 编程总是接收请求，然后返回数据给客户端的模式。此外，鉴于 HTTP 协议的无状态性质，可以利用 cookie 的方式来在客户端和服务器端进行一定的状态判断。</p>
+<!--more-->
+
+<h3>第二十一章：数据库编程</h3>
+<p>无论是什么形式的应用程序，总会涉及到数据持久化的内容，而相比于普通的文件持久化或者 Python 提供的其他持久化的方式模块，利用数据库进行数据的持久化更适合复杂的数据和大型的系统。这章主要讲了 Python 利用数据库进行数据的持久化的内容，其中的数据库在本章主要指关系型数据库。Python 关于数据库这方面的内容，有一点让我觉得很牛逼的就是，它统一了一个数据库接口，也就是 PEP249 中规定的 Python 的 DB-API。这个规范规定了 Python 在数据库操作方面的一些通用的做法，任何依照这个规定实现的不同数据库的接口库都会表现出一致的操作方式。这样就大大地减少了程序员操作不同数据库的差异程度。虽然不是所有的接口都完全遵守，但是大体上是一致的。下面有几点：</p>
+<p>1.<code>connect</code> 方法连接数据库；</p>
+<p>2.<code>close</code> 方法关闭数据库连接；</p>
+<p>3.<code>commit</code> 方法提交当前事务，对于不支持事务或者默认为立即执行的数据库来说，这个方法什么也不做；</p>
+<p>4.<code>rollback</code> 方法取消当前事务，回滚到之前的状态；</p>
+<p>5.<code>cursor</code> 获得一个游标对象，进行数据库的各种操作；</p>
+<p>6.游标对象具有 <code>execute</code> 和 <code>executemany</code> 方法执行 SQL 查询或者操作；</p>
+<p>7.游标对象具有 <code>fetchone</code>，<code>fetchmany</code> 和 <code>fetchall</code> 方法获取查询的结果；</p>
+<p>8.ORM 框架是指对象关系映射框架，可以将一个对象映射为数据库中的数据内容，向使用者屏蔽了底层的数据库操作；</p>
+<h3>第二十二章：扩展 Python</h3>
+<p>这里讲到的扩展 Python 主要讲的是针对 CPython 的扩展。因为 CPython 的实现语言是 C ，所以我们也可以根据一定的方式，编写 C 语言程序，扩展 CPython 的功能。下面是要点：</p>
+<p>1.扩展 CPython 的程序需要包含 Python.h 头文件；</p>
+<p>2.扩展模块中的函数如果想要在 Python 中被调用，需要进行函数的包装，包装函数的模式为 PyObject * Module_func()；</p>
+<p>3.在 Python 中调用扩展模块的函数时，传入的是 Python 的数据类型，所以需要用 <code>PyArg_Parse*</code> 系列函数将参数转换为 C 的数据类型；</p>
+<p>4.同样地，扩展模块的函数返回的是 C 的数据类型，也需要将这个返回结果通过　<code>Py_BuildValue</code> 进行类型的转换然后再返回；</p>
+<p>5.扩展模块的 C 源码编写好后可以通过 distutils 模块对其进行编译和添加进 Python 的模块目录中；</p>
+<p>6.注意在扩展模块中如果想利用 Python 的对象，需要考虑引用计数的问题；</p>
+<p>7.由于扩展模块的代码最终也会在 Python 解释器中执行，所以同样也会受到 GIL 的影响；</p>
+<h3>第二十三章：其他话题</h3>
+<p>本章的内容是一些杂七杂八的内容，比如利用 Python 编写一个利用其他在线的 Web 服务的脚本程序，利用 COM 接口调用 win 平台的 office 软件还有发送邮件等内容。最后还提到了Jython 的内容，利用 Swing 进行 GUI 开发。</p>
+<h3>最终总结</h3>
+<p>花了大概一周的时间，看完了《Python 核心编程这本书》。这本书从内容来说，还是不错的，一些 Python 基本的东西都有涉及，也讲得很细，也有些经验之谈的东西也值得学习。虽然后面的章节有点凑字数的嫌疑，考虑是到面向的是 Python2.5，而现在 Python 的版本号已经跑到了 2.7 了，所以也能原谅。但是，中文版的质量真心的差强人意。不说遍布全书的各种 typo 问题(甚至连标题也出现 typo)，就一点来说，对于 Python 这种这么注重缩进的语言来说，书里的各种代码缩进乱七八糟真的好意思么。当然，考虑到这本中文版出书背后的各种八卦事情，似乎这种质量也是可以理解的。</p>
+<p>无论如何，看完这本书之后的确对 Python 有了更多的了解，或者说对 Python 的理解更加全面了，所以还是受益匪浅的。</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
 
             <li><article class="hentry">
                 <header>
@@ -244,52 +206,70 @@
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://blog.tonychow.me/python-class-object-source-code.html" rel="bookmark"
-                           title="Permalink to Python 类对象与实例对象源码分析">Python 类对象与实例对象源码分析</a></h1>
+                    <h1><a href="http://blog.tonychow.me/csapp-reading-notes-abstract.html" rel="bookmark"
+                           title="Permalink to CSAPP 读书笔记-计算机系统中的抽象-操作系统">CSAPP 读书笔记-计算机系统中的抽象-操作系统</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-10-02T00:00:00+08:00">
-                Published: 三 02 十月 2013
+        <abbr class="published" title="2013-04-05T00:00:00+08:00">
+                Published: 五 05 四月 2013
         </abbr>
 
         <address class="vcard author">
                 By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
         </address>
-<p>In <a href="http://blog.tonychow.me/category/python.html">python</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/python.html">python</a> <a href="http://blog.tonychow.me/tag/source-reading.html">source-reading</a> </p>
+<p>In <a href="http://blog.tonychow.me/category/readings.html">readings</a>.</p>
+<p>tags: <a href="http://blog.tonychow.me/tag/csapp.html">csapp</a> <a href="http://blog.tonychow.me/tag/abstract.html">abstract</a> </p>
 </footer><!-- /.post-info -->                
-                <a class="readmore" href="http://blog.tonychow.me/python-class-object-source-code.html">read more</a>
+                <a class="readmore" href="http://blog.tonychow.me/csapp-reading-notes-abstract.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://blog.tonychow.me/programming-paradigms-note-one.html" rel="bookmark"
-                           title="Permalink to 斯坦福大学公开课-编程范式 笔记 1">斯坦福大学公开课-编程范式 笔记 1</a></h1>
+                    <h1><a href="http://blog.tonychow.me/antipattern-sql-as.html" rel="bookmark"
+                           title="Permalink to SQL 反模式读书笔记-AS">SQL 反模式读书笔记-AS</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2013-07-07T00:00:00+08:00">
-                Published: 日 07 七月 2013
+        <abbr class="published" title="2013-01-11T00:00:00+08:00">
+                Published: 五 11 一月 2013
         </abbr>
 
         <address class="vcard author">
                 By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
         </address>
-<p>In <a href="http://blog.tonychow.me/category/opencourse.html">opencourse</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/opencourse.html">opencourse</a> <a href="http://blog.tonychow.me/tag/programming-paradigms.html">programming-paradigms</a> <a href="http://blog.tonychow.me/tag/notes.html">notes</a> </p>
+<p>In <a href="http://blog.tonychow.me/category/readings.html">readings</a>.</p>
+<p>tags: <a href="http://blog.tonychow.me/tag/antipattern.html">antipattern</a> <a href="http://blog.tonychow.me/tag/sql.html">sql</a> </p>
 </footer><!-- /.post-info -->                
-                <a class="readmore" href="http://blog.tonychow.me/programming-paradigms-note-one.html">read more</a>
+                <a class="readmore" href="http://blog.tonychow.me/antipattern-sql-as.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://blog.tonychow.me/csapp-reading-notes-how-program-compile.html" rel="bookmark"
+                           title="Permalink to CSAPP读书笔记- 一个C程序的编译">CSAPP读书笔记- 一个C程序的编译</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2012-10-09T00:00:00+08:00">
+                Published: 二 09 十月 2012
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
+        </address>
+<p>In <a href="http://blog.tonychow.me/category/readings.html">readings</a>.</p>
+<p>tags: <a href="http://blog.tonychow.me/tag/csapp.html">csapp</a> <a href="http://blog.tonychow.me/tag/reading-notes.html">reading-notes</a> </p>
+</footer><!-- /.post-info -->                
+                <a class="readmore" href="http://blog.tonychow.me/csapp-reading-notes-how-program-compile.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
                 </ol><!-- /#posts-list -->
-<p class="paginator">
-    Page 1 / 2
-        <a href="http://blog.tonychow.me/index2.html">&raquo;</a>
-</p>
                 </section><!-- /#content -->
         <section id="extras" class="body">
                 <div class="social">

@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Tonychow's Blog - readings</title><link href="http://blog.tonychow.me/" rel="alternate"></link><link href="http://blog.tonychow.me/feeds/readings.atom.xml" rel="self"></link><id>http://blog.tonychow.me/</id><updated>2014-07-18T00:00:00+08:00</updated><entry><title>Python 核心编程读书笔记 Day7</title><link href="http://blog.tonychow.me/corepython-reading-notes-how-day7.html" rel="alternate"></link><published>2014-07-18T00:00:00+08:00</published><updated>2014-07-18T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2014-07-18:/corepython-reading-notes-how-day7.html</id><summary type="html"></summary><content type="html">&lt;p&gt;今天把剩下的 20-23 章的内容阅读完毕了，这几章也是与 Python 相关的高级内容，包括 Web 编程，数据库接口和 Python 扩展等内容，下面稍微总结下每章的内容。&lt;/p&gt;
+&lt;h3&gt;第二十章：Web 编程&lt;/h3&gt;
+&lt;p&gt;这一章所谓的 Web 编程内容实际上讲的是利用 urllib 模块进行的 Web 相关的编程，同时也讲到了利用 cgi 模块进行的
+原始的 cgi 编程。从内容来说的话主要介绍了 urllib 和 cgi 模块的一些使用。cgi 是比较早期的服务器处理客户端的
+请求的方式，目前的 Python Web 编程已经不使用这种技术了。但是总的来说，过去和现在的 Web 编程总是接收请求，然后返回数据给客户端的模式。此外，鉴于 HTTP 协议的无状态性质，可以利用 cookie 的方式来在客户端和服务器端进行一定的状态判断。&lt;/p&gt;
+&lt;!--more--&gt;
+
+&lt;h3&gt;第二十一章：数据库编程&lt;/h3&gt;
+&lt;p&gt;无论是什么形式的应用程序，总会涉及到数据持久化的内容，而相比于普通的文件持久化或者 Python 提供的其他持久化的方式模块，利用数据库进行数据的持久化更适合复杂的数据和大型的系统。这章主要讲了 Python 利用数据库进行数据的持久化的内容，其中的数据库在本章主要指关系型数据库。Python 关于数据库这方面的内容，有一点让我觉得很牛逼的就是，它统一了一个数据库接口，也就是 PEP249 中规定的 Python 的 DB-API。这个规范规定了 Python 在数据库操作方面的一些通用的做法，任何依照这个规定实现的不同数据库的接口库都会表现出一致的操作方式。这样就大大地减少了程序员操作不同数据库的差异程度。虽然不是所有的接口都完全遵守，但是大体上是一致的。下面有几点：&lt;/p&gt;
+&lt;p&gt;1.&lt;code&gt;connect&lt;/code&gt; 方法连接数据库；&lt;/p&gt;
+&lt;p&gt;2.&lt;code&gt;close&lt;/code&gt; 方法关闭数据库连接；&lt;/p&gt;
+&lt;p&gt;3.&lt;code&gt;commit&lt;/code&gt; 方法提交当前事务，对于不支持事务或者默认为立即执行的数据库来说，这个方法什么也不做；&lt;/p&gt;
+&lt;p&gt;4.&lt;code&gt;rollback&lt;/code&gt; 方法取消当前事务，回滚到之前的状态；&lt;/p&gt;
+&lt;p&gt;5.&lt;code&gt;cursor&lt;/code&gt; 获得一个游标对象，进行数据库的各种操作；&lt;/p&gt;
+&lt;p&gt;6.游标对象具有 &lt;code&gt;execute&lt;/code&gt; 和 &lt;code&gt;executemany&lt;/code&gt; 方法执行 SQL 查询或者操作；&lt;/p&gt;
+&lt;p&gt;7.游标对象具有 &lt;code&gt;fetchone&lt;/code&gt;，&lt;code&gt;fetchmany&lt;/code&gt; 和 &lt;code&gt;fetchall&lt;/code&gt; 方法获取查询的结果；&lt;/p&gt;
+&lt;p&gt;8.ORM 框架是指对象关系映射框架，可以将一个对象映射为数据库中的数据内容，向使用者屏蔽了底层的数据库操作；&lt;/p&gt;
+&lt;h3&gt;第二十二章：扩展 Python&lt;/h3&gt;
+&lt;p&gt;这里讲到的扩展 Python 主要讲的是针对 CPython 的扩展。因为 CPython 的实现语言是 C ，所以我们也可以根据一定的方式，编写 C 语言程序，扩展 CPython 的功能。下面是要点：&lt;/p&gt;
+&lt;p&gt;1.扩展 CPython 的程序需要包含 Python.h 头文件；&lt;/p&gt;
+&lt;p&gt;2.扩展模块中的函数如果想要在 Python 中被调用，需要进行函数的包装，包装函数的模式为 PyObject * Module_func()；&lt;/p&gt;
+&lt;p&gt;3.在 Python 中调用扩展模块的函数时，传入的是 Python 的数据类型，所以需要用 &lt;code&gt;PyArg_Parse*&lt;/code&gt; 系列函数将参数转换为 C 的数据类型；&lt;/p&gt;
+&lt;p&gt;4.同样地，扩展模块的函数返回的是 C 的数据类型，也需要将这个返回结果通过　&lt;code&gt;Py_BuildValue&lt;/code&gt; 进行类型的转换然后再返回；&lt;/p&gt;
+&lt;p&gt;5.扩展模块的 C 源码编写好后可以通过 distutils 模块对其进行编译和添加进 Python 的模块目录中；&lt;/p&gt;
+&lt;p&gt;6.注意在扩展模块中如果想利用 Python 的对象，需要考虑引用计数的问题；&lt;/p&gt;
+&lt;p&gt;7.由于扩展模块的代码最终也会在 Python 解释器中执行，所以同样也会受到 GIL 的影响；&lt;/p&gt;
+&lt;h3&gt;第二十三章：其他话题&lt;/h3&gt;
+&lt;p&gt;本章的内容是一些杂七杂八的内容，比如利用 Python 编写一个利用其他在线的 Web 服务的脚本程序，利用 COM 接口调用 win 平台的 office 软件还有发送邮件等内容。最后还提到了Jython 的内容，利用 Swing 进行 GUI 开发。&lt;/p&gt;
+&lt;h3&gt;最终总结&lt;/h3&gt;
+&lt;p&gt;花了大概一周的时间，看完了《Python 核心编程这本书》。这本书从内容来说，还是不错的，一些 Python 基本的东西都有涉及，也讲得很细，也有些经验之谈的东西也值得学习。虽然后面的章节有点凑字数的嫌疑，考虑是到面向的是 Python2.5，而现在 Python 的版本号已经跑到了 2.7 了，所以也能原谅。但是，中文版的质量真心的差强人意。不说遍布全书的各种 typo 问题(甚至连标题也出现 typo)，就一点来说，对于 Python 这种这么注重缩进的语言来说，书里的各种代码缩进乱七八糟真的好意思么。当然，考虑到这本中文版出书背后的各种八卦事情，似乎这种质量也是可以理解的。&lt;/p&gt;
+&lt;p&gt;无论如何，看完这本书之后的确对 Python 有了更多的了解，或者说对 Python 的理解更加全面了，所以还是受益匪浅的。&lt;/p&gt;</content><category term="corepython"></category><category term="reading-notes"></category><category term="python"></category></entry><entry><title>Python 核心编程读书笔记 Day6</title><link href="http://blog.tonychow.me/corepython-reading-notes-how-day6.html" rel="alternate"></link><published>2014-07-17T00:00:00+08:00</published><updated>2014-07-17T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2014-07-17:/corepython-reading-notes-how-day6.html</id><summary type="html"></summary><content type="html">&lt;p&gt;今天阅读了 15-19 章的内容，前面的是 Python 中的关键重要内容，而这之后的几章内容都是 Python 的一些高级内容。所谓高级指的是这些章节描述了一些与 Python 相关的比较高的层面的内容，比如正则表达式，网络编程等等内容，下面继续总结今天的阅读笔记。&lt;/p&gt;
+&lt;h3&gt;第十五章：正则表达式&lt;/h3&gt;
+&lt;p&gt;在文本处理和数据处理中，正则表达式提供了一种模式匹配，搜索文本的方式。正则表达式在很多语言中都被支持，而同样 Python 也提供了对正则表达式支持的模块 re。本章的内容就是 Python 的正则表达式模块，下面是要点：&lt;/p&gt;
+&lt;p&gt;1.正则表达式是一个由含有文本和特别字符组成的字符串，通过正则表达式可以描述想要匹配的内容；&lt;/p&gt;
+&lt;p&gt;2.&lt;code&gt;re1|re2&lt;/code&gt; 表示匹配 re1 或者 re2；&lt;/p&gt;
+&lt;p&gt;3.&lt;code&gt;.&lt;/code&gt; 表示匹配换行符 '\n' 之外的其他任何字符；&lt;/p&gt;
+&lt;p&gt;4.&lt;code&gt;^&lt;/code&gt; 表示匹配字符的开始，在 &lt;code&gt;[]&lt;/code&gt; 内表示否定；&lt;/p&gt;
+&lt;p&gt;5.&lt;code&gt;$&lt;/code&gt; 表示匹配字符的结尾；&lt;/p&gt;
+&lt;!--more--&gt;
+
+&lt;p&gt;6.&lt;code&gt;*&lt;/code&gt; 表示匹配前面的正则表达式零次或者多次；&lt;/p&gt;
+&lt;p&gt;7.&lt;code&gt;+&lt;/code&gt; 表示匹配前面的正则表达式一次或者多次；&lt;/p&gt;
+&lt;p&gt;8.&lt;code&gt;?&lt;/code&gt; 表示匹配前面的正则表达式零次或者一次；&lt;/p&gt;
+&lt;p&gt;9.&lt;code&gt;{N}&lt;/code&gt; 表示匹配前面的正则表达式 N 次；&lt;/p&gt;
+&lt;p&gt;10.&lt;code&gt;{M, N}&lt;/code&gt; 表示匹配前面的表达式 M 次到 N 次；&lt;/p&gt;
+&lt;p&gt;11.&lt;code&gt;[...]&lt;/code&gt; 表示匹配里面出现的任意字符，一个；&lt;/p&gt;
+&lt;p&gt;12.&lt;code&gt;\d&lt;/code&gt; 匹配数字；&lt;/p&gt;
+&lt;p&gt;13.&lt;code&gt;\w&lt;/code&gt; 匹配数字及字母；&lt;/p&gt;
+&lt;p&gt;14.&lt;code&gt;\s&lt;/code&gt; 匹配任何空白符；&lt;/p&gt;
+&lt;p&gt;15.&lt;code&gt;\b&lt;/code&gt; 匹配单词的边界(开始)；&lt;/p&gt;
+&lt;p&gt;16.&lt;code&gt;\D&lt;/code&gt;，&lt;code&gt;\W&lt;/code&gt;，&lt;code&gt;\S&lt;/code&gt;，&lt;code&gt;\B&lt;/code&gt; 表示和小写相反，即不匹配；&lt;/p&gt;
+&lt;p&gt;17.&lt;code&gt;re.search(pattern, string, flags=0)&lt;/code&gt; 表示在指定字符串中搜索指定的模式，第一次搜索到则返回匹配结果；&lt;/p&gt;
+&lt;p&gt;18.&lt;code&gt;re.match(pattern, string, flags=0)&lt;/code&gt; 表示对指定字符串从字符串的开始位置尝试匹配指定模式；&lt;/p&gt;
+&lt;p&gt;19.&lt;code&gt;re.findall(pattern, string[, flags])&lt;/code&gt; 表示在指定字符串中搜索所有的匹配结果；&lt;/p&gt;
+&lt;p&gt;20.&lt;code&gt;re.sub(pattern, repl, string, max=0)&lt;/code&gt; 可以对匹配的结果进行替换；&lt;/p&gt;
+&lt;p&gt;21.Python 的正则表达式是默认贪婪模式的，在利用通配符的时候会尝试匹配最多的字符，可以用 &lt;code&gt;?&lt;/code&gt; 来限制；&lt;/p&gt;</content><category term="corepython"></category><category term="reading-notes"></category><category term="python"></category></entry><entry><title>Python 核心编程读书笔记 Day5</title><link href="http://blog.tonychow.me/corepython-reading-notes-how-day5.html" rel="alternate"></link><published>2014-07-16T00:00:00+08:00</published><updated>2014-07-16T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2014-07-16:/corepython-reading-notes-how-day5.html</id><summary type="html"></summary><content type="html">&lt;p&gt;今天的内容是 Python 中的面向对象和 Python 的执行环境。Python 支持 OOP，虽然很多情况下 Python 直接写函数就可
+可以解决大部分的问题，但是 OOP 也是 Python 中的一个重要内容。下面继续总结笔记。&lt;/p&gt;
+&lt;h3&gt;第十三章：面向对象编程&lt;/h3&gt;
+&lt;p&gt;本章的内容是 Python 的面向对象编程，具体来说，讲述了 Python 中关于类和 OOP 的具体内容，包括继承，类的方法等
+内容，同时也涉及了 Python 中的特殊方法等类的内容。下面是要点：&lt;/p&gt;
+&lt;p&gt;1.Python 中的实例方法都存在着第一个参数为 self 指示这个实例本身；&lt;/p&gt;
+&lt;p&gt;2.Python 中的类方法存在着第一个参数为 cls 通常指示这个类本身；&lt;/p&gt;
+&lt;p&gt;3.Python 中的 &lt;code&gt;__new__(cls,...)&lt;/code&gt; 方法才是构建实例的方法，&lt;code&gt;__init__(self,...)&lt;/code&gt; 方法是初始化实例的方法；&lt;/p&gt;
+&lt;p&gt;4.Python 中的子类的构造方法会覆盖父类的构造方法，子类不存在构造方法才会调用父类的构造方法；&lt;/p&gt;
+&lt;p&gt;5.Python 不支持纯虚函数或者抽象方法；&lt;/p&gt;
+&lt;p&gt;6.类属性绑定到类的 &lt;code&gt;__dict__&lt;/code&gt; 中，实例属性绑定到实例的 &lt;code&gt;__dict__&lt;/code&gt; 中；&lt;/p&gt;
+&lt;p&gt;7.如果实例中不存在一个和类属性同名的实例属性，则通过实例访问到的是类的属性，如果进行修改，则会在实例中保存
+一个同名的实例属性存放在实例的 &lt;code&gt;__dict__&lt;/code&gt; 中，这个实例属性会屏蔽同名的类属性，注意是屏蔽不是覆盖；&lt;/p&gt;
+&lt;p&gt;8.&lt;code&gt;__del__&lt;/code&gt; 是实例的析构方法，只有在真正需要对该实例进行释放内存的时候才会调用，在 Python 中也就是意味着该
+实例的引用计数为 0，进行垃圾回收操作；&lt;/p&gt;
+&lt;!--more--&gt;
+
+&lt;p&gt;9.类方法和实例方法也是普通的函数，和普通函数不同的是，类方法绑定了类，实例方法绑定了该实例，可以通过类调用
+实例方法，但是此时实例方法没有被绑定，需要显式地传入一个实例作为第一个参数；&lt;/p&gt;
+&lt;p&gt;10.静态方法是在类范围内的普通函数，不是绑定的方法，静态方法也可以通过类继承的方式由子类继承；&lt;/p&gt;
+&lt;p&gt;11.类的父类保存在 &lt;code&gt;__bases__&lt;/code&gt; 类属性中；&lt;/p&gt;
+&lt;p&gt;12.可以通过 &lt;code&gt;super(Cls, instance).method()&lt;/code&gt; 的方式调用父类中的方法；&lt;/p&gt;
+&lt;p&gt;13.Old-style 类的 MRO 顺序是深度优先地搜索，直到找到，New-style 类的 MRO 顺序是广度优先搜索；&lt;/p&gt;
+&lt;p&gt;14.可以通过 &lt;code&gt;hasattr&lt;/code&gt;，&lt;code&gt;getattr&lt;/code&gt;，&lt;code&gt;setattr&lt;/code&gt; 和 &lt;code&gt;delattr&lt;/code&gt; 等内置函数对类和实例的属性进行操作；&lt;/p&gt;
+&lt;p&gt;15.Python 中的属性都是公开的，但是以下划线开始的属性会被混淆修改成为另外一个名称，显示出私有的属性；&lt;/p&gt;
+&lt;p&gt;16.字典会占用大量的内存，New-style 类可以通过 &lt;code&gt;__slots__&lt;/code&gt; 属性存放实例属性，节省内存；&lt;/p&gt;
+&lt;p&gt;17.New-style 的类支持 &lt;code&gt;__getattribute__&lt;/code&gt; 方法，实现了这个方法的类在属性被查找的时候都会调用这个方法；&lt;/p&gt;
+&lt;p&gt;18.描述符是一种将实现了 &lt;code&gt;__get__&lt;/code&gt;，&lt;code&gt;__set__&lt;/code&gt;，&lt;code&gt;__delete__&lt;/code&gt; 特殊方法的类的实例作为另外一个类的类属性的对象
+；&lt;/p&gt;</content><category term="corepython"></category><category term="reading-notes"></category><category term="python"></category></entry><entry><title>Python 核心编程读书笔记 Day4</title><link href="http://blog.tonychow.me/corepython-reading-notes-how-day4.html" rel="alternate"></link><published>2014-07-15T00:00:00+08:00</published><updated>2014-07-15T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2014-07-15:/corepython-reading-notes-how-day4.html</id><summary type="html"></summary><content type="html">&lt;p&gt;今天的主要阅读了 10-12 章的内容，这三章内容主要涉及异常，函数及模块，这几个模块
+也是 Python 中比较重要的基本内容，也有相对于其他语言的独特之处，下面继续总结今
+天的阅读笔记。&lt;/p&gt;
+&lt;h3&gt;第十章：错误和异常&lt;/h3&gt;
+&lt;p&gt;本章关注的内容是异常。异常在其他语言中也有实现，一般来说，异常处理给程序员提供
+了一种在错误发生的时候对错误进行处理的方式。与其出现错误的时候，直接终止程序的
+执行，不如对错误进行处理之后让程序继续执行。下面是本章要点：&lt;/p&gt;
+&lt;p&gt;1.错误引发异常的时候会打断正常的程序处理流程；&lt;/p&gt;
+&lt;p&gt;2.Python 异常的检测可以通过 try 语句进行，通常有 try-excetpt，try-finally模式；&lt;/p&gt;
+&lt;p&gt;3.try 语句可以带多个 except ，可以处理多种异常，也可以直接多个异常放在一个元组
+中；&lt;/p&gt;
+&lt;p&gt;4.except Exception[, reason]；&lt;/p&gt;
+&lt;p&gt;5.try-except 同样也支持 else 子句，不发生异常则执行 else 子句的语句；&lt;/p&gt;
+&lt;p&gt;6.实现了 &lt;code&gt;__enter_&lt;/code&gt; 和 &lt;code&gt;__exit__&lt;/code&gt; 方法的类可以利用 with 语句；&lt;/p&gt;
+&lt;p&gt;7.&lt;code&gt;__exit__&lt;/code&gt; 具有三个参数，exc_type， exc_value， exc_traceback；&lt;/p&gt;
+&lt;!--more--&gt;
+
+&lt;h3&gt;第十一章：函数和函数式编程&lt;/h3&gt;
+&lt;p&gt;函数在 Python 中其实也是一个对象，保存了函数的相关内容，所以在 Python 中，函
+数也和普通的对象一样，可以传给一个函数，也可以作为函数的返回值返回，因此也导
+至了 Python 支持一部分函数式编程的特性。以下是要点：&lt;/p&gt;
+&lt;p&gt;1.Python 中的函数即使没有 return 语句，也会默认返回值为 None；&lt;/p&gt;
+&lt;p&gt;2.Python 中支持默认参数，但是非默认参数需要在默认参数前；&lt;/p&gt;
+&lt;p&gt;3.Python 中函数支持将参数放进元组或者字典中；&lt;/p&gt;
+&lt;p&gt;4.&lt;code&gt;func(*args)&lt;/code&gt; 的形式是将参数放到元组中；&lt;/p&gt;
+&lt;p&gt;5.&lt;code&gt;func(**kwargs)&lt;/code&gt; 的形式是将参数放到字典中，表示的是应对参数名及其值；&lt;/p&gt;
+&lt;p&gt;6.Python 支持在函数内部定义函数，并且内部函数可以调用包含函数的局部变量；&lt;/p&gt;
+&lt;p&gt;7.函数内部是一个局部空间；&lt;/p&gt;
+&lt;p&gt;8.装饰器函数接受一个函数返回另外一个装饰后的函数；&lt;/p&gt;
+&lt;p&gt;9.装饰器利用 &lt;code&gt;@&lt;/code&gt; 来装饰函数，相当于：&lt;code&gt;foo = deco(foo)&lt;/code&gt;；&lt;/p&gt;</content><category term="corepython"></category><category term="reading-notes"></category><category term="python"></category></entry><entry><title>Python 核心编程读书笔记 Day3</title><link href="http://blog.tonychow.me/corepython-reading-notes-how-day3.html" rel="alternate"></link><published>2014-07-13T00:00:00+08:00</published><updated>2014-07-13T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2014-07-13:/corepython-reading-notes-how-day3.html</id><summary type="html"></summary><content type="html">&lt;p&gt;今天阅读的章节是 8 和 9 章，前面的章节已经介绍了 Python 的基本的数据类型，这两章分别介绍了 Python 的条件
+循环语句和文件类型。&lt;/p&gt;
+&lt;h3&gt;第八章：条件和循环&lt;/h3&gt;
+&lt;p&gt;这章主要就是介绍 Python 中的条件和循环语句，Python 中的条件语句有 if-else，而循环则有 while 和 for。要点：&lt;/p&gt;
+&lt;p&gt;1.if 语句有 if-else 和 if-elif-elif-else 模式；&lt;/p&gt;
+&lt;p&gt;2.Python 中也存在条件表达式，和其他语言的不同，是利用 if 实现的：X if C else Y；&lt;/p&gt;
+&lt;p&gt;3.Python 中的 while 和其他语言的类似，而 for 循环则不一样，for 循环可以遍历可迭代对象；&lt;/p&gt;
+&lt;p&gt;4.在遍历迭代器的时候，for 循环会调用迭代器的 next 方法，并且在遇到 StopIteration 异常结束遍历；&lt;/p&gt;
+&lt;p&gt;5.range(start, stop, step=1) 函数可以生成一个列表；&lt;/p&gt;
+&lt;p&gt;6.sorted 和 zip 函数返回一个列表，而 reversed 和 enumerate 函数则返回一个迭代器；&lt;/p&gt;
+&lt;p&gt;7.else 同样可以用在 while 和 for 循环语句中，在循环结束后执行，break 则会跳出这个 else；&lt;/p&gt;
+&lt;p&gt;8.迭代器对象需要实现 next 和 &lt;code&gt;__iter__&lt;/code&gt; 方法；&lt;/p&gt;
+&lt;p&gt;9.列表解释：[expr for iter_var in iterable]，返回列表；&lt;/p&gt;
+&lt;p&gt;10.生成器表达式：(expr for iter_var in iterable)；&lt;/p&gt;
+&lt;!--more--&gt;
+
+&lt;h3&gt;第九章：文件和输入输出&lt;/h3&gt;
+&lt;p&gt;本章主要关注 Python 中的文件对象及输入和输出方面，下面是要点：&lt;/p&gt;
+&lt;p&gt;1.文件只是连续的字节序列；&lt;/p&gt;
+&lt;p&gt;2.可以用 open 或者 file 函数打开或者创建文件，这两个函数类似；&lt;/p&gt;
+&lt;p&gt;3.文件对象的 readlines 方法将会将该文件所有行都加载到内存中，打开大文件不太友好；&lt;/p&gt;
+&lt;p&gt;4.xreadlines 是以迭代的方式每次读取文件的一行，不过现在可以直接对文件对象进行迭代达到一样的效果；&lt;/p&gt;
+&lt;p&gt;5.readline 函数不会去除读取到的行的换行符，writelines 也不会自动添加换行符；&lt;/p&gt;</content><category term="corepython"></category><category term="reading-notes"></category><category term="python"></category></entry><entry><title>Python 核心编程读书笔记 Day2</title><link href="http://blog.tonychow.me/corepython-reading-notes-how-day2.html" rel="alternate"></link><published>2014-07-11T00:00:00+08:00</published><updated>2014-07-11T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2014-07-11:/corepython-reading-notes-how-day2.html</id><summary type="html"></summary><content type="html">&lt;p&gt;今天主要阅读了 5 - 7 章的内容，继续总结每章的内容及要点。&lt;/p&gt;
+&lt;h3&gt;第五章：数字&lt;/h3&gt;
+&lt;p&gt;本章介绍 Python 中的各种数字类型及其运算符和处理数字的内建函数。要点如下：&lt;/p&gt;
+&lt;p&gt;1.Python 中的数字类型包括整型，长整型，布尔型，双精度浮点型，十进制浮点型和复数，都是不可变类型，对数字类型变量的变
+更都会产生一个新的对象；&lt;/p&gt;
+&lt;p&gt;2.现在的 Python 支持整型自动转换为长整型，不会溢出；&lt;/p&gt;
+&lt;p&gt;3.Python 中只采用了双精度浮点型，不实现单精度浮点型，如果需要进行银行等系统编写可以考虑使用 Decimal 模块；&lt;/p&gt;
+&lt;p&gt;4.Python 中不同类型数字运算转换规则：存在复数转换为复数，否则存在浮点数则转换为浮点数，否则存在长整数则转换为长整
+数，否则都是普通整数；&lt;/p&gt;
+&lt;p&gt;5.divmod 函数用于数值计算，返回一个包含商和余数的元组；&lt;/p&gt;
+&lt;p&gt;6.round 函数对数值进行四舍五入取整，返回一个浮点数；&lt;/p&gt;
+&lt;p&gt;7.chr 函数将 ASCII 值的数字转换为 ASCII 字符，ord 则相反；&lt;/p&gt;
+&lt;!--more--&gt;
+
+&lt;h3&gt;第六章：序列：字符串，列表和元组&lt;/h3&gt;
+&lt;p&gt;这一章关注的是 Python 中的序列类型，这些类型的特点是其成员有序排序，可以通过下标以类似偏移量的方式访问其成员，具体
+来说这样的序列类型有三个：字符串，列表和元组。本章详细地介绍了这三个序列类型的操作符内建函数和特性等内容，以下为要
+点：&lt;/p&gt;
+&lt;p&gt;1.序列类型可以使用 &lt;code&gt;in&lt;/code&gt; 和 &lt;code&gt;not in&lt;/code&gt; 来判定某个元素是否属于一个序列；&lt;/p&gt;
+&lt;p&gt;2.对于序列使用 &lt;code&gt;+&lt;/code&gt; 连接符会导致一个新的序列对象产生；&lt;/p&gt;
+&lt;p&gt;3.序列类型支持切片操作，可以使用 seq[start:stop:step] 来进行；&lt;/p&gt;
+&lt;p&gt;4.enumerate 函数接受一个可迭代对象，同样返回一个可迭代的 enumerate 对象，内容为之前对象的 index 和 item；&lt;/p&gt;
+&lt;p&gt;5.字符串是不可变类型，Python 中没有字符类型，可以用长度为 1 的字符串来表达这个概念；&lt;/p&gt;
+&lt;p&gt;6.Python 格式化字符：%[(name)][flags][width].[precision]typecode；&lt;/p&gt;
+&lt;p&gt;7.Python 格式化字符默认右对齐，&lt;code&gt;-&lt;/code&gt; 改为左对齐，默认填充空格；&lt;/p&gt;
+&lt;p&gt;8.&lt;code&gt;r&lt;/code&gt; 添加在字符串前表示为原始字符串，不需要对特殊字符进行转义；&lt;/p&gt;
+&lt;p&gt;9.Unicode 字符串 encode 为 str 字符串，str 字符串 decode 为 Unicode 字符串；&lt;/p&gt;
+&lt;p&gt;10.列表是可变类型，支持添加插入或者删除元素，并不会产生新的元素；&lt;/p&gt;</content><category term="corepython"></category><category term="reading-notes"></category><category term="python"></category></entry><entry><title>Python 核心编程读书笔记 Day1</title><link href="http://blog.tonychow.me/corepython-reading-notes-how-day1.html" rel="alternate"></link><published>2014-07-10T00:00:00+08:00</published><updated>2014-07-10T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2014-07-10:/corepython-reading-notes-how-day1.html</id><summary type="html"></summary><content type="html">&lt;p&gt;今天主要阅读了 1 - 4 章的内容，下面总结下每章的主要内容和一些要点。&lt;/p&gt;
+&lt;h3&gt;第一章：Python 核心&lt;/h3&gt;
+&lt;p&gt;书本的开始只是一些关于 Python 的常识性的内容，包括但不限于起源、各个特性、各个系统的安装
+方式还有其他语言(C 语言之外)的实现方式，下面是一些要点：&lt;/p&gt;
+&lt;p&gt;1.Python 是一门解释性的语言，但是却有个编译成字节码的编译过程，这一点和 Java 是类似的，
+因为编译成字节码可以得到性能上的增强；&lt;/p&gt;
+&lt;p&gt;2.标准的 Python 官方发行的是 C 实现的 Python 版本，被称为 CPython，此外也有其他语言实现
+的版本，比如 Java 实现的 Jython，运行在 JVM 上，可以利用到 JVM 的 JIT 技术，并且可以使用
+Java 的类库。此外还有 C# 语言实现的 IronPython，可以运行在 .NET 及 Mono 环境上。还有一个
+基于 CPython 修改的 Stackless Python ，这个版本对 CPython 解释器进行了大量的修改，实现了
+用户级别的微线程。&lt;/p&gt;
+&lt;!--more--&gt;
+
+&lt;h3&gt;第二章：快速入门&lt;/h3&gt;
+&lt;p&gt;第二章非常简略地过了一遍 Python 的一些特性和语言结构数据类型等，以下是要点：&lt;/p&gt;
+&lt;p&gt;1.用 "Docstring" 或者 """Docstring""" 在模块，类或者函数起始添加可以实现运行时访问这个文
+档字符串；&lt;/p&gt;
+&lt;p&gt;2.&lt;code&gt;**&lt;/code&gt; 是乘方运算符，&lt;code&gt;//&lt;/code&gt;是取比商小的最大整数运算；&lt;/p&gt;
+&lt;p&gt;3.Python 支持复数数字类型，形式类似 4 + 5j；&lt;/p&gt;
+&lt;p&gt;4.元组和列表都是可以保存任意数量任意类型的 Python 对象的容器对象，并且都是从 0 开始索引
+访问元素，元组可以看成只读的列表，两者都支持切片；&lt;/p&gt;
+&lt;p&gt;5.Python 通过缩进来区分代码块；&lt;/p&gt;
+&lt;p&gt;6.可以通过列表解释来生成一个列表；&lt;/p&gt;
+&lt;h3&gt;第三章：Python 基础&lt;/h3&gt;
+&lt;p&gt;这章的主要内容是基本的 Python 语法，也介绍了标识符，变量和关键字等内容。要点如下：&lt;/p&gt;
+&lt;p&gt;1.可以通过 &lt;code&gt;\&lt;/code&gt; 连接多行的 Python 代码，也可以在含有小括号，中括号和花括号的时候跨行；&lt;/p&gt;
+&lt;p&gt;2.Python 中，对象是通过引用传递的，将一个对象赋值给一个变量，就是将这个对象的引用赋给
+这个变量；&lt;/p&gt;
+&lt;p&gt;3.Python 中支持增量赋值 &lt;code&gt;+=&lt;/code&gt;，但不支持 &lt;code&gt;++&lt;/code&gt; 这种自增符；&lt;/p&gt;
+&lt;p&gt;4.Python 中支持多元赋值，可以同时将多个对象赋给多个变量，这种方式的赋值等号两边其实是两个元组；&lt;/p&gt;
+&lt;p&gt;5.Python 中下划线对解释器有特殊的意义， &lt;code&gt;_xx&lt;/code&gt; 表示模块私有，&lt;code&gt;__xxx__&lt;/code&gt; 表示系统定义的&lt;/p&gt;</content><category term="corepython"></category><category term="reading-notes"></category><category term="python"></category></entry><entry><title>CSAPP 读书笔记-计算机系统中的抽象-操作系统</title><link href="http://blog.tonychow.me/csapp-reading-notes-abstract.html" rel="alternate"></link><published>2013-04-05T00:00:00+08:00</published><updated>2013-04-05T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2013-04-05:/csapp-reading-notes-abstract.html</id><summary type="html"></summary><content type="html">&lt;h3&gt;初言&lt;/h3&gt;
+&lt;p&gt;我们使用着计算机系统提供的种种功能,安装不同的操作系统,使用不同的软件,听歌,上网,看视频,似乎理所当然.我们也知道,信息时代是建立在0和1的基础之上的,我们的计算机系统也是遵循着0和1的二进制.但是这两者是如何关联到一起的?当我们启动一个软件的时候,计算机系统底层是怎样的?我们打开一个网页如此的简单,但是这背后,计算机系统又发生了什么事情?&lt;/p&gt;
+&lt;h3&gt;程序的执行&lt;/h3&gt;
+&lt;p&gt;如果是计算机系的学生,或者对计算机技术有着兴趣的人,都会知道计算机操作系统的一些概念,也知道一个程序的执行其实到底是怎么一回事.无非就是将一段在硬盘上的二进制代码加载到内存中,然后由CPU执行相关的指令.程序的执行简单来说就是这么一回事,所以一个软件的启动和执行,也就是在这个简单的基础上再加上一些复杂的操作.
+&lt;!--more--&gt;
+更深入点,我们知道操作系统也是软件,计算机关闭的时候操作系统的编译后的可执行对象也是保存在硬盘上.在计算机启动的时候,将操作系统加载到内存上,之后,操作系统就会一直运行直至计算机重新关闭.一般来说,我们将程序运行分为两种状态,用户的应用程序运行在用户态,而操作系统则是运行在内核态.&lt;/p&gt;
+&lt;h3&gt;操作系统的抽象&lt;/h3&gt;
+&lt;p&gt;计算机系统中的抽象其实应该是涉及两个方面.一个是处理器方面的,处理器的指令集对于硬件的抽象;而另一方面则是操作系统方面的抽象.&lt;/p&gt;
+&lt;p&gt;正如上面提及到的,程序运行于两种状态,这是为了安全的考虑,用户态的用户程序是无法直接进行一些直接操作硬件的指令的.比如创建保存一个文件的操作,涉及到了IO操作,而保存在硬盘上也涉及到磁盘的寻道.这些操作完全交由用户来进行一方面是非常的不安全,另一方面,每个人都有自己的实现方式,那将会导致各种混乱的代码.所以,操作系统一般会通过提供一些系统调用函数给用户程序,用户程序通过系统API从而实现对系统代码的调用.而这些系统代码将会进行相关的底层操作.通过系统API,操作系统作为硬件和用户应用程序的中间层,对用户应用程序隐藏了对硬件的操作,将硬件的操作细节抽象为一个个系统调用.&lt;/p&gt;
+&lt;p&gt;操作系统的抽象是计算机系统中非常重要的一个概念,总结来说大概有三个方面的抽象:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;文件对于 IO 设备的抽象&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;IO 设备包括硬盘等设备,操作系统将这些设备都抽象为文件.比如硬盘上的数据保存是以0和1的方式保存在不同的磁道或者区域中的,操作系统将这些数据抽象成一个个文件.相关的IO操作也抽象成了文件的操作,复杂具体的底层操作隐藏在一个个简单的系统调用函数在之下.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;虚拟内存对于内存和硬盘的抽象&lt;/li&gt;
+&lt;li&gt;进程对于处理器,内存和IO设备的抽象&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;-EOF-&lt;/p&gt;</content><category term="csapp"></category><category term="abstract"></category></entry><entry><title>SQL 反模式读书笔记-AS</title><link href="http://blog.tonychow.me/antipattern-sql-as.html" rel="alternate"></link><published>2013-01-11T00:00:00+08:00</published><updated>2013-01-11T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2013-01-11:/antipattern-sql-as.html</id><summary type="html"></summary><content type="html">&lt;p&gt;P16&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="k"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;product_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;COUNT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="n"&gt;products_per_account&lt;/span&gt;
+&lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;Contacts&lt;/span&gt;
+&lt;span class="k"&gt;GROUP&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="n"&gt;account_id&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;其中 Contacts 表是 Products 表和 Accounts 表的中间表，这个 SQL 查询语句的作用是查询每个账号相关的产品数量。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="k"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;product_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;accounts_per_product&lt;/span&gt;
+&lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="n"&gt;product_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;COUNT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="n"&gt;accounts_per_product&lt;/span&gt;
+    &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;Contacts&lt;/span&gt;
+    &lt;span class="k"&gt;GROUP&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="n"&gt;product_id&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="k"&gt;c&lt;/span&gt;
+&lt;span class="k"&gt;HAVING&lt;/span&gt; &lt;span class="k"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;accounts_per_product&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;MAX&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;accounts_per_product&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;!--more--&gt;
+
+&lt;p&gt;这个 SQL 查询语句的作用是查询相关账号最多的产品。在这两个查询语句中我注意到的是 accounts_per_product 和 products_per_account 这两个本来不存在的字段。很明显这两个是通过 AS 得到的字段。AS 也就是 Alias (别名)，通过 Alias 可以方便组织多表查询特别是在涉及到自身对应自身表的时候，比如评论表如果想要父级和子级的结果查询，同时也可以用 Alias 给表的字段起一个别名，便于输出，比如上面的两个 SQL 查询。&lt;/p&gt;
+&lt;p&gt;第一个 SQL 查询语句中，通过将 c.product_id，COUNT(*) 这个要查询的字段 alias 成 products_per_account，这样输出的结果类似于：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;products_per_account&lt;/span&gt;
+&lt;span class="mi"&gt;7&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;就很容易阅读了。&lt;/p&gt;
+&lt;p&gt;第二个 SQL 查询语句中&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="n"&gt;product_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;COUNT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="n"&gt;accounts_per_product&lt;/span&gt;
+&lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;Contacts&lt;/span&gt;
+&lt;span class="k"&gt;GROUP&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="n"&gt;product_id&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这样一段查询得到结果集合被 alias 成了 c ，此外其中也将根据 product_id 查询得到的 products 数量 alias 成了 accounts_per_product，所以 c 这个集合中也多了一个字段 accounts_per_product，通过这样的处理，想要得到关联账号最多的产品的 product_id 就简单得好像以下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="n"&gt;product_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;accounts_per_product&lt;/span&gt;
+&lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="k"&gt;c&lt;/span&gt; 
+&lt;span class="k"&gt;HAVING&lt;/span&gt; &lt;span class="n"&gt;accounts_per_product&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;MAX&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;accounts_per_product&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这个查询语句通过 AS，写得相当优雅，易懂。&lt;/p&gt;</content><category term="antipattern"></category><category term="sql"></category></entry><entry><title>CSAPP读书笔记- 一个C程序的编译</title><link href="http://blog.tonychow.me/csapp-reading-notes-how-program-compile.html" rel="alternate"></link><published>2012-10-09T00:00:00+08:00</published><updated>2012-10-09T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2012-10-09:/csapp-reading-notes-how-program-compile.html</id><summary type="html"></summary><content type="html">&lt;p&gt;CSAPP中，1.2节讲到了程序的编译:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Programs Are Translated By Other Programs into Different Forms.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;程序由其他程序翻译成不同的形式，其实看下面这张图应该可以很清晰地了解上面这一句：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="c程序编译" src="http://om3cpjyz4.bkt.clouddn.com/articles/c-program-compilation.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;上图是一个 hello 的 C 程序由 GCC 编译器从源码文件 hello.c 中读取内容并将其翻译成为一个可执行的对象文件 hello 的过程。这个过程包含了几个阶段：&lt;/p&gt;
+&lt;p&gt;首先是源文件，此时是处于文本类型：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="c1"&gt;// C 代码&lt;/span&gt;
+&lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;include&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;stdio&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt; &lt;span class="n"&gt;argvs&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="mi"&gt;5&lt;/span&gt;     &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;hello, world&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="mi"&gt;6&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;然后是预处理阶段，将对以#开始的指令进行修改，比如对于&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/code&gt;指令，预处理器将会读取系统头文件 stdio.h 内容，然后将其内容直接插入到程序源码文本中，经过预处理之后源码文件被翻译成 hello.i 文件，此时得到的仍然是一个文本类型的 C 源码文件：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;......&lt;/span&gt;
+&lt;span class="mi"&gt;844&lt;/span&gt;
+&lt;span class="mi"&gt;845&lt;/span&gt; &lt;span class="k"&gt;extern&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;funlockfile&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;FILE&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;__stream&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;__attribute__&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;__nothrow__&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="mi"&gt;846&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="mi"&gt;938&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;/usr/include/stdio.h&amp;quot;&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;
+&lt;span class="mi"&gt;847&lt;/span&gt;
+&lt;span class="mi"&gt;848&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;hello.c&amp;quot;&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;span class="mi"&gt;849&lt;/span&gt;
+&lt;span class="mi"&gt;850&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt; &lt;span class="n"&gt;argvs&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="mi"&gt;851&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="mi"&gt;852&lt;/span&gt;     &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;hello, world&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="mi"&gt;853&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以上部分代码可以看出除了&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/code&gt;指令之外其他指令并未被改变。&lt;/p&gt;
+&lt;p&gt;接下来的是编译阶段。在这个阶段中，前一阶段得到的c程序代码将会被编译器翻译成汇编语言的形式，每个汇编语言声明都对应一个机器语言指令。这个阶段得到的是一个文本类型的汇编语言源码文件 hello.s ：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;     &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt;   &lt;span class="s"&gt;&amp;quot;hello.c&amp;quot;&lt;/span&gt;
+ &lt;span class="mi"&gt;2&lt;/span&gt;     &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;section&lt;/span&gt;    &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rodata&lt;/span&gt;
+ &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nl"&gt;LC0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+ &lt;span class="mi"&gt;4&lt;/span&gt;     &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;hello, world&amp;quot;&lt;/span&gt;
+ &lt;span class="mi"&gt;5&lt;/span&gt;     &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;
+ &lt;span class="mi"&gt;6&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;globl&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;
+ &lt;span class="mi"&gt;7&lt;/span&gt;     &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;   &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;function&lt;/span&gt;
+ &lt;span class="mi"&gt;8&lt;/span&gt; &lt;span class="nl"&gt;main&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+ &lt;span class="mi"&gt;9&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nl"&gt;LFB0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;span class="mi"&gt;10&lt;/span&gt;     &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cfi_startproc&lt;/span&gt;
+&lt;span class="mi"&gt;11&lt;/span&gt;     &lt;span class="n"&gt;pushq&lt;/span&gt;   &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rbp&lt;/span&gt;
+&lt;span class="mi"&gt;12&lt;/span&gt;     &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cfi_def_cfa_offset&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;
+&lt;span class="mi"&gt;13&lt;/span&gt;     &lt;span class="n"&gt;movq&lt;/span&gt;    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rbp&lt;/span&gt;
+&lt;span class="mi"&gt;14&lt;/span&gt;     &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cfi_offset&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;
+&lt;span class="mi"&gt;15&lt;/span&gt;     &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cfi_def_cfa_register&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;
+&lt;span class="mi"&gt;16&lt;/span&gt;     &lt;span class="n"&gt;subq&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;
+&lt;span class="mi"&gt;17&lt;/span&gt;     &lt;span class="n"&gt;movl&lt;/span&gt;    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;edi&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rbp&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="mi"&gt;18&lt;/span&gt;     &lt;span class="n"&gt;movq&lt;/span&gt;    &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rsi&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;rbp&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="mi"&gt;19&lt;/span&gt;     &lt;span class="n"&gt;movl&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LC0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;edi&lt;/span&gt;
+&lt;span class="mi"&gt;20&lt;/span&gt;     &lt;span class="n"&gt;call&lt;/span&gt;    &lt;span class="n"&gt;puts&lt;/span&gt;
+&lt;span class="mi"&gt;21&lt;/span&gt;     &lt;span class="n"&gt;leave&lt;/span&gt;
+&lt;span class="mi"&gt;22&lt;/span&gt;     &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cfi_def_cfa&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;
+&lt;span class="mi"&gt;23&lt;/span&gt;     &lt;span class="n"&gt;ret&lt;/span&gt;
+&lt;span class="mi"&gt;24&lt;/span&gt;     &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cfi_endproc&lt;/span&gt;
+&lt;span class="mi"&gt;25&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nl"&gt;LFE0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;span class="mi"&gt;26&lt;/span&gt;     &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;   &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;main&lt;/span&gt;
+&lt;span class="mi"&gt;27&lt;/span&gt;     &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ident&lt;/span&gt;  &lt;span class="s"&gt;&amp;quot;GCC: (GNU) 4.4.4 20100726 (Red Hat 4.4.4-13)&amp;quot;&lt;/span&gt;
+&lt;span class="mi"&gt;28&lt;/span&gt;     &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;section&lt;/span&gt;    &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;note&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GNU&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;stack&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;progbits&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;之后是汇编器将上个阶段得到的汇编程序源码中的每条指令都翻译成机器代码，也就是 01 的形式，生成一个对象类型的文件 hello.o ，在这里用&lt;code&gt;objdump&lt;/code&gt;查看下这个文件的内容：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;hello&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nl"&gt;o&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;     &lt;span class="n"&gt;file&lt;/span&gt; &lt;span class="n"&gt;format&lt;/span&gt; &lt;span class="n"&gt;elf64&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;x86&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;64&lt;/span&gt;
+
+&lt;span class="n"&gt;Contents&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nl"&gt;text&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+ &lt;span class="mo"&gt;0000&lt;/span&gt; &lt;span class="mf"&gt;554889e5&lt;/span&gt; &lt;span class="mi"&gt;4883&lt;/span&gt;&lt;span class="n"&gt;ec10&lt;/span&gt; &lt;span class="mi"&gt;897&lt;/span&gt;&lt;span class="n"&gt;dfc48&lt;/span&gt; &lt;span class="mf"&gt;8975f&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;bf&lt;/span&gt;  &lt;span class="n"&gt;UH&lt;/span&gt;&lt;span class="p"&gt;..&lt;/span&gt;&lt;span class="n"&gt;H&lt;/span&gt;&lt;span class="p"&gt;....}.&lt;/span&gt;&lt;span class="n"&gt;H&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;..&lt;/span&gt;
+ &lt;span class="mo"&gt;0010&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="n"&gt;e8000000&lt;/span&gt; &lt;span class="mo"&gt;00&lt;/span&gt;&lt;span class="n"&gt;c9c3&lt;/span&gt;             &lt;span class="p"&gt;...........&lt;/span&gt;
+&lt;span class="n"&gt;Contents&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nl"&gt;rodata&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+ &lt;span class="mo"&gt;0000&lt;/span&gt; &lt;span class="mi"&gt;68656&lt;/span&gt;&lt;span class="n"&gt;c6c&lt;/span&gt; &lt;span class="mf"&gt;6f&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;c2077&lt;/span&gt; &lt;span class="mf"&gt;6f&lt;/span&gt;&lt;span class="mi"&gt;726&lt;/span&gt;&lt;span class="n"&gt;c64&lt;/span&gt; &lt;span class="mo"&gt;00&lt;/span&gt;        &lt;span class="n"&gt;hello&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;world&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="n"&gt;Contents&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nl"&gt;comment&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+ &lt;span class="mo"&gt;0000&lt;/span&gt; &lt;span class="mo"&gt;00474343&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="n"&gt;a202847&lt;/span&gt; &lt;span class="mf"&gt;4e552920&lt;/span&gt; &lt;span class="mf"&gt;342e342&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nl"&gt;GCC&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;GNU&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mf"&gt;4.4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+ &lt;span class="mo"&gt;0010&lt;/span&gt; &lt;span class="mi"&gt;34203230&lt;/span&gt; &lt;span class="mi"&gt;31303037&lt;/span&gt; &lt;span class="mi"&gt;32362028&lt;/span&gt; &lt;span class="mi"&gt;52656420&lt;/span&gt;  &lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="mi"&gt;20100726&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Red&lt;/span&gt;
+ &lt;span class="mo"&gt;0020&lt;/span&gt; &lt;span class="mi"&gt;48617420&lt;/span&gt; &lt;span class="mf"&gt;342e342&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="mi"&gt;342&lt;/span&gt;&lt;span class="n"&gt;d3133&lt;/span&gt; &lt;span class="mi"&gt;2900&lt;/span&gt;      &lt;span class="n"&gt;Hat&lt;/span&gt; &lt;span class="mf"&gt;4.4.4&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;13&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;
+&lt;span class="n"&gt;Contents&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nl"&gt;eh_frame&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+ &lt;span class="mo"&gt;0000&lt;/span&gt; &lt;span class="mi"&gt;14000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;017&lt;/span&gt;&lt;span class="n"&gt;a5200&lt;/span&gt; &lt;span class="mo"&gt;017&lt;/span&gt;&lt;span class="mi"&gt;81001&lt;/span&gt;  &lt;span class="p"&gt;.........&lt;/span&gt;&lt;span class="n"&gt;zR&lt;/span&gt;&lt;span class="p"&gt;..&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;..&lt;/span&gt;
+ &lt;span class="mo"&gt;0010&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;b0c0708&lt;/span&gt; &lt;span class="mi"&gt;90010000&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;c000000&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;c000000&lt;/span&gt;  &lt;span class="p"&gt;................&lt;/span&gt;
+ &lt;span class="mo"&gt;0020&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;b000000&lt;/span&gt; &lt;span class="mf"&gt;00410e10&lt;/span&gt; &lt;span class="mi"&gt;4386020&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;  &lt;span class="p"&gt;.........&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;..&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;
+ &lt;span class="mo"&gt;0030&lt;/span&gt; &lt;span class="mo"&gt;06560&lt;/span&gt;&lt;span class="n"&gt;c07&lt;/span&gt; &lt;span class="mi"&gt;08000000&lt;/span&gt;                    &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;V&lt;/span&gt;&lt;span class="p"&gt;......&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;最后一个阶段是链接阶段，链接程序将上一个步骤产生的hello.o文件与 C 编译器提供的 printf.o 文件合并到一起，因为 hello 代码中调用了标准 C 库中的 printf 函数。这两个对象文件将会被合并成为一个可执行的对象文件，这个文件可以加载到内存中执行。下面继续用&lt;code&gt;objdump&lt;/code&gt;查看下这个 hello 对象文件的内容:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nl"&gt;hello&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;     &lt;span class="n"&gt;file&lt;/span&gt; &lt;span class="n"&gt;format&lt;/span&gt; &lt;span class="n"&gt;elf64&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;x86&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;64&lt;/span&gt;
+
+&lt;span class="n"&gt;Contents&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nl"&gt;interp&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+ &lt;span class="mi"&gt;400200&lt;/span&gt; &lt;span class="mf"&gt;2f&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="n"&gt;c6962&lt;/span&gt; &lt;span class="mf"&gt;36342f&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="mi"&gt;642&lt;/span&gt;&lt;span class="n"&gt;d6c69&lt;/span&gt; &lt;span class="mf"&gt;6e75782&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;  &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib64&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ld&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;linux&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;
+ &lt;span class="mi"&gt;400210&lt;/span&gt; &lt;span class="mi"&gt;7838362&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="mf"&gt;36342e73&lt;/span&gt; &lt;span class="mf"&gt;6f2e3200&lt;/span&gt;           &lt;span class="n"&gt;x86&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;64.&lt;/span&gt;&lt;span class="n"&gt;so&lt;/span&gt;&lt;span class="mf"&gt;.2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="n"&gt;Contents&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;note&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ABI&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;tag&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+ &lt;span class="mi"&gt;40021&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="mo"&gt;04000000&lt;/span&gt; &lt;span class="mi"&gt;10000000&lt;/span&gt; &lt;span class="mo"&gt;01000000&lt;/span&gt; &lt;span class="mf"&gt;474e5500&lt;/span&gt;  &lt;span class="p"&gt;............&lt;/span&gt;&lt;span class="n"&gt;GNU&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+ &lt;span class="mi"&gt;40022&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;02000000&lt;/span&gt; &lt;span class="mo"&gt;06000000&lt;/span&gt; &lt;span class="mi"&gt;12000000&lt;/span&gt;  &lt;span class="p"&gt;................&lt;/span&gt;
+&lt;span class="n"&gt;Contents&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;note&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gnu&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;id&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+ &lt;span class="mi"&gt;40023&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="mo"&gt;04000000&lt;/span&gt; &lt;span class="mi"&gt;14000000&lt;/span&gt; &lt;span class="mo"&gt;03000000&lt;/span&gt; &lt;span class="mf"&gt;474e5500&lt;/span&gt;  &lt;span class="p"&gt;............&lt;/span&gt;&lt;span class="n"&gt;GNU&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+ &lt;span class="mi"&gt;40024&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="n"&gt;b51099&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="n"&gt;bd53844&lt;/span&gt; &lt;span class="mi"&gt;69&lt;/span&gt;&lt;span class="n"&gt;dcba88&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="n"&gt;bf11585&lt;/span&gt;   &lt;span class="p"&gt;...&lt;/span&gt;&lt;span class="n"&gt;K&lt;/span&gt;&lt;span class="mf"&gt;.8&lt;/span&gt;&lt;span class="n"&gt;Di&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;&lt;span class="n"&gt;K&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;
+ &lt;span class="mi"&gt;40025&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="mi"&gt;599&lt;/span&gt;&lt;span class="n"&gt;dda4e&lt;/span&gt;                             &lt;span class="n"&gt;Y&lt;/span&gt;&lt;span class="p"&gt;..&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;
+&lt;span class="n"&gt;Contents&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gnu&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nl"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+ &lt;span class="mi"&gt;400260&lt;/span&gt; &lt;span class="mo"&gt;01000000&lt;/span&gt; &lt;span class="mo"&gt;01000000&lt;/span&gt; &lt;span class="mo"&gt;01000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;  &lt;span class="p"&gt;................&lt;/span&gt;
+ &lt;span class="mi"&gt;400270&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;           &lt;span class="p"&gt;............&lt;/span&gt;
+&lt;span class="p"&gt;......&lt;/span&gt;
+&lt;span class="p"&gt;......&lt;/span&gt;
+ &lt;span class="mi"&gt;600788&lt;/span&gt; &lt;span class="mo"&gt;07000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mi"&gt;48034000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;  &lt;span class="p"&gt;........&lt;/span&gt;&lt;span class="n"&gt;H&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;.....&lt;/span&gt;
+ &lt;span class="mi"&gt;600798&lt;/span&gt; &lt;span class="mi"&gt;08000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mi"&gt;18000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;  &lt;span class="p"&gt;................&lt;/span&gt;
+ &lt;span class="mi"&gt;6007&lt;/span&gt;&lt;span class="n"&gt;a8&lt;/span&gt; &lt;span class="mi"&gt;09000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mi"&gt;18000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;  &lt;span class="p"&gt;................&lt;/span&gt;
+ &lt;span class="mi"&gt;6007&lt;/span&gt;&lt;span class="n"&gt;b8&lt;/span&gt; &lt;span class="n"&gt;feffff6f&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mi"&gt;28034000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;  &lt;span class="p"&gt;...&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;....(.&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;.....&lt;/span&gt;
+ &lt;span class="mi"&gt;6007&lt;/span&gt;&lt;span class="n"&gt;c8&lt;/span&gt; &lt;span class="n"&gt;ffffff6f&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;01000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;  &lt;span class="p"&gt;...&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;............&lt;/span&gt;
+ &lt;span class="mi"&gt;6007&lt;/span&gt;&lt;span class="n"&gt;d8&lt;/span&gt; &lt;span class="n"&gt;f0ffff6f&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mf"&gt;1e034000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;  &lt;span class="p"&gt;...&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;......&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;.....&lt;/span&gt;
+ &lt;span class="mf"&gt;6007e8&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;  &lt;span class="p"&gt;................&lt;/span&gt;
+ &lt;span class="mf"&gt;6007f&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;  &lt;span class="p"&gt;................&lt;/span&gt;
+ &lt;span class="mi"&gt;600808&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;  &lt;span class="p"&gt;................&lt;/span&gt;
+ &lt;span class="mi"&gt;600818&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;  &lt;span class="p"&gt;................&lt;/span&gt;
+ &lt;span class="mi"&gt;600828&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;  &lt;span class="p"&gt;................&lt;/span&gt;
+ &lt;span class="mi"&gt;600838&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;  &lt;span class="p"&gt;................&lt;/span&gt;
+&lt;span class="n"&gt;Contents&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nl"&gt;got&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+ &lt;span class="mi"&gt;600848&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;                    &lt;span class="p"&gt;........&lt;/span&gt;
+&lt;span class="n"&gt;Contents&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;got&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nl"&gt;plt&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+ &lt;span class="mi"&gt;600850&lt;/span&gt; &lt;span class="n"&gt;b8066000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;  &lt;span class="p"&gt;..&lt;/span&gt;&lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="p"&gt;.............&lt;/span&gt;
+ &lt;span class="mi"&gt;600860&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt; &lt;span class="n"&gt;be034000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;  &lt;span class="p"&gt;..........&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;.....&lt;/span&gt;
+ &lt;span class="mi"&gt;600870&lt;/span&gt; &lt;span class="n"&gt;ce034000&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;                    &lt;span class="p"&gt;..&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;.....&lt;/span&gt;
+&lt;span class="n"&gt;Contents&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nl"&gt;data&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+ &lt;span class="mi"&gt;600878&lt;/span&gt; &lt;span class="mo"&gt;00000000&lt;/span&gt;                             &lt;span class="p"&gt;....&lt;/span&gt;
+&lt;span class="n"&gt;Contents&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nl"&gt;comment&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+ &lt;span class="mo"&gt;0000&lt;/span&gt; &lt;span class="mi"&gt;4743433&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="mi"&gt;2028474&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="mi"&gt;55292034&lt;/span&gt; &lt;span class="mf"&gt;2e342&lt;/span&gt;&lt;span class="n"&gt;e34&lt;/span&gt;  &lt;span class="nl"&gt;GCC&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;GNU&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="mf"&gt;4.4.4&lt;/span&gt;
+ &lt;span class="mo"&gt;0010&lt;/span&gt; &lt;span class="mi"&gt;20323031&lt;/span&gt; &lt;span class="mi"&gt;30303732&lt;/span&gt; &lt;span class="mi"&gt;36202852&lt;/span&gt; &lt;span class="mi"&gt;65642048&lt;/span&gt;   &lt;span class="mi"&gt;20100726&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Red&lt;/span&gt; &lt;span class="n"&gt;H&lt;/span&gt;
+ &lt;span class="mo"&gt;0020&lt;/span&gt; &lt;span class="mi"&gt;61742034&lt;/span&gt; &lt;span class="mf"&gt;2e342&lt;/span&gt;&lt;span class="n"&gt;e34&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;d313329&lt;/span&gt; &lt;span class="mo"&gt;00&lt;/span&gt;        &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="mf"&gt;4.4.4&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;13&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以上就是一个简单 C 语言 hello 程序的编译过程，已夜，晚安。&lt;/p&gt;</content><category term="csapp"></category><category term="reading-notes"></category></entry></feed>

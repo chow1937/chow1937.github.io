@@ -3,7 +3,8 @@
 <head>
         <meta charset="utf-8" />
         <title>Tonychow's Blog - python</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link rel="stylesheet" href="http://blog.tonychow.me/theme/css/main.css" />
+        <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom Feed" />
 
         <!--[if IE]>
             <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,28 +13,28 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">Tonychow's Blog </a></h1>
+                <h1><a href="http://blog.tonychow.me/">Tonychow's Blog </a></h1>
                 <nav><ul>
-                    <li><a href="/category/linux.html">linux</a></li>
-                    <li><a href="/category/opencourse.html">opencourse</a></li>
-                    <li class="active"><a href="/category/python.html">python</a></li>
-                    <li><a href="/category/readings.html">readings</a></li>
+                    <li><a href="http://blog.tonychow.me/category/linux.html">linux</a></li>
+                    <li><a href="http://blog.tonychow.me/category/opencourse.html">opencourse</a></li>
+                    <li class="active"><a href="http://blog.tonychow.me/category/python.html">python</a></li>
+                    <li><a href="http://blog.tonychow.me/category/readings.html">readings</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/thoughts-about-python-iterator.html">关于 Python iterator 协议的一点思考</a></h1>
+                    <h1 class="entry-title"><a href="http://blog.tonychow.me/thoughts-about-python-iterator.html">关于 Python iterator 协议的一点思考</a></h1>
 <footer class="post-info">
         <abbr class="published" title="2015-04-06T00:00:00+08:00">
                 Published: 一 06 四月 2015
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/tonychow.html">tonychow</a>
+                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
         </address>
-<p>In <a href="/category/python.html">python</a>.</p>
-<p>tags: <a href="/tag/python.html">python</a> <a href="/tag/iterator.html">iterator</a> <a href="/tag/thoughts.html">thoughts</a> </p>
+<p>In <a href="http://blog.tonychow.me/category/python.html">python</a>.</p>
+<p>tags: <a href="http://blog.tonychow.me/tag/python.html">python</a> <a href="http://blog.tonychow.me/tag/iterator.html">iterator</a> <a href="http://blog.tonychow.me/tag/thoughts.html">thoughts</a> </p>
 </footer><!-- /.post-info --><p>Python 中有好几种容器或者序列类型：<code>list</code> <code>tuple</code> <code>dict</code> <code>set</code> <code>str</code>，对于这些类型中的内容，往往需要一种方式去遍历获取它们来进行操作。所以 Python 提供了迭代器的类型来对这些类型的内容进行迭代遍历，迭代类型新增于 Python 2.2。</p>
 <p>迭代器类型指的是遵循迭代器协议的类型，对于 Python2.x 版本来说就是实现了 <code>__iter__</code> 和 <code>next</code> 函数的对象类型。如果一个对象实现了迭代器协议，则可以用 <code>for</code> 语句遍历这个对象的内容。其中 <code>__iter__</code> 函数返回一个迭代器对象，而 <code>next</code> 函数则需要返回容器的下一个内容，如果没有下一个则抛出 StopIteration 异常，这个异常在 <code>for ... in</code> 语句中将会被捕获然后结束迭代。迭代器协议详细内容可以查看 <a href="https://www.python.org/dev/peps/pep-0234/">PEP234</a> 。Python3.x 将 <code>next</code> 函数改成了 <code>__next__</code> 函数，以和其他内置的函数保持一致的双下划线风格。</p>
 <!--more-->
@@ -89,7 +90,7 @@
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="/python-class-object-source-code.html" rel="bookmark"
+                    <h1><a href="http://blog.tonychow.me/python-class-object-source-code.html" rel="bookmark"
                            title="Permalink to Python 类对象与实例对象源码分析">Python 类对象与实例对象源码分析</a></h1>
                 </header>
 
@@ -100,18 +101,18 @@
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/tonychow.html">tonychow</a>
+                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
         </address>
-<p>In <a href="/category/python.html">python</a>.</p>
-<p>tags: <a href="/tag/python.html">python</a> <a href="/tag/source-reading.html">source-reading</a> </p>
+<p>In <a href="http://blog.tonychow.me/category/python.html">python</a>.</p>
+<p>tags: <a href="http://blog.tonychow.me/tag/python.html">python</a> <a href="http://blog.tonychow.me/tag/source-reading.html">source-reading</a> </p>
 </footer><!-- /.post-info -->                
-                <a class="readmore" href="/python-class-object-source-code.html">read more</a>
+                <a class="readmore" href="http://blog.tonychow.me/python-class-object-source-code.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="/things-about-python-named-args.html" rel="bookmark"
+                    <h1><a href="http://blog.tonychow.me/things-about-python-named-args.html" rel="bookmark"
                            title="Permalink to Python 函数的命名参数相关">Python 函数的命名参数相关</a></h1>
                 </header>
 
@@ -122,18 +123,18 @@
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/tonychow.html">tonychow</a>
+                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
         </address>
-<p>In <a href="/category/python.html">python</a>.</p>
-<p>tags: <a href="/tag/python.html">python</a> </p>
+<p>In <a href="http://blog.tonychow.me/category/python.html">python</a>.</p>
+<p>tags: <a href="http://blog.tonychow.me/tag/python.html">python</a> </p>
 </footer><!-- /.post-info -->                
-                <a class="readmore" href="/things-about-python-named-args.html">read more</a>
+                <a class="readmore" href="http://blog.tonychow.me/things-about-python-named-args.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="/sqlite3-in-python.html" rel="bookmark"
+                    <h1><a href="http://blog.tonychow.me/sqlite3-in-python.html" rel="bookmark"
                            title="Permalink to Python 中 sqlite3 模块使用小记">Python 中 sqlite3 模块使用小记</a></h1>
                 </header>
 
@@ -144,18 +145,18 @@
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/tonychow.html">tonychow</a>
+                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
         </address>
-<p>In <a href="/category/python.html">python</a>.</p>
-<p>tags: <a href="/tag/python.html">python</a> <a href="/tag/sqlite3.html">sqlite3</a> </p>
+<p>In <a href="http://blog.tonychow.me/category/python.html">python</a>.</p>
+<p>tags: <a href="http://blog.tonychow.me/tag/python.html">python</a> <a href="http://blog.tonychow.me/tag/sqlite3.html">sqlite3</a> </p>
 </footer><!-- /.post-info -->                
-                <a class="readmore" href="/sqlite3-in-python.html">read more</a>
+                <a class="readmore" href="http://blog.tonychow.me/sqlite3-in-python.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="/class-in-python.html" rel="bookmark"
+                    <h1><a href="http://blog.tonychow.me/class-in-python.html" rel="bookmark"
                            title="Permalink to Python 中的 New-style 和 Old-style classes">Python 中的 New-style 和 Old-style classes</a></h1>
                 </header>
 
@@ -166,18 +167,18 @@
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/tonychow.html">tonychow</a>
+                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
         </address>
-<p>In <a href="/category/python.html">python</a>.</p>
-<p>tags: <a href="/tag/python.html">python</a> <a href="/tag/class.html">class</a> </p>
+<p>In <a href="http://blog.tonychow.me/category/python.html">python</a>.</p>
+<p>tags: <a href="http://blog.tonychow.me/tag/python.html">python</a> <a href="http://blog.tonychow.me/tag/class.html">class</a> </p>
 </footer><!-- /.post-info -->                
-                <a class="readmore" href="/class-in-python.html">read more</a>
+                <a class="readmore" href="http://blog.tonychow.me/class-in-python.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="/reduce-function-in-python.html" rel="bookmark"
+                    <h1><a href="http://blog.tonychow.me/reduce-function-in-python.html" rel="bookmark"
                            title="Permalink to Python 内置函数 reduce">Python 内置函数 reduce</a></h1>
                 </header>
 
@@ -188,17 +189,24 @@
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/tonychow.html">tonychow</a>
+                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
         </address>
-<p>In <a href="/category/python.html">python</a>.</p>
-<p>tags: <a href="/tag/python.html">python</a> <a href="/tag/reduce.html">reduce</a> </p>
+<p>In <a href="http://blog.tonychow.me/category/python.html">python</a>.</p>
+<p>tags: <a href="http://blog.tonychow.me/tag/python.html">python</a> <a href="http://blog.tonychow.me/tag/reduce.html">reduce</a> </p>
 </footer><!-- /.post-info -->                
-                <a class="readmore" href="/reduce-function-in-python.html">read more</a>
+                <a class="readmore" href="http://blog.tonychow.me/reduce-function-in-python.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
                 </ol><!-- /#posts-list -->
                 </section><!-- /#content -->
         <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                        </ul>
+                </div><!-- /.social -->
         </section><!-- /#extras -->
 
         <footer id="contentinfo" class="body">

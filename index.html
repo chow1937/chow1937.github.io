@@ -80,10 +80,51 @@
     </p>
   </header>
   <div>
-      
-      <br>
-      <a class="btn" href="http://blog.tonychow.me/thoughts-about-python-iterator.html#thoughts-about-python-iterator">    Continue reading
-</a>
+      <p>Python 中有好几种容器或者序列类型：<code>list</code> <code>tuple</code> <code>dict</code> <code>set</code> <code>str</code>，对于这些类型中的内容，往往需要一种方式去遍历获取它们来进行操作。所以 Python 提供了迭代器的类型来对这些类型的内容进行迭代遍历，迭代类型新增于 Python 2.2。</p>
+<p>迭代器类型指的是遵循迭代器协议的类型，对于 Python2.x 版本来说就是实现了 <code>__iter__</code> 和 <code>next</code> 函数的对象类型。如果一个对象实现了迭代器协议，则可以用 <code>for</code> 语句遍历这个对象的内容。其中 <code>__iter__</code> 函数返回一个迭代器对象，而 <code>next</code> 函数则需要返回容器的下一个内容，如果没有下一个则抛出 StopIteration 异常，这个异常在 <code>for ... in</code> 语句中将会被捕获然后结束迭代。迭代器协议详细内容可以查看 <a href="https://www.python.org/dev/peps/pep-0234/">PEP234</a> 。Python3.x 将 <code>next</code> 函数改成了 <code>__next__</code> 函数，以和其他内置的函数保持一致的双下划线风格。</p>
+<p>以前看迭代器协议的时候，经常可以看到这样一个实现：</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Reverse</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+</pre></div>
+
+
+<p>最近看到了这么一个写法：</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IterObj</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+
+<p>这个写法没有 <code>next</code> 函数了，初看起来好像没有完全实现迭代器协议的样子，但是仔细考虑下的话，<code>__iter__</code> 函数内部调用了内置函数 <code>iter</code> ，实际上是返回了一个迭代器对象，而这个迭代器对象当然是实现了迭代器协议的。所以第二种写法也是完全可以的，并且对比第一种写法来说更加简单。</p>
+<p>在官方文档 <a href="https://docs.python.org/2/library/stdtypes.html?highlight=iterator#iterator-types">迭代器类型</a> 中可以看到，对于 <code>list</code> <code>dict</code> 等容器对象来说，它们的 <code>__iter__</code> 函数返回的不是其自身，而是一个迭代器对象： <code>container.__iter__()</code> 。所以当一个容器对象需要提供迭代的功能的时候，不是把这个容器对象变成一个迭代器对象，而是返回一个迭代器对象，将迭代的功能委托给这个迭代器对象。所以上面两种写法的区别在于一个是实现了迭代器对象，一个是实现了可迭代的容器对象。所以第二种写法如果稍稍微修改下：</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IterObj</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Reverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+
+<p>这样就利用了之前定义的迭代器对象 <code>Reverse</code> 来给对象 <code>IterObj</code> 提供了反向迭代的功能。可以看到，这样的处理方式将迭代的逻辑和容器对象分离了，更加的灵活，容器对象本身也更加精简。</p>
+<p>Python 的迭代器协议统一了  Python 中容器对象进行迭代的方式，另一方面来说，也为用户自定义类型添加迭代的功能添加了方便的实现方式，所以无论是从语言的标准化来说还是从用户使用角度的来说都是非常有用的一个协议。</p>
   </div>
   <hr />
 </article>
@@ -101,10 +142,37 @@
     </p>
   </header>
   <div>
-      
-      <br>
-      <a class="btn" href="http://blog.tonychow.me/corepython-reading-notes-how-day7.html#corepython-reading-notes-how-day7">    Continue reading
-</a>
+      <p>今天把剩下的 20-23 章的内容阅读完毕了，这几章也是与 Python 相关的高级内容，包括 Web 编程，数据库接口和 Python 扩展等内容，下面稍微总结下每章的内容。</p>
+<h3>第二十章：Web 编程</h3>
+<p>这一章所谓的 Web 编程内容实际上讲的是利用 urllib 模块进行的 Web 相关的编程，同时也讲到了利用 cgi 模块进行的
+原始的 cgi 编程。从内容来说的话主要介绍了 urllib 和 cgi 模块的一些使用。cgi 是比较早期的服务器处理客户端的
+请求的方式，目前的 Python Web 编程已经不使用这种技术了。但是总的来说，过去和现在的 Web 编程总是接收请求，然后返回数据给客户端的模式。此外，鉴于 HTTP 协议的无状态性质，可以利用 cookie 的方式来在客户端和服务器端进行一定的状态判断。</p>
+<!--more-->
+
+<h3>第二十一章：数据库编程</h3>
+<p>无论是什么形式的应用程序，总会涉及到数据持久化的内容，而相比于普通的文件持久化或者 Python 提供的其他持久化的方式模块，利用数据库进行数据的持久化更适合复杂的数据和大型的系统。这章主要讲了 Python 利用数据库进行数据的持久化的内容，其中的数据库在本章主要指关系型数据库。Python 关于数据库这方面的内容，有一点让我觉得很牛逼的就是，它统一了一个数据库接口，也就是 PEP249 中规定的 Python 的 DB-API。这个规范规定了 Python 在数据库操作方面的一些通用的做法，任何依照这个规定实现的不同数据库的接口库都会表现出一致的操作方式。这样就大大地减少了程序员操作不同数据库的差异程度。虽然不是所有的接口都完全遵守，但是大体上是一致的。下面有几点：</p>
+<p>1.<code>connect</code> 方法连接数据库；</p>
+<p>2.<code>close</code> 方法关闭数据库连接；</p>
+<p>3.<code>commit</code> 方法提交当前事务，对于不支持事务或者默认为立即执行的数据库来说，这个方法什么也不做；</p>
+<p>4.<code>rollback</code> 方法取消当前事务，回滚到之前的状态；</p>
+<p>5.<code>cursor</code> 获得一个游标对象，进行数据库的各种操作；</p>
+<p>6.游标对象具有 <code>execute</code> 和 <code>executemany</code> 方法执行 SQL 查询或者操作；</p>
+<p>7.游标对象具有 <code>fetchone</code>，<code>fetchmany</code> 和 <code>fetchall</code> 方法获取查询的结果；</p>
+<p>8.ORM 框架是指对象关系映射框架，可以将一个对象映射为数据库中的数据内容，向使用者屏蔽了底层的数据库操作；</p>
+<h3>第二十二章：扩展 Python</h3>
+<p>这里讲到的扩展 Python 主要讲的是针对 CPython 的扩展。因为 CPython 的实现语言是 C ，所以我们也可以根据一定的方式，编写 C 语言程序，扩展 CPython 的功能。下面是要点：</p>
+<p>1.扩展 CPython 的程序需要包含 Python.h 头文件；</p>
+<p>2.扩展模块中的函数如果想要在 Python 中被调用，需要进行函数的包装，包装函数的模式为 PyObject * Module_func()；</p>
+<p>3.在 Python 中调用扩展模块的函数时，传入的是 Python 的数据类型，所以需要用 <code>PyArg_Parse*</code> 系列函数将参数转换为 C 的数据类型；</p>
+<p>4.同样地，扩展模块的函数返回的是 C 的数据类型，也需要将这个返回结果通过　<code>Py_BuildValue</code> 进行类型的转换然后再返回；</p>
+<p>5.扩展模块的 C 源码编写好后可以通过 distutils 模块对其进行编译和添加进 Python 的模块目录中；</p>
+<p>6.注意在扩展模块中如果想利用 Python 的对象，需要考虑引用计数的问题；</p>
+<p>7.由于扩展模块的代码最终也会在 Python 解释器中执行，所以同样也会受到 GIL 的影响；</p>
+<h3>第二十三章：其他话题</h3>
+<p>本章的内容是一些杂七杂八的内容，比如利用 Python 编写一个利用其他在线的 Web 服务的脚本程序，利用 COM 接口调用 win 平台的 office 软件还有发送邮件等内容。最后还提到了Jython 的内容，利用 Swing 进行 GUI 开发。</p>
+<h3>最终总结</h3>
+<p>花了大概一周的时间，看完了《Python 核心编程这本书》。这本书从内容来说，还是不错的，一些 Python 基本的东西都有涉及，也讲得很细，也有些经验之谈的东西也值得学习。虽然后面的章节有点凑字数的嫌疑，考虑是到面向的是 Python2.5，而现在 Python 的版本号已经跑到了 2.7 了，所以也能原谅。但是，中文版的质量真心的差强人意。不说遍布全书的各种 typo 问题(甚至连标题也出现 typo)，就一点来说，对于 Python 这种这么注重缩进的语言来说，书里的各种代码缩进乱七八糟真的好意思么。当然，考虑到这本中文版出书背后的各种八卦事情，似乎这种质量也是可以理解的。</p>
+<p>无论如何，看完这本书之后的确对 Python 有了更多的了解，或者说对 Python 的理解更加全面了，所以还是受益匪浅的。</p>
   </div>
   <hr />
 </article>
@@ -122,10 +190,32 @@
     </p>
   </header>
   <div>
-      
-      <br>
-      <a class="btn" href="http://blog.tonychow.me/corepython-reading-notes-how-day6.html#corepython-reading-notes-how-day6">    Continue reading
-</a>
+      <p>今天阅读了 15-19 章的内容，前面的是 Python 中的关键重要内容，而这之后的几章内容都是 Python 的一些高级内容。所谓高级指的是这些章节描述了一些与 Python 相关的比较高的层面的内容，比如正则表达式，网络编程等等内容，下面继续总结今天的阅读笔记。</p>
+<h3>第十五章：正则表达式</h3>
+<p>在文本处理和数据处理中，正则表达式提供了一种模式匹配，搜索文本的方式。正则表达式在很多语言中都被支持，而同样 Python 也提供了对正则表达式支持的模块 re。本章的内容就是 Python 的正则表达式模块，下面是要点：</p>
+<p>1.正则表达式是一个由含有文本和特别字符组成的字符串，通过正则表达式可以描述想要匹配的内容；</p>
+<p>2.<code>re1|re2</code> 表示匹配 re1 或者 re2；</p>
+<p>3.<code>.</code> 表示匹配换行符 '\n' 之外的其他任何字符；</p>
+<p>4.<code>^</code> 表示匹配字符的开始，在 <code>[]</code> 内表示否定；</p>
+<p>5.<code>$</code> 表示匹配字符的结尾；</p>
+<!--more-->
+
+<p>6.<code>*</code> 表示匹配前面的正则表达式零次或者多次；</p>
+<p>7.<code>+</code> 表示匹配前面的正则表达式一次或者多次；</p>
+<p>8.<code>?</code> 表示匹配前面的正则表达式零次或者一次；</p>
+<p>9.<code>{N}</code> 表示匹配前面的正则表达式 N 次；</p>
+<p>10.<code>{M, N}</code> 表示匹配前面的表达式 M 次到 N 次；</p>
+<p>11.<code>[...]</code> 表示匹配里面出现的任意字符，一个；</p>
+<p>12.<code>\d</code> 匹配数字；</p>
+<p>13.<code>\w</code> 匹配数字及字母；</p>
+<p>14.<code>\s</code> 匹配任何空白符；</p>
+<p>15.<code>\b</code> 匹配单词的边界(开始)；</p>
+<p>16.<code>\D</code>，<code>\W</code>，<code>\S</code>，<code>\B</code> 表示和小写相反，即不匹配；</p>
+<p>17.<code>re.search(pattern, string, flags=0)</code> 表示在指定字符串中搜索指定的模式，第一次搜索到则返回匹配结果；</p>
+<p>18.<code>re.match(pattern, string, flags=0)</code> 表示对指定字符串从字符串的开始位置尝试匹配指定模式；</p>
+<p>19.<code>re.findall(pattern, string[, flags])</code> 表示在指定字符串中搜索所有的匹配结果；</p>
+<p>20.<code>re.sub(pattern, repl, string, max=0)</code> 可以对匹配的结果进行替换；</p>
+<p>21.Python 的正则表达式是默认贪婪模式的，在利用通配符的时候会尝试匹配最多的字符，可以用 <code>?</code> 来限制；</p>
   </div>
   <hr />
 </article>
@@ -143,10 +233,35 @@
     </p>
   </header>
   <div>
-      
-      <br>
-      <a class="btn" href="http://blog.tonychow.me/corepython-reading-notes-how-day5.html#corepython-reading-notes-how-day5">    Continue reading
-</a>
+      <p>今天的内容是 Python 中的面向对象和 Python 的执行环境。Python 支持 OOP，虽然很多情况下 Python 直接写函数就可
+可以解决大部分的问题，但是 OOP 也是 Python 中的一个重要内容。下面继续总结笔记。</p>
+<h3>第十三章：面向对象编程</h3>
+<p>本章的内容是 Python 的面向对象编程，具体来说，讲述了 Python 中关于类和 OOP 的具体内容，包括继承，类的方法等
+内容，同时也涉及了 Python 中的特殊方法等类的内容。下面是要点：</p>
+<p>1.Python 中的实例方法都存在着第一个参数为 self 指示这个实例本身；</p>
+<p>2.Python 中的类方法存在着第一个参数为 cls 通常指示这个类本身；</p>
+<p>3.Python 中的 <code>__new__(cls,...)</code> 方法才是构建实例的方法，<code>__init__(self,...)</code> 方法是初始化实例的方法；</p>
+<p>4.Python 中的子类的构造方法会覆盖父类的构造方法，子类不存在构造方法才会调用父类的构造方法；</p>
+<p>5.Python 不支持纯虚函数或者抽象方法；</p>
+<p>6.类属性绑定到类的 <code>__dict__</code> 中，实例属性绑定到实例的 <code>__dict__</code> 中；</p>
+<p>7.如果实例中不存在一个和类属性同名的实例属性，则通过实例访问到的是类的属性，如果进行修改，则会在实例中保存
+一个同名的实例属性存放在实例的 <code>__dict__</code> 中，这个实例属性会屏蔽同名的类属性，注意是屏蔽不是覆盖；</p>
+<p>8.<code>__del__</code> 是实例的析构方法，只有在真正需要对该实例进行释放内存的时候才会调用，在 Python 中也就是意味着该
+实例的引用计数为 0，进行垃圾回收操作；</p>
+<!--more-->
+
+<p>9.类方法和实例方法也是普通的函数，和普通函数不同的是，类方法绑定了类，实例方法绑定了该实例，可以通过类调用
+实例方法，但是此时实例方法没有被绑定，需要显式地传入一个实例作为第一个参数；</p>
+<p>10.静态方法是在类范围内的普通函数，不是绑定的方法，静态方法也可以通过类继承的方式由子类继承；</p>
+<p>11.类的父类保存在 <code>__bases__</code> 类属性中；</p>
+<p>12.可以通过 <code>super(Cls, instance).method()</code> 的方式调用父类中的方法；</p>
+<p>13.Old-style 类的 MRO 顺序是深度优先地搜索，直到找到，New-style 类的 MRO 顺序是广度优先搜索；</p>
+<p>14.可以通过 <code>hasattr</code>，<code>getattr</code>，<code>setattr</code> 和 <code>delattr</code> 等内置函数对类和实例的属性进行操作；</p>
+<p>15.Python 中的属性都是公开的，但是以下划线开始的属性会被混淆修改成为另外一个名称，显示出私有的属性；</p>
+<p>16.字典会占用大量的内存，New-style 类可以通过 <code>__slots__</code> 属性存放实例属性，节省内存；</p>
+<p>17.New-style 的类支持 <code>__getattribute__</code> 方法，实现了这个方法的类在属性被查找的时候都会调用这个方法；</p>
+<p>18.描述符是一种将实现了 <code>__get__</code>，<code>__set__</code>，<code>__delete__</code> 特殊方法的类的实例作为另外一个类的类属性的对象
+；</p>
   </div>
   <hr />
 </article>
@@ -164,115 +279,36 @@
     </p>
   </header>
   <div>
-      
-      <br>
-      <a class="btn" href="http://blog.tonychow.me/corepython-reading-notes-how-day4.html#corepython-reading-notes-how-day4">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="http://blog.tonychow.me/corepython-reading-notes-how-day3.html#corepython-reading-notes-how-day3">Python 核心编程读书笔记 Day3</a></h2>
-    <p>
-          Posted on 日 13 七月 2014 in <a href="http://blog.tonychow.me/category/readings.html">readings</a>
+      <p>今天的主要阅读了 10-12 章的内容，这三章内容主要涉及异常，函数及模块，这几个模块
+也是 Python 中比较重要的基本内容，也有相对于其他语言的独特之处，下面继续总结今
+天的阅读笔记。</p>
+<h3>第十章：错误和异常</h3>
+<p>本章关注的内容是异常。异常在其他语言中也有实现，一般来说，异常处理给程序员提供
+了一种在错误发生的时候对错误进行处理的方式。与其出现错误的时候，直接终止程序的
+执行，不如对错误进行处理之后让程序继续执行。下面是本章要点：</p>
+<p>1.错误引发异常的时候会打断正常的程序处理流程；</p>
+<p>2.Python 异常的检测可以通过 try 语句进行，通常有 try-excetpt，try-finally模式；</p>
+<p>3.try 语句可以带多个 except ，可以处理多种异常，也可以直接多个异常放在一个元组
+中；</p>
+<p>4.except Exception[, reason]；</p>
+<p>5.try-except 同样也支持 else 子句，不发生异常则执行 else 子句的语句；</p>
+<p>6.实现了 <code>__enter_</code> 和 <code>__exit__</code> 方法的类可以利用 with 语句；</p>
+<p>7.<code>__exit__</code> 具有三个参数，exc_type， exc_value， exc_traceback；</p>
+<!--more-->
 
-
-          &#8226;     Tagged with
-
-              <a href="http://blog.tonychow.me/tag/corepython.html">corepython</a>,              <a href="http://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>,              <a href="http://blog.tonychow.me/tag/python.html">python</a>
-        &#8226; 1 min read
-    </p>
-  </header>
-  <div>
-      
-      <br>
-      <a class="btn" href="http://blog.tonychow.me/corepython-reading-notes-how-day3.html#corepython-reading-notes-how-day3">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="http://blog.tonychow.me/corepython-reading-notes-how-day2.html#corepython-reading-notes-how-day2">Python 核心编程读书笔记 Day2</a></h2>
-    <p>
-          Posted on 五 11 七月 2014 in <a href="http://blog.tonychow.me/category/readings.html">readings</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="http://blog.tonychow.me/tag/corepython.html">corepython</a>,              <a href="http://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>,              <a href="http://blog.tonychow.me/tag/python.html">python</a>
-        &#8226; 1 min read
-    </p>
-  </header>
-  <div>
-      
-      <br>
-      <a class="btn" href="http://blog.tonychow.me/corepython-reading-notes-how-day2.html#corepython-reading-notes-how-day2">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="http://blog.tonychow.me/corepython-reading-notes-how-day1.html#corepython-reading-notes-how-day1">Python 核心编程读书笔记 Day1</a></h2>
-    <p>
-          Posted on 四 10 七月 2014 in <a href="http://blog.tonychow.me/category/readings.html">readings</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="http://blog.tonychow.me/tag/corepython.html">corepython</a>,              <a href="http://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>,              <a href="http://blog.tonychow.me/tag/python.html">python</a>
-        &#8226; 1 min read
-    </p>
-  </header>
-  <div>
-      
-      <br>
-      <a class="btn" href="http://blog.tonychow.me/corepython-reading-notes-how-day1.html#corepython-reading-notes-how-day1">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="http://blog.tonychow.me/python-class-object-source-code.html#python-class-object-source-code">Python 类对象与实例对象源码分析</a></h2>
-    <p>
-          Posted on 三 02 十月 2013 in <a href="http://blog.tonychow.me/category/python.html">python</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="http://blog.tonychow.me/tag/python.html">python</a>,              <a href="http://blog.tonychow.me/tag/source-reading.html">source-reading</a>
-        &#8226; 8 min read
-    </p>
-  </header>
-  <div>
-      
-      <br>
-      <a class="btn" href="http://blog.tonychow.me/python-class-object-source-code.html#python-class-object-source-code">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="http://blog.tonychow.me/programming-paradigms-note-one.html#programming-paradigms-note-one">斯坦福大学公开课-编程范式 笔记 1</a></h2>
-    <p>
-          Posted on 日 07 七月 2013 in <a href="http://blog.tonychow.me/category/opencourse.html">opencourse</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="http://blog.tonychow.me/tag/opencourse.html">opencourse</a>,              <a href="http://blog.tonychow.me/tag/programming-paradigms.html">programming-paradigms</a>,              <a href="http://blog.tonychow.me/tag/notes.html">notes</a>
-        &#8226; 2 min read
-    </p>
-  </header>
-  <div>
-      
-      <br>
-      <a class="btn" href="http://blog.tonychow.me/programming-paradigms-note-one.html#programming-paradigms-note-one">    Continue reading
-</a>
+<h3>第十一章：函数和函数式编程</h3>
+<p>函数在 Python 中其实也是一个对象，保存了函数的相关内容，所以在 Python 中，函
+数也和普通的对象一样，可以传给一个函数，也可以作为函数的返回值返回，因此也导
+至了 Python 支持一部分函数式编程的特性。以下是要点：</p>
+<p>1.Python 中的函数即使没有 return 语句，也会默认返回值为 None；</p>
+<p>2.Python 中支持默认参数，但是非默认参数需要在默认参数前；</p>
+<p>3.Python 中函数支持将参数放进元组或者字典中；</p>
+<p>4.<code>func(*args)</code> 的形式是将参数放到元组中；</p>
+<p>5.<code>func(**kwargs)</code> 的形式是将参数放到字典中，表示的是应对参数名及其值；</p>
+<p>6.Python 支持在函数内部定义函数，并且内部函数可以调用包含函数的局部变量；</p>
+<p>7.函数内部是一个局部空间；</p>
+<p>8.装饰器函数接受一个函数返回另外一个装饰后的函数；</p>
+<p>9.装饰器利用 <code>@</code> 来装饰函数，相当于：<code>foo = deco(foo)</code>；</p>
   </div>
 </article>
 

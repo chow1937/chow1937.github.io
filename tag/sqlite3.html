@@ -1,202 +1,105 @@
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-        <meta charset="utf-8" />
-        <title>Tonychow's Blog - sqlite3</title>
-        <link rel="stylesheet" href="http://blog.tonychow.me/theme/css/main.css" />
-        <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom Feed" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+    <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom">
+
+
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+    <meta name="author" content="tonychow" />
+    <meta name="description" content="" />
+<meta property="og:site_name" content="Tonychow's Blog"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Tonychow's Blog"/>
+<meta property="og:description" content=""/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://blog.tonychow.me"/>
+
+  <title>Tonychow's Blog &ndash;     Tag sqlite3
+</title>
+
 </head>
-
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="http://blog.tonychow.me/">Tonychow's Blog </a></h1>
-                <nav><ul>
-                    <li><a href="http://blog.tonychow.me/category/linux.html">linux</a></li>
-                    <li><a href="http://blog.tonychow.me/category/opencourse.html">opencourse</a></li>
-                    <li><a href="http://blog.tonychow.me/category/python.html">python</a></li>
-                    <li><a href="http://blog.tonychow.me/category/readings.html">readings</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="http://blog.tonychow.me/sqlite3-in-python.html">Python 中 sqlite3 模块使用小记</a></h1>
-<footer class="post-info">
-        <abbr class="published" title="2013-05-12T00:00:00+08:00">
-                Published: 日 12 五月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/python.html">python</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/python.html">python</a> <a href="http://blog.tonychow.me/tag/sqlite3.html">sqlite3</a> </p>
-</footer><!-- /.post-info --><h3>前记</h3>
-<p>Python 的标准库中包含了对 sqlite 这个轻巧的数据库的支持模块，也就是 sqlite3 模块。sqlite 数据库的好处我就不多说了，小型而强大，适合很多小型或者中型的数据库应用。最近在使用 sqlite3 模块遇到一些问题，解决了，顺便就记下来。</p>
-<!--more-->
-
-<h3>问题</h3>
-<p>sqlite3 模块的使用很简单，如下这段测试代码，创建一个 person 数据表然后进行一次数据库查询操作。</p>
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env pypthon</span>
-<span class="c1">#_*_ coding: utf-8 _*_</span>
+<body>
+  <aside>
+    <div>
+      <a href="http://blog.tonychow.me">
+        <img src="http://blog.tonychow.me/theme/img/profile.png" alt="" title="">
+      </a>
+      <h1><a href="http://blog.tonychow.me"></a></h1>
 
 
-<span class="kn">import</span> <span class="nn">sqlite3</span>
 
-<span class="n">SCHEMA</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">         CREATE TABLE person (</span>
-<span class="s2">             p_id int,</span>
-<span class="s2">             p_name text</span>
-<span class="s2">         )</span>
-<span class="s2">         &quot;&quot;&quot;</span>
-
-<span class="k">def</span> <span class="nf">init</span><span class="p">():</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;tony&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;jack&#39;</span><span class="p">)]</span>
-    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;:memory:&#39;</span><span class="p">)</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">SCHEMA</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-            <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;insert into person values(?, ?)&#39;</span><span class="p">,</span> <span class="n">person</span><span class="p">)</span>
-        <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-    <span class="k">except</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s1">&#39;error!&#39;</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">conn</span>
+      <ul class="social">
+      </ul>
+    </div>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span><span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">conn</span> <span class="o">=</span> <span class="n">init</span><span class="p">()</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-    <span class="c1">#Do a query.</span>
-    <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;select * from person where p_name = ?&#39;</span><span class="p">,</span> <span class="s1">&#39;tony&#39;</span><span class="p">)</span>
-    <span class="n">person</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
-    <span class="k">print</span> <span class="n">person</span>
-</pre></div>
+  </aside>
+  <main>
 
 
-<p>运行这段代码，抛出了个异常，如下提示：</p>
-<div class="highlight"><pre><span></span>Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
-      File <span class="s2">&quot;sqlite3_test.py&quot;</span>, line <span class="m">32</span>, in &lt;module&gt;
-          c.execute<span class="o">(</span><span class="s1">&#39;select * from person where p_name = ?&#39;</span>, <span class="s1">&#39;tony&#39;</span><span class="o">)</span>
-          sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses <span class="m">1</span>, and there are <span class="m">4</span> supplied.
-</pre></div>
 
 
-<p>很莫名奇妙是不？明明我提供的占位符?绑定只有一个字符串参数，可是却说我提供了四个。再看仔细点，说提供了四个，正好字符串 'tony' 是四个字符。</p>
-<h3>解决</h3>
-<p>翻了翻文档，发现也给出了一个占位符查询的例子如下：</p>
-<div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="err">’</span><span class="n">RHAT</span><span class="err">’</span><span class="p">,)</span>
-<span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="err">’</span><span class="n">SELECT</span> <span class="o">*</span> <span class="n">FROM</span> <span class="n">stocks</span> <span class="n">WHERE</span> <span class="n">symbol</span><span class="o">=</span><span class="err">?’</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-</pre></div>
+<article>
+  <header>
+    <h2><a href="http://blog.tonychow.me/sqlite3-in-python.html#sqlite3-in-python">Python 中 sqlite3 模块使用小记</a></h2>
+    <p>
+          Posted on 日 12 五月 2013 in <a href="http://blog.tonychow.me/category/python.html">python</a>
 
 
-<p>所以将字符参数放到元组中就可以了，修改如下：</p>
-<div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;select * from person where p_name = ?&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;tony&#39;</span><span class="p">))</span>
-</pre></div>
+          &#8226;     Tagged with
+
+              <a href="http://blog.tonychow.me/tag/python.html">python</a>,              <a href="http://blog.tonychow.me/tag/sqlite3.html">sqlite3</a>
+    </p>
+  </header>
+  <div>
+      
+      <br>
+      <a class="btn" href="http://blog.tonychow.me/sqlite3-in-python.html#sqlite3-in-python">    Continue reading
+</a>
+  </div>
+</article>
+
+  <div class="pagination">
+  </div>
 
 
-<p>结果依旧是抛出了同样的异常。再仔细看下，漏了个','，于是加上：</p>
-<div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;select * from person where p_name = ?&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;tony&#39;</span><span class="p">,))</span>
-</pre></div>
 
 
-<p>这次终于得到最终的结果了,其中的字符为 unicode 类型：</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;tony&#39;</span><span class="p">)</span>
-</pre></div>
+    <footer>
+<p>&copy; tonychow </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
 
 
-<h3>原因</h3>
-<p>但是为什么？ Python 中的 sqlite3 模块提供了对 sqlite 数据操作的 API，执行查询的函数是在 sqlite3 模块源码中定义的，很明显想要知道为啥，最好的方式是去看 sqlite3 模块的源码。我手上的 Python 源码是 Python-2.7.4，在源码 Python-2.7.4/Modules/_sqlite/cursor.c 的函数 PyObject<em> _pysqlite_query_execute(pysqlite_Cursor</em> self, int multiple, PyObject* args) 中 497-529 行：</p>
-<div class="highlight"><pre><span></span><span class="p">...</span>
-
-<span class="cm">/* execute() */</span>
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">PyArg_ParseTuple</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="s">&quot;O|O&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">operation</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">second_argument</span><span class="p">))</span> <span class="p">{</span>
-    <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">PyString_Check</span><span class="p">(</span><span class="n">operation</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">PyUnicode_Check</span><span class="p">(</span><span class="n">operation</span><span class="p">))</span> <span class="p">{</span>
-    <span class="n">PyErr_SetString</span><span class="p">(</span><span class="n">PyExc_ValueError</span><span class="p">,</span> <span class="s">&quot;operation parameter must be str or unicode&quot;</span><span class="p">);</span>
-    <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="n">parameters_list</span> <span class="o">=</span> <span class="n">PyList_New</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">parameters_list</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="n">second_argument</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">second_argument</span> <span class="o">=</span> <span class="n">PyTuple_New</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">second_argument</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="n">Py_INCREF</span><span class="p">(</span><span class="n">second_argument</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">PyList_Append</span><span class="p">(</span><span class="n">parameters_list</span><span class="p">,</span> <span class="n">second_argument</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">Py_DECREF</span><span class="p">(</span><span class="n">second_argument</span><span class="p">);</span>
-    <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="n">Py_DECREF</span><span class="p">(</span><span class="n">second_argument</span><span class="p">);</span>
-
-<span class="n">parameters_iter</span> <span class="o">=</span> <span class="n">PyObject_GetIter</span><span class="p">(</span><span class="n">parameters_list</span><span class="p">);</span>
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">parameters_iter</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">...</span>
-</pre></div>
 
 
-<p>从这段源码中可以看到这段代码将参数 args 解析成为 Python 的一个元组作为 parameters_list ，然后最这个得到的元组进行 iter 操作，不断地读取这个元组的元素作为参数，而 Python 中对一个字符串进行 parse tuple 会怎样？我觉得 PyArg_ParseTuple 这个函数的操作和以下代码会是类似的：</p>
-<div class="highlight"><pre><span></span><span class="o">...</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">tuple</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
-<span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">)</span>
-<span class="o">...</span>
-</pre></div>
 
-
-<p>所以现在我们可以看到我们的答案了，sqlite3 模块中，cursor 对象的 execute 方法会接受两个参数，第二个参数会被 PyArg_ParseTuple 函数转化成为 Python中 的 tuple。而对一个字符进行 tuple parse 导致的结果是将这个字符串的每个字符作为 tuple 的一个元素，所以上面抛出错误的时候提示的提供了四个所以错误也可以理解了。那为什么'('tony')'同样是错误呢？如下：</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">((</span><span class="s1">&#39;tony&#39;</span><span class="p">))</span>
-<span class="o">&lt;</span><span class="nb">type</span> <span class="s1">&#39;str&#39;</span><span class="o">&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">((</span><span class="s1">&#39;tony&#39;</span><span class="p">,))</span>
-<span class="o">&lt;</span><span class="nb">type</span> <span class="s1">&#39;tuple&#39;</span><span class="o">&gt;</span>
-</pre></div>
-
-
-<p>很明显，('tony')是一个 str 也就是一个字符串，相当于是 'tony'，而 ('tony',) 才是一个单元素的 tuple 。同样，因为：</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">tuple</span><span class="p">([</span><span class="s1">&#39;tony&#39;</span><span class="p">])</span>
-<span class="p">(</span><span class="s1">&#39;tony&#39;</span><span class="p">,)</span>
-</pre></div>
-
-
-<p>所以如果那一行查询执行改为：</p>
-<div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;select * from person where p_name = ?&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;tony&#39;</span><span class="p">])</span>
-</pre></div>
-
-
-<p>同样也是可以执行成功的。</p>                </article>
-            </aside><!-- /#featured -->
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-                            <li><a href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
-
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Tonychow's Blog ",
+  "url" : "http://blog.tonychow.me",
+  "image": "",
+  "description": ""
+}
+</script>
 </body>
 </html>

@@ -1,138 +1,105 @@
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-        <meta charset="utf-8" />
-        <title>Tonychow's Blog - class</title>
-        <link rel="stylesheet" href="http://blog.tonychow.me/theme/css/main.css" />
-        <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom Feed" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+    <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom">
+
+
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+    <meta name="author" content="tonychow" />
+    <meta name="description" content="" />
+<meta property="og:site_name" content="Tonychow's Blog"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Tonychow's Blog"/>
+<meta property="og:description" content=""/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://blog.tonychow.me"/>
+
+  <title>Tonychow's Blog &ndash;     Tag class
+</title>
+
 </head>
-
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="http://blog.tonychow.me/">Tonychow's Blog </a></h1>
-                <nav><ul>
-                    <li><a href="http://blog.tonychow.me/category/linux.html">linux</a></li>
-                    <li><a href="http://blog.tonychow.me/category/opencourse.html">opencourse</a></li>
-                    <li><a href="http://blog.tonychow.me/category/python.html">python</a></li>
-                    <li><a href="http://blog.tonychow.me/category/readings.html">readings</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="http://blog.tonychow.me/class-in-python.html">Python 中的 New-style 和 Old-style classes</a></h1>
-<footer class="post-info">
-        <abbr class="published" title="2013-04-06T00:00:00+08:00">
-                Published: 六 06 四月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/python.html">python</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/python.html">python</a> <a href="http://blog.tonychow.me/tag/class.html">class</a> </p>
-</footer><!-- /.post-info --><h3>使用 super() 的错误</h3>
-<p>super 函数是 Python 中的一个内置函数,提供对继承的类的函数调用,特别是在子类中被 overridden 的父类函数,比如 </p>
-<div class="highlight"><pre><span></span><span class="fm">__init__</span><span class="p">()</span>
-</pre></div>
+<body>
+  <aside>
+    <div>
+      <a href="http://blog.tonychow.me">
+        <img src="http://blog.tonychow.me/theme/img/profile.png" alt="" title="">
+      </a>
+      <h1><a href="http://blog.tonychow.me"></a></h1>
 
 
-<p>最近在使用 super 函数的时候出现了个错误,例如下:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
-<span class="o">...</span>     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="o">...</span>         <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="o">...</span> 
-<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Next</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<span class="o">...</span>     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="o">...</span>         <span class="nb">super</span><span class="p">(</span><span class="n">Next</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-<span class="o">...</span> 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">Next</span><span class="p">()</span>
-<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">3</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__init__</span>
-<span class="ne">TypeError</span><span class="p">:</span> <span class="n">must</span> <span class="n">be</span> <span class="nb">type</span><span class="p">,</span> <span class="ow">not</span> <span class="n">classobj</span>
-</pre></div>
+
+      <ul class="social">
+      </ul>
+    </div>
 
 
-<!--more-->
-
-<p>可以看到抛出了参数类型错误的错误.一开始完全不知所措,然后将出错信息 google 了一下,找到了解决方式:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="o">...</span>     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="o">...</span>         <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="o">...</span> 
-<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Next</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<span class="o">...</span>     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="o">...</span>         <span class="nb">super</span><span class="p">(</span><span class="n">Next</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-<span class="o">...</span> 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">Next</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span><span class="o">.</span><span class="n">num</span>
-<span class="mi">1</span>
-<span class="o">&gt;&gt;&gt;</span>
-</pre></div>
+  </aside>
+  <main>
 
 
-<p>简单地将 Base 继承 object 就可以解决这个错误.其实这是 Python 中的 NewStyle classes 和 OldStyle classes 而导致的一个问题. super() 函数只适用于 NewStyle classes.</p>
-<h3>Newstyle 和 Oldstyle</h3>
-<p>Python 中,直至 Python2.1 ,类和类型是两种不相关的概念,例如:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Test</span><span class="p">:</span>
-<span class="o">...</span>     <span class="k">pass</span>
-<span class="o">...</span> 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">Test</span><span class="p">()</span><span class="o">.</span><span class="vm">__class__</span>
-<span class="o">&lt;</span><span class="k">class</span> <span class="nc">__main__</span><span class="o">.</span><span class="n">Test</span> <span class="n">at</span> <span class="mh">0xb77373ec</span><span class="o">&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">Test</span><span class="p">())</span>
-<span class="o">&lt;</span><span class="nb">type</span> <span class="s1">&#39;instance&#39;</span><span class="o">&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">Test</span><span class="p">()))</span>
-<span class="o">&lt;</span><span class="nb">type</span> <span class="s1">&#39;type&#39;</span><span class="o">&gt;</span>
-<span class="o">&gt;&gt;&gt;</span>
-</pre></div>
 
 
-<p>在这里 Test 类是 Oldstyle 的类.可以看到,Test 类的一个实例,它的类是 Test,但是类型却是 instance.这是因为 Oldstyle 的类与类型是不统一的概念, Oldstyle 类的实例是独立于它们的类,由一个 Python 内置类型 instance 实现的.</p>
-<p>从2.2开始, Python 开始使用 New-style 类来统一类和类型.对于一个 New-style 的类,它的实例的类型和类都是一致的.为了兼容之前的代码,在 Python2.2 之后,默认的类定义还是 Old-style 的类.而一个 New-style 的类可以通过继承一个 New-style 的类或者在类继承中最顶端继承 object 来实现,如下:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="o">...</span>     <span class="k">pass</span>
-<span class="o">...</span> 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">Test</span><span class="p">()</span><span class="o">.</span><span class="vm">__class__</span>
-<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">__main__</span><span class="o">.</span><span class="n">Test</span><span class="s1">&#39;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">Test</span><span class="p">())</span>
-<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">__main__</span><span class="o">.</span><span class="n">Test</span><span class="s1">&#39;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">Test</span><span class="p">()))</span>
-<span class="o">&lt;</span><span class="nb">type</span> <span class="s1">&#39;type&#39;</span><span class="o">&gt;</span>
-<span class="o">&gt;&gt;&gt;</span>
-</pre></div>
+<article>
+  <header>
+    <h2><a href="http://blog.tonychow.me/class-in-python.html#class-in-python">Python 中的 New-style 和 Old-style classes</a></h2>
+    <p>
+          Posted on 六 06 四月 2013 in <a href="http://blog.tonychow.me/category/python.html">python</a>
 
 
-<p>New-style 类的提出是为了统一 Python的 对象模型.在 Python3 中,Old-style 类已经完全移除了.</p>
-<p>参考资料:</p>
-<ul>
-<li>http://docs.python.org/2/library/functions.html#super</li>
-<li>http://docs.python.org/2/reference/datamodel.html#newstyle</li>
-<li>http://stackoverflow.com/questions/9698614/super-raises-typeerror-must-be-type-not-classobj-for-new-style-class</li>
-<li>http://stackoverflow.com/questions/9699591/instance-is-an-object-but-class-is-not-a-subclass-of-object-how-is-this-po/9699961#9699961</li>
-</ul>                </article>
-            </aside><!-- /#featured -->
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-                            <li><a href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+          &#8226;     Tagged with
 
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+              <a href="http://blog.tonychow.me/tag/python.html">python</a>,              <a href="http://blog.tonychow.me/tag/class.html">class</a>
+    </p>
+  </header>
+  <div>
+      
+      <br>
+      <a class="btn" href="http://blog.tonychow.me/class-in-python.html#class-in-python">    Continue reading
+</a>
+  </div>
+</article>
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
+  <div class="pagination">
+  </div>
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
 
+
+
+    <footer>
+<p>&copy; tonychow </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Tonychow's Blog ",
+  "url" : "http://blog.tonychow.me",
+  "image": "",
+  "description": ""
+}
+</script>
 </body>
 </html>

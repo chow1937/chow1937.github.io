@@ -1,46 +1,79 @@
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-        <meta charset="utf-8" />
-        <title>关于 Python iterator 协议的一点思考</title>
-        <link rel="stylesheet" href="http://blog.tonychow.me/theme/css/main.css" />
-        <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom Feed" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+    <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom">
+
+
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="tonychow" />
+<meta name="description" content="" />
+<meta name="keywords" content="python, iterator, thoughts">
+<meta property="og:site_name" content="Tonychow's Blog"/>
+<meta property="og:title" content="关于 Python iterator 协议的一点思考"/>
+<meta property="og:description" content=""/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://blog.tonychow.me/thoughts-about-python-iterator.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2015-04-06 00:00:00+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://blog.tonychow.me/author/tonychow.html">
+<meta property="article:section" content="python"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="iterator"/>
+<meta property="article:tag" content="thoughts"/>
+<meta property="og:image" content="">
+
+  <title>Tonychow's Blog &ndash; 关于 Python iterator 协议的一点思考</title>
+
 </head>
+<body>
+  <aside>
+    <div>
+      <a href="http://blog.tonychow.me">
+        <img src="http://blog.tonychow.me/theme/img/profile.png" alt="" title="">
+      </a>
+      <h1><a href="http://blog.tonychow.me"></a></h1>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="http://blog.tonychow.me/">Tonychow's Blog </a></h1>
-                <nav><ul>
-                    <li><a href="http://blog.tonychow.me/category/linux.html">linux</a></li>
-                    <li><a href="http://blog.tonychow.me/category/opencourse.html">opencourse</a></li>
-                    <li class="active"><a href="http://blog.tonychow.me/category/python.html">python</a></li>
-                    <li><a href="http://blog.tonychow.me/category/readings.html">readings</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="http://blog.tonychow.me/thoughts-about-python-iterator.html" rel="bookmark"
-           title="Permalink to 关于 Python iterator 协议的一点思考">关于 Python iterator 协议的一点思考</a></h1>
-    </header>
 
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2015-04-06T00:00:00+08:00">
-                Published: 一 06 四月 2015
-        </abbr>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/python.html">python</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/python.html">python</a> <a href="http://blog.tonychow.me/tag/iterator.html">iterator</a> <a href="http://blog.tonychow.me/tag/thoughts.html">thoughts</a> </p>
-</footer><!-- /.post-info -->      <p>Python 中有好几种容器或者序列类型：<code>list</code> <code>tuple</code> <code>dict</code> <code>set</code> <code>str</code>，对于这些类型中的内容，往往需要一种方式去遍历获取它们来进行操作。所以 Python 提供了迭代器的类型来对这些类型的内容进行迭代遍历，迭代类型新增于 Python 2.2。</p>
+      <ul class="social">
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="thoughts-about-python-iterator">关于 Python iterator 协议的一点思考</h1>
+    <p>
+          Posted on 一 06 四月 2015 in <a href="http://blog.tonychow.me/category/python.html">python</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>Python 中有好几种容器或者序列类型：<code>list</code> <code>tuple</code> <code>dict</code> <code>set</code> <code>str</code>，对于这些类型中的内容，往往需要一种方式去遍历获取它们来进行操作。所以 Python 提供了迭代器的类型来对这些类型的内容进行迭代遍历，迭代类型新增于 Python 2.2。</p>
 <p>迭代器类型指的是遵循迭代器协议的类型，对于 Python2.x 版本来说就是实现了 <code>__iter__</code> 和 <code>next</code> 函数的对象类型。如果一个对象实现了迭代器协议，则可以用 <code>for</code> 语句遍历这个对象的内容。其中 <code>__iter__</code> 函数返回一个迭代器对象，而 <code>next</code> 函数则需要返回容器的下一个内容，如果没有下一个则抛出 StopIteration 异常，这个异常在 <code>for ... in</code> 语句中将会被捕获然后结束迭代。迭代器协议详细内容可以查看 <a href="https://www.python.org/dev/peps/pep-0234/">PEP234</a> 。Python3.x 将 <code>next</code> 函数改成了 <code>__next__</code> 函数，以和其他内置的函数保持一致的双下划线风格。</p>
 <!--more-->
 
@@ -87,27 +120,39 @@
 
 <p>这样就利用了之前定义的迭代器对象 <code>Reverse</code> 来给对象 <code>IterObj</code> 提供了反向迭代的功能。可以看到，这样的处理方式将迭代的逻辑和容器对象分离了，更加的灵活，容器对象本身也更加精简。</p>
 <p>Python 的迭代器协议统一了  Python 中容器对象进行迭代的方式，另一方面来说，也为用户自定义类型添加迭代的功能添加了方便的实现方式，所以无论是从语言的标准化来说还是从用户使用角度的来说都是非常有用的一个协议。</p>
-    </div><!-- /.entry-content -->
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://blog.tonychow.me/tag/python.html">python</a>
+      <a href="http://blog.tonychow.me/tag/iterator.html">iterator</a>
+      <a href="http://blog.tonychow.me/tag/thoughts.html">thoughts</a>
+    </p>
+  </div>
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-                            <li><a href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+</article>
 
+    <footer>
+<p>&copy; tonychow </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Tonychow's Blog ",
+  "url" : "http://blog.tonychow.me",
+  "image": "",
+  "description": ""
+}
+</script>
 </body>
 </html>

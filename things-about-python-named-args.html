@@ -1,46 +1,77 @@
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-        <meta charset="utf-8" />
-        <title>Python 函数的命名参数相关</title>
-        <link rel="stylesheet" href="http://blog.tonychow.me/theme/css/main.css" />
-        <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom Feed" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+    <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom">
+
+
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="tonychow" />
+<meta name="description" content="" />
+<meta name="keywords" content="python">
+<meta property="og:site_name" content="Tonychow's Blog"/>
+<meta property="og:title" content="Python 函数的命名参数相关"/>
+<meta property="og:description" content=""/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://blog.tonychow.me/things-about-python-named-args.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2013-05-15 00:00:00+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://blog.tonychow.me/author/tonychow.html">
+<meta property="article:section" content="python"/>
+<meta property="article:tag" content="python"/>
+<meta property="og:image" content="">
+
+  <title>Tonychow's Blog &ndash; Python 函数的命名参数相关</title>
+
 </head>
+<body>
+  <aside>
+    <div>
+      <a href="http://blog.tonychow.me">
+        <img src="http://blog.tonychow.me/theme/img/profile.png" alt="" title="">
+      </a>
+      <h1><a href="http://blog.tonychow.me"></a></h1>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="http://blog.tonychow.me/">Tonychow's Blog </a></h1>
-                <nav><ul>
-                    <li><a href="http://blog.tonychow.me/category/linux.html">linux</a></li>
-                    <li><a href="http://blog.tonychow.me/category/opencourse.html">opencourse</a></li>
-                    <li class="active"><a href="http://blog.tonychow.me/category/python.html">python</a></li>
-                    <li><a href="http://blog.tonychow.me/category/readings.html">readings</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="http://blog.tonychow.me/things-about-python-named-args.html" rel="bookmark"
-           title="Permalink to Python 函数的命名参数相关">Python 函数的命名参数相关</a></h1>
-    </header>
 
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-05-15T00:00:00+08:00">
-                Published: 三 15 五月 2013
-        </abbr>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/python.html">python</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/python.html">python</a> </p>
-</footer><!-- /.post-info -->      <h3>起因</h3>
+      <ul class="social">
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="things-about-python-named-args">Python 函数的命名参数相关</h1>
+    <p>
+          Posted on 三 15 五月 2013 in <a href="http://blog.tonychow.me/category/python.html">python</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <h3>起因</h3>
 <p>今天师弟问了一个关于 Python 函数参数的一个问题：</p>
 <div class="highlight"><pre><span></span><span class="c1">#1</span>
 <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="p">[]):</span>
@@ -224,27 +255,37 @@
 
 
 <p>上面第一段代码是 funcobject 的 func_new 中的代码，也就应该是 functions 对象的 <strong>new</strong> 函数代码。可以看到，如果 defaults 不是 None，也就是说有值，而我们上面也提到 Python 中一切都是对象，所以就会对这个对象进行 Py_INCREF 操作，并且将这个 defaults 值设定为 func_defaults。Py_INCREF 操作是什么？从第二段代码可以看到，这是一个宏定义，将参数 op 的 ob_refcnt 值加一。ob_refcnt 是什么？refcnt----reference count，这样明白了，就是将该对象的引用计数值加一。在执行了函数函数之后，该命名函数的缺省值对象并没有被销毁，而是随着该函数对象的存在而存在。对这个缺省之对象的修改当然也会被保留下来。</p>
-    </div><!-- /.entry-content -->
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://blog.tonychow.me/tag/python.html">python</a>
+    </p>
+  </div>
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-                            <li><a href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+</article>
 
+    <footer>
+<p>&copy; tonychow </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Tonychow's Blog ",
+  "url" : "http://blog.tonychow.me",
+  "image": "",
+  "description": ""
+}
+</script>
 </body>
 </html>

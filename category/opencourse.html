@@ -1,137 +1,105 @@
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-        <meta charset="utf-8" />
-        <title>Tonychow's Blog - opencourse</title>
-        <link rel="stylesheet" href="http://blog.tonychow.me/theme/css/main.css" />
-        <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom Feed" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+    <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom">
+
+
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+    <meta name="author" content="tonychow" />
+    <meta name="description" content="" />
+<meta property="og:site_name" content="Tonychow's Blog"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Tonychow's Blog"/>
+<meta property="og:description" content=""/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://blog.tonychow.me"/>
+
+  <title>Tonychow's Blog &ndash;     Category opencourse
+</title>
+
 </head>
-
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="http://blog.tonychow.me/">Tonychow's Blog </a></h1>
-                <nav><ul>
-                    <li><a href="http://blog.tonychow.me/category/linux.html">linux</a></li>
-                    <li class="active"><a href="http://blog.tonychow.me/category/opencourse.html">opencourse</a></li>
-                    <li><a href="http://blog.tonychow.me/category/python.html">python</a></li>
-                    <li><a href="http://blog.tonychow.me/category/readings.html">readings</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="http://blog.tonychow.me/programming-paradigms-note-one.html">斯坦福大学公开课-编程范式 笔记 1</a></h1>
-<footer class="post-info">
-        <abbr class="published" title="2013-07-07T00:00:00+08:00">
-                Published: 日 07 七月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/opencourse.html">opencourse</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/opencourse.html">opencourse</a> <a href="http://blog.tonychow.me/tag/programming-paradigms.html">programming-paradigms</a> <a href="http://blog.tonychow.me/tag/notes.html">notes</a> </p>
-</footer><!-- /.post-info --><h3>前言</h3>
-<p>最近在跟一门斯坦福大学的公开课 <a href="http://see.stanford.edu/see/courseInfo.aspx?coll=2d712634-2bf1-4b55-9a3a-ca9d470755ee">Programming Paradigms</a> ,网易公开课也有其中文翻译版，翻译已经完成了：<a href="http://v.163.com/special/opencourse/paradigms.html">斯坦福大学公开课：编程范式</a>。</p>
-<p>课程内容：</p>
-<blockquote>
-<p>Advanced memory management features of C and C++; the differences between imperative and object-oriented paradigms. The functional paradigm (using LISP) and concurrent programming (using C and C++). Brief survey of other modern languages such as Python, Objective C, and C#.</p>
-</blockquote>
-<!--more-->
-
-<p>首先涉及的是 C/C++ 的高级内存管理，内容包括 C 的各种数据类型的内存布局，malloc 和 free 的实现，等等。然后还有命令式和面向对象，函数式编程等等几种不同的编程范式及他们的差别。</p>
-<p>可以说这些内容应该是属于比较高级的内容。我之前偶尔也会接触到一些，有些书也会讲到，但是在我所在的大学的课堂上，这些内容基本上是不讲授的。在上 C 课程的时候，甚至连指针都语焉不详，更别提有一门专门的课程来讲述这些高级内容。上这个公开课刚好可以完整地补全我对这方面内容的不足，毕竟一个斯坦福大学的教授给你讲解这些内容总比自己看书效果要好得多。</p>
-<p>在这里，我要记下的是在课程中碰到的一些有趣的内容。</p>
-<h3>malloc 与 free</h3>
-<p>我们知道，malloc 函数是 C 中动态分配内存的一个函数，通过这个函数可以在堆中申请一块限定大小的内存使用。对应地，有申请内存函数就有释放内存函数，这个函数就是 free 函数。这两个函数的原型如下：</p>
-<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
-
-<span class="kt">void</span> <span class="o">*</span><span class="nf">malloc</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">free</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">);</span>
-</pre></div>
+<body>
+  <aside>
+    <div>
+      <a href="http://blog.tonychow.me">
+        <img src="http://blog.tonychow.me/theme/img/profile.png" alt="" title="">
+      </a>
+      <h1><a href="http://blog.tonychow.me"></a></h1>
 
 
-<p>通过这两个函数的原型我们可以看到一些信息。malloc 函数的参数是一个 size_t 类型的变量 size ，而 malloc 返回的则是一个 void * 类型的指针。这不意外，因为我们知道通过 malloc 函数分配制定大小的内存成功之后，会将这块内存的首地址作为返回值返回给某个类型的指针变量。而通过 C 的自动类型转换，void * 类型的指针地址将会被转换为该指针变量类型的指针。</p>
-<p>free 函数也是只有一个参数，类型为 void * 的指针变量 ptr ，无返回值。在这里问题出现了， free 函数如果只是接受某块内存的首地址作为参数，那它是如何得知这块内存的大小？或者说，free 函数怎么知道需要被释放的内存到底有多大？这块内存的大小是必要要知道的，因为如果不知道，free 函数是无法准确地将要释放的内存释放掉，也许会将后面接着的不允许释放的内存也释放掉，也许还遗留一部分内存没有释放掉。</p>
-<p>所以，编译器，或者操作系统，肯定是提供了一种机制来告知 free 函数，这块在堆中的内存的大小。那这个机制是什么呢？</p>
-<h3>malloc 的机制</h3>
-<p>答案并不复杂，那就是在 malloc 函数返回的地址前面，有 4 字节或者 8 字节同样也是属于这块内存的内容，这几个字节中储存了该内存地址的大小。free 函数接受这个地址的时候，会回退一部分地址，根据这个结构的内容，得到该内存块的大小，然后将相关的释放掉。</p>
-<p>以上是公开课中老师的简单讲述，那实际情况是怎样？下面进行一下简单的验证。首先测试的平台是 Fedora17 ，Linux 的内核版本为 3.6.11-5.fc17.i686.PAE ，使用的 C 编译器为 GCC 4.7.2 20120921 (Red Hat 4.7.2-2) 。测试代码如下：</p>
-<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+
+      <ul class="social">
+      </ul>
+    </div>
 
 
-<span class="c1">//Test the memory alloc by malloc.</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="o">*</span><span class="n">ptr1</span><span class="p">,</span> <span class="o">*</span><span class="n">ptr2</span><span class="p">,</span> <span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">;</span>
-    <span class="kt">char</span> <span class="o">*</span><span class="n">cptr</span><span class="p">;</span>
-
-    <span class="n">ptr1</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">num1</span><span class="p">;</span>
-    <span class="n">ptr1</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">512</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
-    <span class="n">ptr2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">num2</span><span class="p">;</span>
-    <span class="n">ptr2</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
-    <span class="n">cptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+  </aside>
+  <main>
 
 
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The start of num1 memory address is %x.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ptr1</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Before this address, the value is %d.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The start of num2 memory address is %x.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ptr2</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Before this address, the value is %d.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The start of char memory address is %x.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">cptr</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Before this address, the value is %d.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">((</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">cptr</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
-<span class="p">}</span>
-</pre></div>
 
 
-<p>测试代码并不复杂，简单定义了两个 int 类型的指针变量和一个 char * 类型的指针变量，然后用 malloc 函数分配一定数量的内存，返回的内存块首地址赋值给这三个变量，然后输出这三个内存块首地址前一个位置的值。注意对于 char * 类型的地址，首先强制转换成 int * 类型的再进行 -1 操作。</p>
-<p>代码的输出结果如下所示：</p>
-<div class="highlight"><pre><span></span>╰ ➤ ./a.out 
-The start of num1 memory address is 9922008.
-Before this address, the value is 2057.
-The start of num2 memory address is 9922810.
-Before this address, the value is 4105.
-The start of char memory address is 9923818.
-Before this address, the value is 1033.
-</pre></div>
+<article>
+  <header>
+    <h2><a href="http://blog.tonychow.me/programming-paradigms-note-one.html#programming-paradigms-note-one">斯坦福大学公开课-编程范式 笔记 1</a></h2>
+    <p>
+          Posted on 日 07 七月 2013 in <a href="http://blog.tonychow.me/category/opencourse.html">opencourse</a>
 
 
-<p>通过代码我们可以知道，ptr1 申请的内存块大小为 512  * 4 = 2048，ptr2 申请的内存块大小为 1024 * 4 = 4096，cptr 申请的内存块大小为 1024 * 1 = 1024，以上单位均为字节。根据输出，有如下计算：</p>
-<div class="highlight"><pre><span></span><span class="mi">2057</span> <span class="o">-</span> <span class="mi">2048</span> <span class="o">=</span> <span class="mi">9</span>
-<span class="mi">4105</span> <span class="o">-</span> <span class="mi">4096</span> <span class="o">=</span> <span class="mi">9</span>
-<span class="mi">1033</span> <span class="o">-</span> <span class="mi">1024</span> <span class="o">=</span> <span class="mi">9</span>
-</pre></div>
+          &#8226;     Tagged with
+
+              <a href="http://blog.tonychow.me/tag/opencourse.html">opencourse</a>,              <a href="http://blog.tonychow.me/tag/programming-paradigms.html">programming-paradigms</a>,              <a href="http://blog.tonychow.me/tag/notes.html">notes</a>
+    </p>
+  </header>
+  <div>
+      
+      <br>
+      <a class="btn" href="http://blog.tonychow.me/programming-paradigms-note-one.html#programming-paradigms-note-one">    Continue reading
+</a>
+  </div>
+</article>
+
+  <div class="pagination">
+  </div>
 
 
-<p>可见，如果 malloc 函数返回的地址前一个字节保存了该内存块的整体大小，那可以推测到，其中 9 个字节作为额外的结构，保存了这块内存的信息，以提供给其他函数比如 free 函数利用。当然这只是一个推测，真实的情况需要深入到 glibc 的库的 malloc 和 free 的源码中。</p>
-<p>实际上，老师也说了，不同的编译器的实现是不同的，比如，可以参考下这篇文章：<a href="http://www.cnblogs.com/sinaxyz/archive/2012/08/20/2647631.html">malloc/new函数及malloc()的一种简单原理性实现</a> 。</p>
-<p>参考：</p>
-<ul>
-<li><a href="http://stackoverflow.com/questions/1518711/c-programming-how-does-free-know-how-much-to-free">C programming : How does free know how much to free?</a></li>
-<li><a href="http://c-faq.com/malloc/freesize.html">comp.lang.c FAQ list · Question 7.26</a></li>
-</ul>                </article>
-            </aside><!-- /#featured -->
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-                            <li><a href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
+    <footer>
+<p>&copy; tonychow </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
 
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Tonychow's Blog ",
+  "url" : "http://blog.tonychow.me",
+  "image": "",
+  "description": ""
+}
+</script>
 </body>
 </html>

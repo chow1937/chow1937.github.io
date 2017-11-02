@@ -76,7 +76,7 @@
   <div>
     <p>Python 中有好几种容器或者序列类型：<code>list</code> <code>tuple</code> <code>dict</code> <code>set</code> <code>str</code>，对于这些类型中的内容，往往需要一种方式去遍历获取它们来进行操作。所以 Python 提供了迭代器的类型来对这些类型的内容进行迭代遍历，迭代类型新增于 Python 2.2。</p>
 <p>迭代器类型指的是遵循迭代器协议的类型，对于 Python2.x 版本来说就是实现了 <code>__iter__</code> 和 <code>next</code> 函数的对象类型。如果一个对象实现了迭代器协议，则可以用 <code>for</code> 语句遍历这个对象的内容。其中 <code>__iter__</code> 函数返回一个迭代器对象，而 <code>next</code> 函数则需要返回容器的下一个内容，如果没有下一个则抛出 StopIteration 异常，这个异常在 <code>for ... in</code> 语句中将会被捕获然后结束迭代。迭代器协议详细内容可以查看 <a href="https://www.python.org/dev/peps/pep-0234/">PEP234</a> 。Python3.x 将 <code>next</code> 函数改成了 <code>__next__</code> 函数，以和其他内置的函数保持一致的双下划线风格。</p>
-<!--more-->
+<!-- PELICAN_END_SUMMARY -->
 
 <p>以前看迭代器协议的时候，经常可以看到这样一个实现：</p>
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Reverse</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>

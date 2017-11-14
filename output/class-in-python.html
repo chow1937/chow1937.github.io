@@ -1,46 +1,99 @@
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-        <meta charset="utf-8" />
-        <title>Python 中的 New-style 和 Old-style classes</title>
-        <link rel="stylesheet" href="http://blog.tonychow.me/theme/css/main.css" />
-        <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom Feed" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+    <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/pygments/colorful.min.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom">
+
+
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta name="author" content="tonychow" />
+<meta name="description" content="" />
+<meta name="keywords" content="python, class">
+<meta property="og:site_name" content="Tonychow's Blog"/>
+<meta property="og:title" content="Python 中的 New-style 和 Old-style classes"/>
+<meta property="og:description" content=""/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://blog.tonychow.me/class-in-python.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2013-04-06 00:00:00+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://blog.tonychow.me/author/tonychow.html">
+<meta property="article:section" content="python"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="class"/>
+<meta property="og:image" content="/images/avatar.jpg">
+
+  <title>Tonychow's Blog &ndash; Python 中的 New-style 和 Old-style classes</title>
+
 </head>
+<body>
+  <aside>
+    <div>
+      <a href="http://blog.tonychow.me">
+        <img src="/images/avatar.jpg" alt="" title="">
+      </a>
+      <h1><a href="http://blog.tonychow.me"></a></h1>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="http://blog.tonychow.me/">Tonychow's Blog </a></h1>
-                <nav><ul>
-                    <li><a href="http://blog.tonychow.me/category/linux.html">linux</a></li>
-                    <li><a href="http://blog.tonychow.me/category/opencourse.html">opencourse</a></li>
-                    <li class="active"><a href="http://blog.tonychow.me/category/python.html">python</a></li>
-                    <li><a href="http://blog.tonychow.me/category/readings.html">readings</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="http://blog.tonychow.me/class-in-python.html" rel="bookmark"
-           title="Permalink to Python 中的 New-style 和 Old-style classes">Python 中的 New-style 和 Old-style classes</a></h1>
-    </header>
+<p>Go/Python backend developer</p>
 
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-04-06T00:00:00+08:00">
-                Published: 六 06 四月 2013
-        </abbr>
+      <ul class="social">
+        <li><a class="sc-github" href="https://github.com/chow1937" target="_blank"><i class="fa fa-github"></i></a></li>
+      </ul>
+    </div>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/python.html">python</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/python.html">python</a> <a href="http://blog.tonychow.me/tag/class.html">class</a> </p>
-</footer><!-- /.post-info -->      <h3>使用 super() 的错误</h3>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="http://blog.tonychow.me">    Home
+</a>
+
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+      <a href="http://blog.tonychow.me/feeds/all.atom.xml">    Atom
+</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+    <h1 id="class-in-python">Python 中的 New-style 和 Old-style classes</h1>
+    <p>
+          Posted on 六 06 四月 2013 in <a href="http://blog.tonychow.me/category/python.html">python</a>
+
+
+        &#8226; 1 min read
+    </p>
+  </header>
+
+
+  <div>
+    <h3>使用 super() 的错误</h3>
 <p>super 函数是 Python 中的一个内置函数,提供对继承的类的函数调用,特别是在子类中被 overridden 的父类函数,比如 </p>
 <div class="highlight"><pre><span></span><span class="fm">__init__</span><span class="p">()</span>
 </pre></div>
@@ -120,27 +173,51 @@
 <li>http://stackoverflow.com/questions/9698614/super-raises-typeerror-must-be-type-not-classobj-for-new-style-class</li>
 <li>http://stackoverflow.com/questions/9699591/instance-is-an-object-but-class-is-not-a-subclass-of-object-how-is-this-po/9699961#9699961</li>
 </ul>
-    </div><!-- /.entry-content -->
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://blog.tonychow.me/tag/python.html">python</a>
+      <a href="http://blog.tonychow.me/tag/class.html">class</a>
+    </p>
+  </div>
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-                            <li><a href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+</article>
 
+    <footer>
+<p>
+  &copy; tonychow 2017 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Tonychow's Blog ",
+  "url" : "http://blog.tonychow.me",
+  "image": "/images/avatar.jpg",
+  "description": "tonychow's Thoughts and Writings"
+}
+</script>
 </body>
 </html>

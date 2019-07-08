@@ -4,13 +4,13 @@
 <head>
   <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/stylesheet/style.min.css">
+    <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/stylesheet/style.min.css">
 
-  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/pygments/colorful.min.css">
-  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/pygments/colorful.min.css">
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/font-awesome.min.css">
 
 
-    <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom">
+    <link href="https://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom">
 
 
 
@@ -35,7 +35,7 @@
 <meta property="og:title" content="Tonychow's Blog"/>
 <meta property="og:description" content="tonychow's Thoughts and Writings"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="http://blog.tonychow.me"/>
+<meta property="og:url" content="https://blog.tonychow.me"/>
 <meta property="og:image" content="/images/avatar.jpg">
 
   <title>Tonychow's Blog</title>
@@ -44,10 +44,10 @@
 <body>
   <aside>
     <div>
-      <a href="http://blog.tonychow.me">
+      <a href="https://blog.tonychow.me">
         <img src="/images/avatar.jpg" alt="" title="">
       </a>
-      <h1><a href="http://blog.tonychow.me"></a></h1>
+      <h1><a href="https://blog.tonychow.me"></a></h1>
 
 <p>Go/Python backend developer</p>
 
@@ -61,14 +61,14 @@
   <main>
 
     <nav>
-      <a href="http://blog.tonychow.me">    Home
+      <a href="https://blog.tonychow.me">    Home
 </a>
 
       <a href="/archives.html">Archives</a>
       <a href="/categories.html">Categories</a>
       <a href="/tags.html">Tags</a>
 
-      <a href="http://blog.tonychow.me/feeds/all.atom.xml">    Atom
+      <a href="https://blog.tonychow.me/feeds/all.atom.xml">    Atom
 </a>
 
     </nav>
@@ -77,14 +77,110 @@
 
 <article>
   <header>
-    <h2><a href="http://blog.tonychow.me/syscall-fork-in-linux.html#syscall-fork-in-linux">Linux中fork系统调用分析</a></h2>
+    <h2><a href="https://blog.tonychow.me/programming-paradigms-note-one.html#programming-paradigms-note-one">斯坦福大学公开课-编程范式 笔记 1</a></h2>
     <p>
-          Posted on 四 27 六月 2013 in <a href="http://blog.tonychow.me/category/linux.html">linux</a>
+          Posted on 日 07 七月 2013 in <a href="https://blog.tonychow.me/category/opencourse.html">opencourse</a>
 
 
           &#8226;     Tagged with
 
-              <a href="http://blog.tonychow.me/tag/linux.html">linux</a>,              <a href="http://blog.tonychow.me/tag/system-call.html">system-call</a>,              <a href="http://blog.tonychow.me/tag/fork.html">fork</a>,              <a href="http://blog.tonychow.me/tag/source-reading.html">source-reading</a>
+              <a href="https://blog.tonychow.me/tag/opencourse.html">opencourse</a>,              <a href="https://blog.tonychow.me/tag/programming-paradigms.html">programming-paradigms</a>,              <a href="https://blog.tonychow.me/tag/notes.html">notes</a>
+        &#8226; 2 min read
+    </p>
+  </header>
+  <div>
+      <h3>前言</h3>
+<p>最近在跟一门斯坦福大学的公开课 <a href="http://see.stanford.edu/see/courseInfo.aspx?coll=2d712634-2bf1-4b55-9a3a-ca9d470755ee">Programming Paradigms</a> ,网易公开课也有其中文翻译版，翻译已经完成了：<a href="http://v.163.com/special/opencourse/paradigms.html">斯坦福大学公开课：编程范式</a>。</p>
+<p>课程内容：</p>
+<blockquote>
+<p>Advanced memory management features of C and C++; the differences between imperative and object-oriented paradigms. The functional paradigm (using LISP) and concurrent programming (using C and C++). Brief survey of other modern languages such as Python, Objective C, and C#.</p>
+</blockquote>
+<!--more-->
+
+<p>首先涉及的是 C/C++ 的高级内存管理，内容包括 C 的各种数据类型的内存布局，malloc 和 free 的实现，等等。然后还有命令式和面向对象，函数式编程等等几种不同的编程范式及他们的差别。</p>
+<p>可以说这些内容应该是属于比较高级的内容。我之前偶尔也会接触到一些，有些书也会讲到，但是在我所在的大学的课堂上，这些内容基本上是不讲授的。在上 C 课程的时候，甚至连指针都语焉不详，更别提有一门专门的课程来讲述这些高级内容。上这个公开课刚好可以完整地补全我对这方面内容的不足，毕竟一个斯坦福大学的教授给你讲解这些内容总比自己看书效果要好得多。</p>
+<p>在这里，我要记下的是在课程中碰到的一些有趣的内容。</p>
+<h3>malloc 与 free</h3>
+<p>我们知道，malloc 函数是 C 中动态分配内存的一个函数，通过这个函数可以在堆中申请一块限定大小的内存使用。对应地，有申请内存函数就有释放内存函数，这个函数就是 free 函数。这两个函数的原型如下：</p>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="o">*</span><span class="nf">malloc</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">free</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">);</span>
+</pre></div>
+
+
+<p>通过这两个函数的原型我们可以看到一些信息。malloc 函数的参数是一个 size_t 类型的变量 size ，而 malloc 返回的则是一个 void * 类型的指针。这不意外，因为我们知道通过 malloc 函数分配制定大小的内存成功之后，会将这块内存的首地址作为返回值返回给某个类型的指针变量。而通过 C 的自动类型转换，void * 类型的指针地址将会被转换为该指针变量类型的指针。</p>
+<p>free 函数也是只有一个参数，类型为 void * 的指针变量 ptr ，无返回值。在这里问题出现了， free 函数如果只是接受某块内存的首地址作为参数，那它是如何得知这块内存的大小？或者说，free 函数怎么知道需要被释放的内存到底有多大？这块内存的大小是必要要知道的，因为如果不知道，free 函数是无法准确地将要释放的内存释放掉，也许会将后面接着的不允许释放的内存也释放掉，也许还遗留一部分内存没有释放掉。</p>
+<p>所以，编译器，或者操作系统，肯定是提供了一种机制来告知 free 函数，这块在堆中的内存的大小。那这个机制是什么呢？</p>
+<h3>malloc 的机制</h3>
+<p>答案并不复杂，那就是在 malloc 函数返回的地址前面，有 4 字节或者 8 字节同样也是属于这块内存的内容，这几个字节中储存了该内存地址的大小。free 函数接受这个地址的时候，会回退一部分地址，根据这个结构的内容，得到该内存块的大小，然后将相关的释放掉。</p>
+<p>以上是公开课中老师的简单讲述，那实际情况是怎样？下面进行一下简单的验证。首先测试的平台是 Fedora17 ，Linux 的内核版本为 3.6.11-5.fc17.i686.PAE ，使用的 C 编译器为 GCC 4.7.2 20120921 (Red Hat 4.7.2-2) 。测试代码如下：</p>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+
+
+<span class="c1">//Test the memory alloc by malloc.</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">ptr1</span><span class="p">,</span> <span class="o">*</span><span class="n">ptr2</span><span class="p">,</span> <span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">cptr</span><span class="p">;</span>
+
+    <span class="n">ptr1</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">num1</span><span class="p">;</span>
+    <span class="n">ptr1</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">512</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+    <span class="n">ptr2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">num2</span><span class="p">;</span>
+    <span class="n">ptr2</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+    <span class="n">cptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The start of num1 memory address is %x.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ptr1</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Before this address, the value is %d.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The start of num2 memory address is %x.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ptr2</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Before this address, the value is %d.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The start of char memory address is %x.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">cptr</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Before this address, the value is %d.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">((</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">cptr</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>测试代码并不复杂，简单定义了两个 int 类型的指针变量和一个 char * 类型的指针变量，然后用 malloc 函数分配一定数量的内存，返回的内存块首地址赋值给这三个变量，然后输出这三个内存块首地址前一个位置的值。注意对于 char * 类型的地址，首先强制转换成 int * 类型的再进行 -1 操作。</p>
+<p>代码的输出结果如下所示：</p>
+<div class="highlight"><pre><span></span>╰ ➤ ./a.out 
+The start of num1 memory address is 9922008.
+Before this address, the value is 2057.
+The start of num2 memory address is 9922810.
+Before this address, the value is 4105.
+The start of char memory address is 9923818.
+Before this address, the value is 1033.
+</pre></div>
+
+
+<p>通过代码我们可以知道，ptr1 申请的内存块大小为 512  * 4 = 2048，ptr2 申请的内存块大小为 1024 * 4 = 4096，cptr 申请的内存块大小为 1024 * 1 = 1024，以上单位均为字节。根据输出，有如下计算：</p>
+<div class="highlight"><pre><span></span><span class="mi">2057</span> <span class="o">-</span> <span class="mi">2048</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="mi">4105</span> <span class="o">-</span> <span class="mi">4096</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="mi">1033</span> <span class="o">-</span> <span class="mi">1024</span> <span class="o">=</span> <span class="mi">9</span>
+</pre></div>
+
+
+<p>可见，如果 malloc 函数返回的地址前一个字节保存了该内存块的整体大小，那可以推测到，其中 9 个字节作为额外的结构，保存了这块内存的信息，以提供给其他函数比如 free 函数利用。当然这只是一个推测，真实的情况需要深入到 glibc 的库的 malloc 和 free 的源码中。</p>
+<p>实际上，老师也说了，不同的编译器的实现是不同的，比如，可以参考下这篇文章：<a href="http://www.cnblogs.com/sinaxyz/archive/2012/08/20/2647631.html">malloc/new函数及malloc()的一种简单原理性实现</a> 。</p>
+<p>参考：</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/1518711/c-programming-how-does-free-know-how-much-to-free">C programming : How does free know how much to free?</a></li>
+<li><a href="http://c-faq.com/malloc/freesize.html">comp.lang.c FAQ list · Question 7.26</a></li>
+</ul>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://blog.tonychow.me/syscall-fork-in-linux.html#syscall-fork-in-linux">Linux中fork系统调用分析</a></h2>
+    <p>
+          Posted on 四 27 六月 2013 in <a href="https://blog.tonychow.me/category/linux.html">linux</a>
+
+
+          &#8226;     Tagged with
+
+              <a href="https://blog.tonychow.me/tag/linux.html">linux</a>,              <a href="https://blog.tonychow.me/tag/system-call.html">system-call</a>,              <a href="https://blog.tonychow.me/tag/fork.html">fork</a>,              <a href="https://blog.tonychow.me/tag/source-reading.html">source-reading</a>
         &#8226; 10 min read
     </p>
   </header>
@@ -99,7 +195,7 @@
 <p>在早期的分时系统和面向进程的操作系统(比如早期的Unix和Linux)中，进程被认为是运行的基本单位。而在面向线程的操作系统(比如Linux2.6或更高版本)中，进程是资源分配的基本单位，而线程才是运行的基本单位。进程是线程的容器，而一个进程中会有一个或多个线程。实际上，在Linux中，对线程和进程有着特别的统一实现，线程只是一种特别的进程。这在下面的分析中将会提及。</p>
 <h4>1.2 进程空间</h4>
 <p>在进程被创建的时候，操作系统同时也给这个进程创建了一个独立的虚拟内存地址空间。这个虚拟内存地址空间使得一个进程存在着它独自使用着所有的内存资源的错觉，而且这也是该进程独立的，完全不受其他进程的干扰，所以这也使得各个进程区分开来。虽然对于一个进程而言，它拥有着很大的一个虚拟内存地址空间，但是这并不意味着每个进程实际上都拥有这么大物理内存。只有在真正使用某一部分内存空间的时候，这一部分虚拟内存才会被映射到物理内存上。此外，一个进程也不是可以访问或者修改这个虚拟内存地址空间的所有地址的。一个典型的进程内存地址空间会被分为 stack，heap，text，data，bss 等多个段，如下图(来自 Unix 高级环境编程)所示，这是一个进程在Intel x86架构机器上面的进程空间的逻辑表示：</p>
-<p><img alt="进程空间" src="http://om3cpjyz4.bkt.clouddn.com/linux-process-memory-model.jpg"></p>
+<p><img alt="进程空间" src="http://om3cpjyz4.bkt.clouddn.com/linux-process-memory-model.jpg" /></p>
 <p>从上图可以看到，从低地址到高地址，有：</p>
 <ul>
 <li>text 段，主要保存着程序的代码对应的机器指令，这也将会是 CPU 所将要执行的机器指令的集合。text 段是可共享的，所以对于经常执行的程序只需保留一份 text 段的拷贝在内存中就可以了。特别地，text 段是只读的，进程无法对 text 段进行修改，这样可以防止一个进程意外地修改它自己的指令。</li>
@@ -113,12 +209,12 @@
 <p>此外，stack 和 heap 段的增长方式是不同的，stack 段的内存是从高地址向低地址增长的，而 heap 段是从低地址向高地址增长的。一般情况下，stack 段的大小是有限制的，而 heap 段的大小是没有限制的，可以一直增长到整个系统的极限。在 stack 和 heap 之间是非常巨大的一个空间。</p>
 <h4>1.3 进程描述符</h4>
 <p>在 Linux 操作系统中，每个进程被创建的时候，内核会给这个进程分配一个进程描述符结构。进程描述符在一般的操作系统概念中也被称为 PCB ，也就是进程控制块。这个进程描述符保存了这个进程的状态，标识符，打开的文件，等待的信号，文件系统等待的资源信息。每个进程描述符都表示了独立的一个进程，而在系统中，每个进程的进程描述都加入到一个双向循环的任务队列中，由操作系统进行进程的调度，决定哪个进程可以占用 CPU ，哪个进程应该让出 CPU 。Linux 中的进程描述符是一个 task_struct 类型的结构体。在 Linux 中，一个进程的进程描述符结构如下图所示：</p>
-<p><img alt="进程描述符" src="http://om3cpjyz4.bkt.clouddn.com/linux-task-struct.jpg"></p>
+<p><img alt="进程描述符" src="http://om3cpjyz4.bkt.clouddn.com/linux-task-struct.jpg" /></p>
 <p>task_struct 是一个相当大的数据结构，同时里面也指向了其他类型的数据结构，比如 thread_info，指向的是这个进程的线程信息; mm_struct 指向了这个进程的内存结构; file_struct 指向了这个进程打开的进程描述符结构，等等。task_struct 是一个复杂的数据结构，我们将会在下面对其进行更详细的分析。</p>
 <h4>1.4 系统调用</h4>
 <p>操作系统内核的代码运行在内核空间中，而应用程序或者我们平时所写的程序是运行在用户空间中的。操作系统对内核空间有相关的限制和保护，以免操作系统内核的空间受到用户应用程序的修改。也就是说只有内核才具有访问内核空间的权限，而应用程序是无法直接访问内核空间的。结合虚拟内存空间和进程空间，我们可以知道，内核空间的页表是常驻在内存中，不会被替换出去的。</p>
 <p>我们上面提到，操作系统将硬件资源和应用程序隔离开来，那应用程序如果需要操作一些硬件或者获取一些资源如何实现？答案是内核提供了一系列的服务比如 IO 或者进程管理等给应用程序调用，也就是通过系统调用( system call )。如下图：</p>
-<p><img alt="系统调用" src="http://om3cpjyz4.bkt.clouddn.com/linux-os.jpg"></p>
+<p><img alt="系统调用" src="http://om3cpjyz4.bkt.clouddn.com/linux-os.jpg" /></p>
 <p>系统调用实际上就是函数调用，也是一系列的指令的集合。和普通的应用程序不同，系统调用是运行在内核空间的。当应用程序调用系统调用的时候，将会从用户空间切换到内核空间运行内核的代码。不同的架构实现内核调用的方式不同，在 i386 架构上，运行在用户空间的应用程序如果需要调用相关的系统调用，可以首先把系统调用编号和参数存放在相关的寄存器中，然后使用0x80这个值来执行软中断 int 。软中断发生之后，内核根据寄存器中的系统调用编号去执行相关的系统调用指令。</p>
 <p>正如上面的图所展示的，应用程序可以直接通过系统调用接口调用内核提供的系统调用，也可以通过调用一些 C 库函数，而这些 C 库函数实际上是通过系统调用接口调用相关的系统调用。C 库函数有些在调用系统调用前后做一些特别的处理，但也有些函数只是单纯地对系统调用做了一层包装。</p>
 <h4>1.5 fork 系统调用</h4>
@@ -584,62 +680,62 @@
 <p>这个程序只是简单地调用了一次 fork ，创建了一个子进程，然后分别在父子进程中查看申请的一块内存的起始地址。此外还添加了一个 while 死循环，方便父子进程的进程控制块进行查看。</p>
 <h4>3.2 相关分析</h4>
 <p>这个程序执行的结果截图如下：</p>
-<p><img alt="执行结果" src="http://om3cpjyz4.bkt.clouddn.com/linux-fork-analysis.jpg"></p>
+<p><img alt="执行结果" src="http://om3cpjyz4.bkt.clouddn.com/linux-fork-analysis.jpg" /></p>
 <p>可以看到，通过对 pid 的值检测，我们让父子进程执行了不同的代码。</p>
 <p>通过 ps aux | grep a.out 指令，我们可以得到父子进程的 PID：</p>
 <div class="highlight"><pre><span></span><span class="nv">$ps</span> aux <span class="p">|</span> grep a.out
-tonychow <span class="m">32261</span> <span class="m">93</span>.8  <span class="m">0</span>.0   <span class="m">3056</span>   <span class="m">272</span> pts/1    R+   <span class="m">10</span>:57   <span class="m">4</span>:11 ./a.out
-tonychow <span class="m">32262</span> <span class="m">93</span>.3  <span class="m">0</span>.0   <span class="m">3056</span>    <span class="m">52</span> pts/1    R+   <span class="m">10</span>:57   <span class="m">4</span>:10 ./a.out
+tonychow <span class="m">32261</span> 93.8  0.0   <span class="m">3056</span>   <span class="m">272</span> pts/1    R+   10:57   4:11 ./a.out
+tonychow <span class="m">32262</span> 93.3  0.0   <span class="m">3056</span>    <span class="m">52</span> pts/1    R+   10:57   4:10 ./a.out
 </pre></div>
 
 
 <p>每个进程，在其生命周期期间，都会在 /proc/ 进程号 目录中保存相关的进程内容，我们可以查看里面的内容对这个进程进行分析。根据上面的运行结果，我们可以通过 ls -al /proc/32261 这个指令来查看该文件夹中的内容：</p>
 <div class="highlight"><pre><span></span><span class="nv">$ls</span> -al /proc/32261
-总用量 <span class="m">0</span>
-dr-xr-xr-x   <span class="m">8</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">10</span>:59 .
-dr-xr-xr-x <span class="m">267</span> root     root     <span class="m">0</span> <span class="m">5</span>月  <span class="m">31</span> <span class="m">12</span>:18 ..
-dr-xr-xr-x   <span class="m">2</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 attr
--rw-r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 autogroup
--r--------   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 auxv
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 cgroup
---w-------   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 clear_refs
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:02 cmdline
--rw-r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 comm
--rw-r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 coredump_filter
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 cpuset
-lrwxrwxrwx   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 cwd -&gt; /home/tonychow/code/c/fork-analysis
--r--------   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:03 environ
-lrwxrwxrwx   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 exe -&gt; /home/tonychow/code/c/fork-analysis/a.out
-dr-x------   <span class="m">2</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">10</span>:59 fd
-dr-x------   <span class="m">2</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 fdinfo
--r--------   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 io
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 latency
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 limits
--rw-r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 loginuid
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 maps
--rw-------   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 mem
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 mountinfo
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 mounts
--r--------   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 mountstats
-dr-xr-xr-x   <span class="m">6</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 net
-dr-x--x--x   <span class="m">2</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 ns
--rw-r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 oom_adj
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 oom_score
--rw-r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 oom_score_adj
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 pagemap
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 personality
-lrwxrwxrwx   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 root -&gt; /
--rw-r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 sched
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 schedstat
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 sessionid
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 smaps
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 stack
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:02 stat
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 statm
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:02 status
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 syscall
-dr-xr-xr-x   <span class="m">3</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 task
--r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">11</span>:06 wchan
+总用量 0
+dr-xr-xr-x   <span class="m">8</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 10:59 .
+dr-xr-xr-x <span class="m">267</span> root     root     <span class="m">0</span> 5月  <span class="m">31</span> 12:18 ..
+dr-xr-xr-x   <span class="m">2</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 attr
+-rw-r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 autogroup
+-r--------   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 auxv
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 cgroup
+--w-------   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 clear_refs
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:02 cmdline
+-rw-r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 comm
+-rw-r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 coredump_filter
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 cpuset
+lrwxrwxrwx   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 cwd -&gt; /home/tonychow/code/c/fork-analysis
+-r--------   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:03 environ
+lrwxrwxrwx   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 exe -&gt; /home/tonychow/code/c/fork-analysis/a.out
+dr-x------   <span class="m">2</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 10:59 fd
+dr-x------   <span class="m">2</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 fdinfo
+-r--------   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 io
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 latency
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 limits
+-rw-r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 loginuid
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 maps
+-rw-------   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 mem
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 mountinfo
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 mounts
+-r--------   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 mountstats
+dr-xr-xr-x   <span class="m">6</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 net
+dr-x--x--x   <span class="m">2</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 ns
+-rw-r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 oom_adj
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 oom_score
+-rw-r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 oom_score_adj
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 pagemap
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 personality
+lrwxrwxrwx   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 root -&gt; /
+-rw-r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 sched
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 schedstat
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 sessionid
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 smaps
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 stack
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:02 stat
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 statm
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:02 status
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 syscall
+dr-xr-xr-x   <span class="m">3</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 task
+-r--r--r--   <span class="m">1</span> tonychow tonychow <span class="m">0</span> 6月  <span class="m">27</span> 11:06 wchan
 </pre></div>
 
 
@@ -647,25 +743,25 @@ dr-xr-xr-x   <span class="m">3</span> tonychow tonychow <span class="m">0</span>
 <div class="highlight"><pre><span></span><span class="nv">$cat</span> /proc/32261/status
 Name:    a.out
 State:  R <span class="o">(</span>running<span class="o">)</span>
-Tgid:   <span class="m">32261</span>
-Pid:    <span class="m">32261</span>
-PPid:   <span class="m">12747</span>
+Tgid:   32261
+Pid:    32261
+PPid:   12747
 ...
 
 <span class="nv">$cat</span> /proc/32262/status
 Name:    a.out
 State:  R <span class="o">(</span>running<span class="o">)</span>
-Tgid:   <span class="m">32262</span>
-Pid:    <span class="m">32262</span>
-PPid:   <span class="m">32261</span>
+Tgid:   32262
+Pid:    32262
+PPid:   32261
 ...
 </pre></div>
 
 
 <p>从上面的结果可以看到，这两个进程都处于 running 状态，而进程32261是进程32262的父进程。接着查看一下内存映射信息：</p>
 <div class="highlight"><pre><span></span><span class="nv">$cat</span> /proc/32261/maps  
-<span class="m">08048000</span>-08049000 r-xp <span class="m">00000000</span> fd:02 <span class="m">20979068</span>   /home/tonychow/code/c/fork-analysis/a.out
-<span class="m">08049000</span>-0804a000 rw-p <span class="m">00000000</span> fd:02 <span class="m">20979068</span>   /home/tonychow/code/c/fork-analysis/a.out
+08048000-08049000 r-xp <span class="m">00000000</span> fd:02 <span class="m">20979068</span>   /home/tonychow/code/c/fork-analysis/a.out
+08049000-0804a000 rw-p <span class="m">00000000</span> fd:02 <span class="m">20979068</span>   /home/tonychow/code/c/fork-analysis/a.out
 4b94d000-4b96c000 r-xp <span class="m">00000000</span> fd:01 <span class="m">793014</span>     /usr/lib/ld-2.15.so
 4b96c000-4b96d000 r--p 0001e000 fd:01 <span class="m">793014</span>     /usr/lib/ld-2.15.so
 4b96d000-4b96e000 rw-p 0001f000 fd:01 <span class="m">793014</span>     /usr/lib/ld-2.15.so
@@ -673,20 +769,20 @@ PPid:   <span class="m">32261</span>
 4bb1b000-4bb1c000 ---p 001ab000 fd:01 <span class="m">809017</span>     /usr/lib/libc-2.15.so
 4bb1c000-4bb1e000 r--p 001ab000 fd:01 <span class="m">809017</span>     /usr/lib/libc-2.15.so
 4bb1e000-4bb1f000 rw-p 001ad000 fd:01 <span class="m">809017</span>     /usr/lib/libc-2.15.so
-4bb1f000-4bb22000 rw-p <span class="m">00000000</span> <span class="m">00</span>:00 <span class="m">0</span> 
-b76a4000-b77a6000 rw-p <span class="m">00000000</span> <span class="m">00</span>:00 <span class="m">0</span> 
-b77be000-b77c0000 rw-p <span class="m">00000000</span> <span class="m">00</span>:00 <span class="m">0</span> 
-b77c0000-b77c1000 r-xp <span class="m">00000000</span> <span class="m">00</span>:00 <span class="m">0</span>          <span class="o">[</span>vdso<span class="o">]</span>
-bf92a000-bf94b000 rw-p <span class="m">00000000</span> <span class="m">00</span>:00 <span class="m">0</span>          <span class="o">[</span>stack<span class="o">]</span>
+4bb1f000-4bb22000 rw-p <span class="m">00000000</span> 00:00 <span class="m">0</span> 
+b76a4000-b77a6000 rw-p <span class="m">00000000</span> 00:00 <span class="m">0</span> 
+b77be000-b77c0000 rw-p <span class="m">00000000</span> 00:00 <span class="m">0</span> 
+b77c0000-b77c1000 r-xp <span class="m">00000000</span> 00:00 <span class="m">0</span>          <span class="o">[</span>vdso<span class="o">]</span>
+bf92a000-bf94b000 rw-p <span class="m">00000000</span> 00:00 <span class="m">0</span>          <span class="o">[</span>stack<span class="o">]</span>
 </pre></div>
 
 
 <p>结合上面程序的输出，可以看到 int 的类型的变量 num 存放在栈中，而通过 malloc 得到的则是存放在堆中。</p>
 <div class="highlight"><pre><span></span><span class="nv">$ls</span> -l /proc/32261/fd
-总用量 <span class="m">0</span>
-lrwx------ <span class="m">1</span> tonychow tonychow <span class="m">64</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">10</span>:59 <span class="m">0</span> -&gt; /dev/pts/1
-lrwx------ <span class="m">1</span> tonychow tonychow <span class="m">64</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">10</span>:59 <span class="m">1</span> -&gt; /dev/pts/1
-lrwx------ <span class="m">1</span> tonychow tonychow <span class="m">64</span> <span class="m">6</span>月  <span class="m">27</span> <span class="m">10</span>:59 <span class="m">2</span> -&gt; /dev/pts/1
+总用量 0
+lrwx------ <span class="m">1</span> tonychow tonychow <span class="m">64</span> 6月  <span class="m">27</span> 10:59 <span class="m">0</span> -&gt; /dev/pts/1
+lrwx------ <span class="m">1</span> tonychow tonychow <span class="m">64</span> 6月  <span class="m">27</span> 10:59 <span class="m">1</span> -&gt; /dev/pts/1
+lrwx------ <span class="m">1</span> tonychow tonychow <span class="m">64</span> 6月  <span class="m">27</span> 10:59 <span class="m">2</span> -&gt; /dev/pts/1
 </pre></div>
 
 
@@ -736,14 +832,14 @@ max realtime timeout      unlimited            unlimited            us
 </article>
 <article>
   <header>
-    <h2><a href="http://blog.tonychow.me/things-about-python-named-args.html#things-about-python-named-args">Python 函数的命名参数相关</a></h2>
+    <h2><a href="https://blog.tonychow.me/things-about-python-named-args.html#things-about-python-named-args">Python 函数的命名参数相关</a></h2>
     <p>
-          Posted on 三 15 五月 2013 in <a href="http://blog.tonychow.me/category/python.html">python</a>
+          Posted on 三 15 五月 2013 in <a href="https://blog.tonychow.me/category/python.html">python</a>
 
 
           &#8226;     Tagged with
 
-              <a href="http://blog.tonychow.me/tag/python.html">python</a>
+              <a href="https://blog.tonychow.me/tag/python.html">python</a>
         &#8226; 2 min read
     </p>
   </header>
@@ -768,14 +864,14 @@ max realtime timeout      unlimited            unlimited            us
 <!--more-->
 
 <p>在 Python 中，赋值是传引用的。一个列表，比如 [1, 2, 3]，或者一个字符串，'tonychow'，这些对象在创建的时候会在内存中分配一段空间。如果将这些对象赋值给一个变量名，那就会导致在 Python 的命名空间中该变量名指向内存中这个对象。对该变量名的操作就是对内存中这个对象的操作。所以如果尝试直接将一个变量 a 赋值给另外一个变量 b ，导致的后果是，命名空间中，这两个变量名 a 和 b 指向内存中同样一个对象，也就是所谓传引用赋值。对其中任意一个变量的操作，实质是对该对象进行操作，所以同样的操作后结果也会可以在另外一个变量中看到。如下：</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; <span class="nv">a</span> <span class="o">=</span> <span class="o">[</span><span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span><span class="o">]</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; <span class="nv">a</span> <span class="o">=</span> <span class="o">[</span>1, 2, 3<span class="o">]</span>
 &gt;&gt;&gt; <span class="nv">b</span> <span class="o">=</span> a
 &gt;&gt;&gt; a.pop<span class="o">()</span>
-<span class="m">3</span>
+3
 &gt;&gt;&gt; b
-<span class="o">[</span><span class="m">1</span>, <span class="m">2</span><span class="o">]</span>
+<span class="o">[</span>1, 2<span class="o">]</span>
 &gt;&gt;&gt; a
-<span class="o">[</span><span class="m">1</span>, <span class="m">2</span><span class="o">]</span>
+<span class="o">[</span>1, 2<span class="o">]</span>
 &gt;&gt;&gt;
 </pre></div>
 
@@ -847,9 +943,9 @@ max realtime timeout      unlimited            unlimited            us
 <span class="s1">&#39;__repr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__setattr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__sizeof__&#39;</span><span class="p">,</span> <span class="s1">&#39;__str__&#39;</span><span class="p">,</span> <span class="s1">&#39;__subclasshook__&#39;</span><span class="p">,</span>
 <span class="s1">&#39;func_closure&#39;</span><span class="p">,</span> <span class="s1">&#39;func_code&#39;</span><span class="p">,</span> <span class="s1">&#39;func_defaults&#39;</span><span class="p">,</span> <span class="s1">&#39;func_dict&#39;</span><span class="p">,</span> <span class="s1">&#39;func_doc&#39;</span><span class="p">,</span>
 <span class="s1">&#39;func_globals&#39;</span><span class="p">,</span> <span class="s1">&#39;func_name&#39;</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="o">.</span><span class="vm">__code__</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="o">.</span><span class="n">__code__</span>
 <span class="o">&lt;</span><span class="n">code</span> <span class="nb">object</span> <span class="n">func</span> <span class="n">at</span> <span class="mh">0xb76c8410</span><span class="p">,</span> <span class="nb">file</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="o">&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="o">.</span><span class="n">__name__</span>
 <span class="s1">&#39;func&#39;</span>
 <span class="o">&gt;&gt;&gt;</span>
 </pre></div>
@@ -859,17 +955,17 @@ max realtime timeout      unlimited            unlimited            us
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
 <span class="o">...</span>     <span class="k">pass</span>
 <span class="o">...</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="o">.</span><span class="vm">__defaults__</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="o">.</span><span class="n">__defaults__</span>
 <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="o">...</span>     <span class="k">pass</span>
 <span class="o">...</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="o">.</span><span class="vm">__defaults__</span> <span class="ow">is</span> <span class="bp">None</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="o">.</span><span class="n">__defaults__</span> <span class="ow">is</span> <span class="bp">None</span>
 <span class="bp">True</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">func_no</span><span class="p">():</span>
 <span class="o">...</span>     <span class="k">pass</span>
 <span class="o">...</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">func_no</span><span class="o">.</span><span class="vm">__defaults__</span> <span class="ow">is</span> <span class="bp">None</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">func_no</span><span class="o">.</span><span class="n">__defaults__</span> <span class="ow">is</span> <span class="bp">None</span>
 <span class="bp">True</span>
 <span class="o">&gt;&gt;&gt;</span>
 </pre></div>
@@ -897,7 +993,7 @@ max realtime timeout      unlimited            unlimited            us
 <span class="o">...</span>     <span class="k">print</span> <span class="s1">&#39;changed_var_addr:&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">l</span><span class="p">))</span>
 <span class="o">...</span>     <span class="k">print</span> <span class="n">l</span>
 <span class="o">...</span> 
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="vm">__defaults__</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">__defaults__</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="il">3077402860L</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="p">()</span>
 <span class="n">default_arg_addr</span><span class="p">:</span><span class="mi">3077402860</span>
@@ -907,7 +1003,7 @@ max realtime timeout      unlimited            unlimited            us
 <span class="n">default_arg_addr</span><span class="p">:</span><span class="mi">3077402860</span>
 <span class="n">changed_var_addr</span><span class="p">:</span><span class="mi">3077402860</span>
 <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="o">.</span><span class="vm">__defaults__</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="o">.</span><span class="n">__defaults__</span>
 <span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],)</span>
 <span class="o">&gt;&gt;&gt;</span>
 </pre></div>
@@ -937,14 +1033,14 @@ max realtime timeout      unlimited            unlimited            us
 </article>
 <article>
   <header>
-    <h2><a href="http://blog.tonychow.me/sqlite3-in-python.html#sqlite3-in-python">Python 中 sqlite3 模块使用小记</a></h2>
+    <h2><a href="https://blog.tonychow.me/sqlite3-in-python.html#sqlite3-in-python">Python 中 sqlite3 模块使用小记</a></h2>
     <p>
-          Posted on 日 12 五月 2013 in <a href="http://blog.tonychow.me/category/python.html">python</a>
+          Posted on 日 12 五月 2013 in <a href="https://blog.tonychow.me/category/python.html">python</a>
 
 
           &#8226;     Tagged with
 
-              <a href="http://blog.tonychow.me/tag/python.html">python</a>,              <a href="http://blog.tonychow.me/tag/sqlite3.html">sqlite3</a>
+              <a href="https://blog.tonychow.me/tag/python.html">python</a>,              <a href="https://blog.tonychow.me/tag/sqlite3.html">sqlite3</a>
         &#8226; 2 min read
     </p>
   </header>
@@ -982,7 +1078,7 @@ max realtime timeout      unlimited            unlimited            us
     <span class="k">return</span> <span class="n">conn</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span><span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span><span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">conn</span> <span class="o">=</span> <span class="n">init</span><span class="p">()</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
     <span class="c1">#Do a query.</span>
@@ -994,9 +1090,9 @@ max realtime timeout      unlimited            unlimited            us
 
 <p>运行这段代码，抛出了个异常，如下提示：</p>
 <div class="highlight"><pre><span></span>Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
-      File <span class="s2">&quot;sqlite3_test.py&quot;</span>, line <span class="m">32</span>, in &lt;module&gt;
+      File <span class="s2">&quot;sqlite3_test.py&quot;</span>, line 32, in &lt;module&gt;
           c.execute<span class="o">(</span><span class="s1">&#39;select * from person where p_name = ?&#39;</span>, <span class="s1">&#39;tony&#39;</span><span class="o">)</span>
-          sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses <span class="m">1</span>, and there are <span class="m">4</span> supplied.
+          sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are <span class="m">4</span> supplied.
 </pre></div>
 
 
@@ -1019,7 +1115,7 @@ max realtime timeout      unlimited            unlimited            us
 
 
 <p>这次终于得到最终的结果了,其中的字符为 unicode 类型：</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;tony&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">u&#39;tony&#39;</span><span class="p">)</span>
 </pre></div>
 
 
@@ -1098,37 +1194,37 @@ max realtime timeout      unlimited            unlimited            us
 </article>
 <article>
   <header>
-    <h2><a href="http://blog.tonychow.me/class-in-python.html#class-in-python">Python 中的 New-style 和 Old-style classes</a></h2>
+    <h2><a href="https://blog.tonychow.me/class-in-python.html#class-in-python">Python 中的 New-style 和 Old-style classes</a></h2>
     <p>
-          Posted on 六 06 四月 2013 in <a href="http://blog.tonychow.me/category/python.html">python</a>
+          Posted on 六 06 四月 2013 in <a href="https://blog.tonychow.me/category/python.html">python</a>
 
 
           &#8226;     Tagged with
 
-              <a href="http://blog.tonychow.me/tag/python.html">python</a>,              <a href="http://blog.tonychow.me/tag/class.html">class</a>
+              <a href="https://blog.tonychow.me/tag/python.html">python</a>,              <a href="https://blog.tonychow.me/tag/class.html">class</a>
         &#8226; 1 min read
     </p>
   </header>
   <div>
       <h3>使用 super() 的错误</h3>
 <p>super 函数是 Python 中的一个内置函数,提供对继承的类的函数调用,特别是在子类中被 overridden 的父类函数,比如 </p>
-<div class="highlight"><pre><span></span><span class="fm">__init__</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><span class="n">__init__</span><span class="p">()</span>
 </pre></div>
 
 
 <p>最近在使用 super 函数的时候出现了个错误,例如下:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
-<span class="o">...</span>     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="o">...</span>         <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="o">...</span> 
 <span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Next</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<span class="o">...</span>     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="o">...</span>         <span class="nb">super</span><span class="p">(</span><span class="n">Next</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="o">...</span>         <span class="nb">super</span><span class="p">(</span><span class="n">Next</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
 <span class="o">...</span> 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">Next</span><span class="p">()</span>
 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
   <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">3</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__init__</span>
+  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">3</span><span class="p">,</span> <span class="ow">in</span> <span class="n">__init__</span>
 <span class="ne">TypeError</span><span class="p">:</span> <span class="n">must</span> <span class="n">be</span> <span class="nb">type</span><span class="p">,</span> <span class="ow">not</span> <span class="n">classobj</span>
 </pre></div>
 
@@ -1137,12 +1233,12 @@ max realtime timeout      unlimited            unlimited            us
 
 <p>可以看到抛出了参数类型错误的错误.一开始完全不知所措,然后将出错信息 google 了一下,找到了解决方式:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="o">...</span>     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="o">...</span>         <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="o">...</span> 
 <span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Next</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<span class="o">...</span>     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="o">...</span>         <span class="nb">super</span><span class="p">(</span><span class="n">Next</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="o">...</span>         <span class="nb">super</span><span class="p">(</span><span class="n">Next</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
 <span class="o">...</span> 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">Next</span><span class="p">()</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span><span class="o">.</span><span class="n">num</span>
@@ -1157,7 +1253,7 @@ max realtime timeout      unlimited            unlimited            us
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Test</span><span class="p">:</span>
 <span class="o">...</span>     <span class="k">pass</span>
 <span class="o">...</span> 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">Test</span><span class="p">()</span><span class="o">.</span><span class="vm">__class__</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Test</span><span class="p">()</span><span class="o">.</span><span class="n">__class__</span>
 <span class="o">&lt;</span><span class="k">class</span> <span class="nc">__main__</span><span class="o">.</span><span class="n">Test</span> <span class="n">at</span> <span class="mh">0xb77373ec</span><span class="o">&gt;</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">Test</span><span class="p">())</span>
 <span class="o">&lt;</span><span class="nb">type</span> <span class="s1">&#39;instance&#39;</span><span class="o">&gt;</span>
@@ -1172,7 +1268,7 @@ max realtime timeout      unlimited            unlimited            us
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="o">...</span>     <span class="k">pass</span>
 <span class="o">...</span> 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">Test</span><span class="p">()</span><span class="o">.</span><span class="vm">__class__</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Test</span><span class="p">()</span><span class="o">.</span><span class="n">__class__</span>
 <span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">__main__</span><span class="o">.</span><span class="n">Test</span><span class="s1">&#39;&gt;</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">Test</span><span class="p">())</span>
 <span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">__main__</span><span class="o">.</span><span class="n">Test</span><span class="s1">&#39;&gt;</span>
@@ -1191,50 +1287,14 @@ max realtime timeout      unlimited            unlimited            us
 <li>http://stackoverflow.com/questions/9699591/instance-is-an-object-but-class-is-not-a-subclass-of-object-how-is-this-po/9699961#9699961</li>
 </ul>
   </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="http://blog.tonychow.me/csapp-reading-notes-abstract.html#csapp-reading-notes-abstract">CSAPP 读书笔记-计算机系统中的抽象-操作系统</a></h2>
-    <p>
-          Posted on 五 05 四月 2013 in <a href="http://blog.tonychow.me/category/readings.html">readings</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="http://blog.tonychow.me/tag/csapp.html">csapp</a>,              <a href="http://blog.tonychow.me/tag/abstract.html">abstract</a>
-        &#8226; 1 min read
-    </p>
-  </header>
-  <div>
-      <h3>初言</h3>
-<p>我们使用着计算机系统提供的种种功能,安装不同的操作系统,使用不同的软件,听歌,上网,看视频,似乎理所当然.我们也知道,信息时代是建立在0和1的基础之上的,我们的计算机系统也是遵循着0和1的二进制.但是这两者是如何关联到一起的?当我们启动一个软件的时候,计算机系统底层是怎样的?我们打开一个网页如此的简单,但是这背后,计算机系统又发生了什么事情?</p>
-<h3>程序的执行</h3>
-<p>如果是计算机系的学生,或者对计算机技术有着兴趣的人,都会知道计算机操作系统的一些概念,也知道一个程序的执行其实到底是怎么一回事.无非就是将一段在硬盘上的二进制代码加载到内存中,然后由CPU执行相关的指令.程序的执行简单来说就是这么一回事,所以一个软件的启动和执行,也就是在这个简单的基础上再加上一些复杂的操作.
-<!--more-->
-更深入点,我们知道操作系统也是软件,计算机关闭的时候操作系统的编译后的可执行对象也是保存在硬盘上.在计算机启动的时候,将操作系统加载到内存上,之后,操作系统就会一直运行直至计算机重新关闭.一般来说,我们将程序运行分为两种状态,用户的应用程序运行在用户态,而操作系统则是运行在内核态.</p>
-<h3>操作系统的抽象</h3>
-<p>计算机系统中的抽象其实应该是涉及两个方面.一个是处理器方面的,处理器的指令集对于硬件的抽象;而另一方面则是操作系统方面的抽象.</p>
-<p>正如上面提及到的,程序运行于两种状态,这是为了安全的考虑,用户态的用户程序是无法直接进行一些直接操作硬件的指令的.比如创建保存一个文件的操作,涉及到了IO操作,而保存在硬盘上也涉及到磁盘的寻道.这些操作完全交由用户来进行一方面是非常的不安全,另一方面,每个人都有自己的实现方式,那将会导致各种混乱的代码.所以,操作系统一般会通过提供一些系统调用函数给用户程序,用户程序通过系统API从而实现对系统代码的调用.而这些系统代码将会进行相关的底层操作.通过系统API,操作系统作为硬件和用户应用程序的中间层,对用户应用程序隐藏了对硬件的操作,将硬件的操作细节抽象为一个个系统调用.</p>
-<p>操作系统的抽象是计算机系统中非常重要的一个概念,总结来说大概有三个方面的抽象:</p>
-<ul>
-<li>文件对于 IO 设备的抽象</li>
-</ul>
-<p>IO 设备包括硬盘等设备,操作系统将这些设备都抽象为文件.比如硬盘上的数据保存是以0和1的方式保存在不同的磁道或者区域中的,操作系统将这些数据抽象成一个个文件.相关的IO操作也抽象成了文件的操作,复杂具体的底层操作隐藏在一个个简单的系统调用函数在之下.</p>
-<ul>
-<li>虚拟内存对于内存和硬盘的抽象</li>
-<li>进程对于处理器,内存和IO设备的抽象</li>
-</ul>
-<p>-EOF-</p>
-  </div>
 </article>
 
   <div class="pagination">
-    <a class="btn" href="http://blog.tonychow.me/index4.html">
+    <a class="btn" href="https://blog.tonychow.me/index4.html">
       <i class="fa fa-angle-left"></i>     Older Posts
 
     </a>
-    <a class="btn float-right" href="http://blog.tonychow.me/index2.html">
+    <a class="btn float-right" href="https://blog.tonychow.me/index2.html">
           Newer Posts
  <i class="fa fa-angle-right"></i>
     </a>
@@ -1271,7 +1331,7 @@ max realtime timeout      unlimited            unlimited            us
   "@context" : "http://schema.org",
   "@type" : "Blog",
   "name": " Tonychow's Blog ",
-  "url" : "http://blog.tonychow.me",
+  "url" : "https://blog.tonychow.me",
   "image": "/images/avatar.jpg",
   "description": "tonychow's Thoughts and Writings"
 }

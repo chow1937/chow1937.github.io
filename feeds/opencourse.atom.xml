@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Tonychow's Blog - opencourse</title><link href="http://blog.tonychow.me/" rel="alternate"></link><link href="http://blog.tonychow.me/feeds/opencourse.atom.xml" rel="self"></link><id>http://blog.tonychow.me/</id><updated>2013-07-07T00:00:00+08:00</updated><entry><title>斯坦福大学公开课-编程范式 笔记 1</title><link href="http://blog.tonychow.me/programming-paradigms-note-one.html" rel="alternate"></link><published>2013-07-07T00:00:00+08:00</published><updated>2013-07-07T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2013-07-07:/programming-paradigms-note-one.html</id><summary type="html"></summary><content type="html">&lt;h3&gt;前言&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Tonychow's Blog</title><link href="https://blog.tonychow.me/" rel="alternate"></link><link href="https://blog.tonychow.me/feeds/opencourse.atom.xml" rel="self"></link><id>https://blog.tonychow.me/</id><updated>2013-07-07T00:00:00+08:00</updated><entry><title>斯坦福大学公开课-编程范式 笔记 1</title><link href="https://blog.tonychow.me/programming-paradigms-note-one.html" rel="alternate"></link><published>2013-07-07T00:00:00+08:00</published><updated>2013-07-07T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2013-07-07:programming-paradigms-note-one.html</id><summary type="html">&lt;h3&gt;前言&lt;/h3&gt;
 &lt;p&gt;最近在跟一门斯坦福大学的公开课 &lt;a href="http://see.stanford.edu/see/courseInfo.aspx?coll=2d712634-2bf1-4b55-9a3a-ca9d470755ee"&gt;Programming Paradigms&lt;/a&gt; ,网易公开课也有其中文翻译版，翻译已经完成了：&lt;a href="http://v.163.com/special/opencourse/paradigms.html"&gt;斯坦福大学公开课：编程范式&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;课程内容：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -77,4 +77,4 @@ Before this address, the value is 1033.
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://stackoverflow.com/questions/1518711/c-programming-how-does-free-know-how-much-to-free"&gt;C programming : How does free know how much to free?&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://c-faq.com/malloc/freesize.html"&gt;comp.lang.c FAQ list · Question 7.26&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><category term="opencourse"></category><category term="programming-paradigms"></category><category term="notes"></category></entry></feed>
+&lt;/ul&gt;</summary><category term="opencourse"></category><category term="programming-paradigms"></category><category term="notes"></category></entry></feed>

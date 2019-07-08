@@ -4,13 +4,13 @@
 <head>
   <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/stylesheet/style.min.css">
+    <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/stylesheet/style.min.css">
 
-  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/pygments/colorful.min.css">
-  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/pygments/colorful.min.css">
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/font-awesome.min.css">
 
 
-    <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom">
+    <link href="https://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom">
 
 
 
@@ -35,11 +35,11 @@
 <meta property="og:title" content="Python 函数的命名参数相关"/>
 <meta property="og:description" content=""/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="http://blog.tonychow.me/things-about-python-named-args.html"/>
+<meta property="og:url" content="https://blog.tonychow.me/things-about-python-named-args.html"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2013-05-15 00:00:00+08:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="http://blog.tonychow.me/author/tonychow.html">
+<meta property="article:author" content="https://blog.tonychow.me/author/tonychow.html">
 <meta property="article:section" content="python"/>
 <meta property="article:tag" content="python"/>
 <meta property="og:image" content="/images/avatar.jpg">
@@ -50,10 +50,10 @@
 <body>
   <aside>
     <div>
-      <a href="http://blog.tonychow.me">
+      <a href="https://blog.tonychow.me">
         <img src="/images/avatar.jpg" alt="" title="">
       </a>
-      <h1><a href="http://blog.tonychow.me"></a></h1>
+      <h1><a href="https://blog.tonychow.me"></a></h1>
 
 <p>Go/Python backend developer</p>
 
@@ -67,14 +67,14 @@
   <main>
 
     <nav>
-      <a href="http://blog.tonychow.me">    Home
+      <a href="https://blog.tonychow.me">    Home
 </a>
 
       <a href="/archives.html">Archives</a>
       <a href="/categories.html">Categories</a>
       <a href="/tags.html">Tags</a>
 
-      <a href="http://blog.tonychow.me/feeds/all.atom.xml">    Atom
+      <a href="https://blog.tonychow.me/feeds/all.atom.xml">    Atom
 </a>
 
     </nav>
@@ -83,7 +83,7 @@
   <header>
     <h1 id="things-about-python-named-args">Python 函数的命名参数相关</h1>
     <p>
-          Posted on 三 15 五月 2013 in <a href="http://blog.tonychow.me/category/python.html">python</a>
+          Posted on 三 15 五月 2013 in <a href="https://blog.tonychow.me/category/python.html">python</a>
 
 
         &#8226; 2 min read
@@ -112,14 +112,14 @@
 <!--more-->
 
 <p>在 Python 中，赋值是传引用的。一个列表，比如 [1, 2, 3]，或者一个字符串，'tonychow'，这些对象在创建的时候会在内存中分配一段空间。如果将这些对象赋值给一个变量名，那就会导致在 Python 的命名空间中该变量名指向内存中这个对象。对该变量名的操作就是对内存中这个对象的操作。所以如果尝试直接将一个变量 a 赋值给另外一个变量 b ，导致的后果是，命名空间中，这两个变量名 a 和 b 指向内存中同样一个对象，也就是所谓传引用赋值。对其中任意一个变量的操作，实质是对该对象进行操作，所以同样的操作后结果也会可以在另外一个变量中看到。如下：</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; <span class="nv">a</span> <span class="o">=</span> <span class="o">[</span><span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span><span class="o">]</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; <span class="nv">a</span> <span class="o">=</span> <span class="o">[</span>1, 2, 3<span class="o">]</span>
 &gt;&gt;&gt; <span class="nv">b</span> <span class="o">=</span> a
 &gt;&gt;&gt; a.pop<span class="o">()</span>
-<span class="m">3</span>
+3
 &gt;&gt;&gt; b
-<span class="o">[</span><span class="m">1</span>, <span class="m">2</span><span class="o">]</span>
+<span class="o">[</span>1, 2<span class="o">]</span>
 &gt;&gt;&gt; a
-<span class="o">[</span><span class="m">1</span>, <span class="m">2</span><span class="o">]</span>
+<span class="o">[</span>1, 2<span class="o">]</span>
 &gt;&gt;&gt;
 </pre></div>
 
@@ -191,9 +191,9 @@
 <span class="s1">&#39;__repr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__setattr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__sizeof__&#39;</span><span class="p">,</span> <span class="s1">&#39;__str__&#39;</span><span class="p">,</span> <span class="s1">&#39;__subclasshook__&#39;</span><span class="p">,</span>
 <span class="s1">&#39;func_closure&#39;</span><span class="p">,</span> <span class="s1">&#39;func_code&#39;</span><span class="p">,</span> <span class="s1">&#39;func_defaults&#39;</span><span class="p">,</span> <span class="s1">&#39;func_dict&#39;</span><span class="p">,</span> <span class="s1">&#39;func_doc&#39;</span><span class="p">,</span>
 <span class="s1">&#39;func_globals&#39;</span><span class="p">,</span> <span class="s1">&#39;func_name&#39;</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="o">.</span><span class="vm">__code__</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="o">.</span><span class="n">__code__</span>
 <span class="o">&lt;</span><span class="n">code</span> <span class="nb">object</span> <span class="n">func</span> <span class="n">at</span> <span class="mh">0xb76c8410</span><span class="p">,</span> <span class="nb">file</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="o">&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="o">.</span><span class="n">__name__</span>
 <span class="s1">&#39;func&#39;</span>
 <span class="o">&gt;&gt;&gt;</span>
 </pre></div>
@@ -203,17 +203,17 @@
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
 <span class="o">...</span>     <span class="k">pass</span>
 <span class="o">...</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="o">.</span><span class="vm">__defaults__</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="o">.</span><span class="n">__defaults__</span>
 <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="o">...</span>     <span class="k">pass</span>
 <span class="o">...</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="o">.</span><span class="vm">__defaults__</span> <span class="ow">is</span> <span class="bp">None</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="o">.</span><span class="n">__defaults__</span> <span class="ow">is</span> <span class="bp">None</span>
 <span class="bp">True</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">func_no</span><span class="p">():</span>
 <span class="o">...</span>     <span class="k">pass</span>
 <span class="o">...</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">func_no</span><span class="o">.</span><span class="vm">__defaults__</span> <span class="ow">is</span> <span class="bp">None</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">func_no</span><span class="o">.</span><span class="n">__defaults__</span> <span class="ow">is</span> <span class="bp">None</span>
 <span class="bp">True</span>
 <span class="o">&gt;&gt;&gt;</span>
 </pre></div>
@@ -241,7 +241,7 @@
 <span class="o">...</span>     <span class="k">print</span> <span class="s1">&#39;changed_var_addr:&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">l</span><span class="p">))</span>
 <span class="o">...</span>     <span class="k">print</span> <span class="n">l</span>
 <span class="o">...</span> 
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="vm">__defaults__</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">__defaults__</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="il">3077402860L</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="p">()</span>
 <span class="n">default_arg_addr</span><span class="p">:</span><span class="mi">3077402860</span>
@@ -251,7 +251,7 @@
 <span class="n">default_arg_addr</span><span class="p">:</span><span class="mi">3077402860</span>
 <span class="n">changed_var_addr</span><span class="p">:</span><span class="mi">3077402860</span>
 <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="o">.</span><span class="vm">__defaults__</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="o">.</span><span class="n">__defaults__</span>
 <span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],)</span>
 <span class="o">&gt;&gt;&gt;</span>
 </pre></div>
@@ -279,7 +279,7 @@
   </div>
   <div class="tag-cloud">
     <p>
-      <a href="http://blog.tonychow.me/tag/python.html">python</a>
+      <a href="https://blog.tonychow.me/tag/python.html">python</a>
     </p>
   </div>
 
@@ -316,7 +316,7 @@
   "@context" : "http://schema.org",
   "@type" : "Blog",
   "name": " Tonychow's Blog ",
-  "url" : "http://blog.tonychow.me",
+  "url" : "https://blog.tonychow.me",
   "image": "/images/avatar.jpg",
   "description": "tonychow's Thoughts and Writings"
 }

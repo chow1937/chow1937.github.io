@@ -77,53 +77,6 @@
 
 <article>
   <header>
-    <h2><a href="https://blog.tonychow.me/corepython-reading-notes-how-day4.html#corepython-reading-notes-how-day4">Python 核心编程读书笔记 Day4</a></h2>
-    <p>
-          Posted on 二 15 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://blog.tonychow.me/tag/corepython.html">corepython</a>,              <a href="https://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>,              <a href="https://blog.tonychow.me/tag/python.html">python</a>
-        &#8226; 1 min read
-    </p>
-  </header>
-  <div>
-      <p>今天的主要阅读了 10-12 章的内容，这三章内容主要涉及异常，函数及模块，这几个模块
-也是 Python 中比较重要的基本内容，也有相对于其他语言的独特之处，下面继续总结今
-天的阅读笔记。</p>
-<h3>第十章：错误和异常</h3>
-<p>本章关注的内容是异常。异常在其他语言中也有实现，一般来说，异常处理给程序员提供
-了一种在错误发生的时候对错误进行处理的方式。与其出现错误的时候，直接终止程序的
-执行，不如对错误进行处理之后让程序继续执行。下面是本章要点：</p>
-<p>1.错误引发异常的时候会打断正常的程序处理流程；</p>
-<p>2.Python 异常的检测可以通过 try 语句进行，通常有 try-excetpt，try-finally模式；</p>
-<p>3.try 语句可以带多个 except ，可以处理多种异常，也可以直接多个异常放在一个元组
-中；</p>
-<p>4.except Exception[, reason]；</p>
-<p>5.try-except 同样也支持 else 子句，不发生异常则执行 else 子句的语句；</p>
-<p>6.实现了 <code>__enter_</code> 和 <code>__exit__</code> 方法的类可以利用 with 语句；</p>
-<p>7.<code>__exit__</code> 具有三个参数，exc_type， exc_value， exc_traceback；</p>
-<!--more-->
-
-<h3>第十一章：函数和函数式编程</h3>
-<p>函数在 Python 中其实也是一个对象，保存了函数的相关内容，所以在 Python 中，函
-数也和普通的对象一样，可以传给一个函数，也可以作为函数的返回值返回，因此也导
-至了 Python 支持一部分函数式编程的特性。以下是要点：</p>
-<p>1.Python 中的函数即使没有 return 语句，也会默认返回值为 None；</p>
-<p>2.Python 中支持默认参数，但是非默认参数需要在默认参数前；</p>
-<p>3.Python 中函数支持将参数放进元组或者字典中；</p>
-<p>4.<code>func(*args)</code> 的形式是将参数放到元组中；</p>
-<p>5.<code>func(**kwargs)</code> 的形式是将参数放到字典中，表示的是应对参数名及其值；</p>
-<p>6.Python 支持在函数内部定义函数，并且内部函数可以调用包含函数的局部变量；</p>
-<p>7.函数内部是一个局部空间；</p>
-<p>8.装饰器函数接受一个函数返回另外一个装饰后的函数；</p>
-<p>9.装饰器利用 <code>@</code> 来装饰函数，相当于：<code>foo = deco(foo)</code>；</p>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
     <h2><a href="https://blog.tonychow.me/corepython-reading-notes-how-day3.html#corepython-reading-notes-how-day3">Python 核心编程读书笔记 Day3</a></h2>
     <p>
           Posted on 日 13 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
@@ -1096,6 +1049,102 @@ Java 的类库。此外还有 C# 语言实现的 IronPython，可以运行在 .N
 <li>而当试图在类对象 TestCls 中取 <code>ins_new_var</code> 的时候，只会去搜索这个类对象的 dict 和其父类的 dict ，这肯定是找不到的，所以返回属性错误;</li>
 <li>当给类对象 TestCls 添加一个属性 <code>new_var</code> 的时候，同样，会在 <code>__dict__</code> 中添加一个 <code>new_var</code> 对象;</li>
 <li>当访问 t.new_var 的时候，在 t 的命名空间中搜索不到 <code>new_var</code> 的时候，就回去搜索其实例化自的类对象的命名空间，所以，就可以得到这个值了。</li>
+</ul>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://blog.tonychow.me/programming-paradigms-note-one.html#programming-paradigms-note-one">斯坦福大学公开课-编程范式 笔记 1</a></h2>
+    <p>
+          Posted on 日 07 七月 2013 in <a href="https://blog.tonychow.me/category/opencourse.html">opencourse</a>
+
+
+          &#8226;     Tagged with
+
+              <a href="https://blog.tonychow.me/tag/opencourse.html">opencourse</a>,              <a href="https://blog.tonychow.me/tag/programming-paradigms.html">programming-paradigms</a>,              <a href="https://blog.tonychow.me/tag/notes.html">notes</a>
+        &#8226; 2 min read
+    </p>
+  </header>
+  <div>
+      <h3>前言</h3>
+<p>最近在跟一门斯坦福大学的公开课 <a href="http://see.stanford.edu/see/courseInfo.aspx?coll=2d712634-2bf1-4b55-9a3a-ca9d470755ee">Programming Paradigms</a> ,网易公开课也有其中文翻译版，翻译已经完成了：<a href="http://v.163.com/special/opencourse/paradigms.html">斯坦福大学公开课：编程范式</a>。</p>
+<p>课程内容：</p>
+<blockquote>
+<p>Advanced memory management features of C and C++; the differences between imperative and object-oriented paradigms. The functional paradigm (using LISP) and concurrent programming (using C and C++). Brief survey of other modern languages such as Python, Objective C, and C#.</p>
+</blockquote>
+<!--more-->
+
+<p>首先涉及的是 C/C++ 的高级内存管理，内容包括 C 的各种数据类型的内存布局，malloc 和 free 的实现，等等。然后还有命令式和面向对象，函数式编程等等几种不同的编程范式及他们的差别。</p>
+<p>可以说这些内容应该是属于比较高级的内容。我之前偶尔也会接触到一些，有些书也会讲到，但是在我所在的大学的课堂上，这些内容基本上是不讲授的。在上 C 课程的时候，甚至连指针都语焉不详，更别提有一门专门的课程来讲述这些高级内容。上这个公开课刚好可以完整地补全我对这方面内容的不足，毕竟一个斯坦福大学的教授给你讲解这些内容总比自己看书效果要好得多。</p>
+<p>在这里，我要记下的是在课程中碰到的一些有趣的内容。</p>
+<h3>malloc 与 free</h3>
+<p>我们知道，malloc 函数是 C 中动态分配内存的一个函数，通过这个函数可以在堆中申请一块限定大小的内存使用。对应地，有申请内存函数就有释放内存函数，这个函数就是 free 函数。这两个函数的原型如下：</p>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="o">*</span><span class="nf">malloc</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">free</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">);</span>
+</pre></div>
+
+
+<p>通过这两个函数的原型我们可以看到一些信息。malloc 函数的参数是一个 size_t 类型的变量 size ，而 malloc 返回的则是一个 void * 类型的指针。这不意外，因为我们知道通过 malloc 函数分配制定大小的内存成功之后，会将这块内存的首地址作为返回值返回给某个类型的指针变量。而通过 C 的自动类型转换，void * 类型的指针地址将会被转换为该指针变量类型的指针。</p>
+<p>free 函数也是只有一个参数，类型为 void * 的指针变量 ptr ，无返回值。在这里问题出现了， free 函数如果只是接受某块内存的首地址作为参数，那它是如何得知这块内存的大小？或者说，free 函数怎么知道需要被释放的内存到底有多大？这块内存的大小是必要要知道的，因为如果不知道，free 函数是无法准确地将要释放的内存释放掉，也许会将后面接着的不允许释放的内存也释放掉，也许还遗留一部分内存没有释放掉。</p>
+<p>所以，编译器，或者操作系统，肯定是提供了一种机制来告知 free 函数，这块在堆中的内存的大小。那这个机制是什么呢？</p>
+<h3>malloc 的机制</h3>
+<p>答案并不复杂，那就是在 malloc 函数返回的地址前面，有 4 字节或者 8 字节同样也是属于这块内存的内容，这几个字节中储存了该内存地址的大小。free 函数接受这个地址的时候，会回退一部分地址，根据这个结构的内容，得到该内存块的大小，然后将相关的释放掉。</p>
+<p>以上是公开课中老师的简单讲述，那实际情况是怎样？下面进行一下简单的验证。首先测试的平台是 Fedora17 ，Linux 的内核版本为 3.6.11-5.fc17.i686.PAE ，使用的 C 编译器为 GCC 4.7.2 20120921 (Red Hat 4.7.2-2) 。测试代码如下：</p>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+
+
+<span class="c1">//Test the memory alloc by malloc.</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">ptr1</span><span class="p">,</span> <span class="o">*</span><span class="n">ptr2</span><span class="p">,</span> <span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">cptr</span><span class="p">;</span>
+
+    <span class="n">ptr1</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">num1</span><span class="p">;</span>
+    <span class="n">ptr1</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">512</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+    <span class="n">ptr2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">num2</span><span class="p">;</span>
+    <span class="n">ptr2</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+    <span class="n">cptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The start of num1 memory address is %x.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ptr1</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Before this address, the value is %d.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The start of num2 memory address is %x.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ptr2</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Before this address, the value is %d.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The start of char memory address is %x.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">cptr</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Before this address, the value is %d.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">((</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">cptr</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>测试代码并不复杂，简单定义了两个 int 类型的指针变量和一个 char * 类型的指针变量，然后用 malloc 函数分配一定数量的内存，返回的内存块首地址赋值给这三个变量，然后输出这三个内存块首地址前一个位置的值。注意对于 char * 类型的地址，首先强制转换成 int * 类型的再进行 -1 操作。</p>
+<p>代码的输出结果如下所示：</p>
+<div class="highlight"><pre><span></span>╰ ➤ ./a.out 
+The start of num1 memory address is 9922008.
+Before this address, the value is 2057.
+The start of num2 memory address is 9922810.
+Before this address, the value is 4105.
+The start of char memory address is 9923818.
+Before this address, the value is 1033.
+</pre></div>
+
+
+<p>通过代码我们可以知道，ptr1 申请的内存块大小为 512  * 4 = 2048，ptr2 申请的内存块大小为 1024 * 4 = 4096，cptr 申请的内存块大小为 1024 * 1 = 1024，以上单位均为字节。根据输出，有如下计算：</p>
+<div class="highlight"><pre><span></span><span class="mi">2057</span> <span class="o">-</span> <span class="mi">2048</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="mi">4105</span> <span class="o">-</span> <span class="mi">4096</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="mi">1033</span> <span class="o">-</span> <span class="mi">1024</span> <span class="o">=</span> <span class="mi">9</span>
+</pre></div>
+
+
+<p>可见，如果 malloc 函数返回的地址前一个字节保存了该内存块的整体大小，那可以推测到，其中 9 个字节作为额外的结构，保存了这块内存的信息，以提供给其他函数比如 free 函数利用。当然这只是一个推测，真实的情况需要深入到 glibc 的库的 malloc 和 free 的源码中。</p>
+<p>实际上，老师也说了，不同的编译器的实现是不同的，比如，可以参考下这篇文章：<a href="http://www.cnblogs.com/sinaxyz/archive/2012/08/20/2647631.html">malloc/new函数及malloc()的一种简单原理性实现</a> 。</p>
+<p>参考：</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/1518711/c-programming-how-does-free-know-how-much-to-free">C programming : How does free know how much to free?</a></li>
+<li><a href="http://c-faq.com/malloc/freesize.html">comp.lang.c FAQ list · Question 7.26</a></li>
 </ul>
   </div>
 </article>

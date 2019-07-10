@@ -697,24 +697,24 @@ lrwx------ <span class="m">1</span> tonychow tonychow <span class="m">64</span> 
 
 
 <p>查看下该进程的文件描述符，可以看到主要是有标准输出，标准输入和标准输出这三个。</p>
-<div class="highlight"><pre><span></span>    $ cat /proc/32261/limits
-    limit                     soft limit           hard limit           units     
-    max cpu <span class="nb">time</span>              unlimited            unlimited          seconds   
-    max file size             unlimited            unlimited            bytes     
-    max data size             unlimited            unlimited            bytes     
-    max stack size            <span class="m">8388608</span>              unlimited            bytes     
-    max core file size        <span class="m">0</span>                    unlimited            bytes     
-    max resident <span class="nb">set</span>          unlimited            unlimited            bytes     
-    max processes             <span class="m">1024</span>                 <span class="m">31683</span>            processes 
-    max open files            <span class="m">1024</span>                 <span class="m">4096</span>                 files     
-    max locked memory         <span class="m">65536</span>                <span class="m">65536</span>                bytes     
-    max address space         unlimited            unlimited            bytes     
-    max file locks            unlimited            unlimited            locks     
-    max pending signals       <span class="m">31683</span>                <span class="m">31683</span>            signals   
-    max msgqueue size         <span class="m">819200</span>               <span class="m">819200</span>               bytes     
-    max nice priority         <span class="m">0</span>                    <span class="m">0</span>                    
-    max realtime priority     <span class="m">0</span>                    <span class="m">0</span>                    
-    max realtime timeout      unlimited            unlimited            us 
+<div class="highlight"><pre><span></span>$ cat /proc/32261/limits
+limit                     soft limit           hard limit           units     
+max cpu <span class="nb">time</span>              unlimited            unlimited          seconds   
+max file size             unlimited            unlimited            bytes     
+max data size             unlimited            unlimited            bytes     
+max stack size            <span class="m">8388608</span>              unlimited            bytes     
+max core file size        <span class="m">0</span>                    unlimited            bytes     
+max resident <span class="nb">set</span>          unlimited            unlimited            bytes     
+max processes             <span class="m">1024</span>                 <span class="m">31683</span>            processes 
+max open files            <span class="m">1024</span>                 <span class="m">4096</span>                 files     
+max locked memory         <span class="m">65536</span>                <span class="m">65536</span>                bytes     
+max address space         unlimited            unlimited            bytes     
+max file locks            unlimited            unlimited            locks     
+max pending signals       <span class="m">31683</span>                <span class="m">31683</span>            signals   
+max msgqueue size         <span class="m">819200</span>               <span class="m">819200</span>               bytes     
+max nice priority         <span class="m">0</span>                    <span class="m">0</span>                    
+max realtime priority     <span class="m">0</span>                    <span class="m">0</span>                    
+max realtime timeout      unlimited            unlimited            us
 </pre></div>
 
 

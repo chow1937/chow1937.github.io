@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/pygments/colorful.min.css">
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="https://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom">
+
+
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta name="author" content="tonychow" />
+<meta name="description" content="" />
+<meta name="keywords" content="mit6.824, Distributed-System">
+<meta property="og:site_name" content="Tonychow's Blog"/>
+<meta property="og:title" content="6.824 Lecture 2 RPC and Threads Notes"/>
+<meta property="og:description" content=""/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://blog.tonychow.me/mit6.824-letcture2-notes.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2021-06-29 00:00:00+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://blog.tonychow.me/author/tonychow.html">
+<meta property="article:section" content="course"/>
+<meta property="article:tag" content="mit6.824"/>
+<meta property="article:tag" content="Distributed-System"/>
+<meta property="og:image" content="/images/avatar.jpg">
+
+  <title>Tonychow's Blog &ndash; 6.824 Lecture 2 RPC and Threads Notes</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="https://blog.tonychow.me">
+        <img src="/images/avatar.jpg" alt="" title="">
+      </a>
+      <h1><a href="https://blog.tonychow.me"></a></h1>
+
+<p>Go/Python backend developer</p>
+
+      <ul class="social">
+        <li><a class="sc-github" href="https://github.com/chow1937" target="_blank"><i class="fa fa-github"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://blog.tonychow.me">    Home
+</a>
+
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+      <a href="https://blog.tonychow.me/feeds/all.atom.xml">    Atom
+</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+    <h1 id="mit6.824-letcture2-notes">6.824 Lecture 2 RPC and Threads Notes</h1>
+    <p>
+          Posted on 二 29 六月 2021 in <a href="https://blog.tonychow.me/category/course.html">course</a>
+
+
+        &#8226; 1 min read
+    </p>
+  </header>
+
+
+  <div>
+    <h2>1 概要</h2>
+<p>本课没有涉及分布式系统方面的内容，主要是针对本课程 Lab 使用的编程语言 Go 进行了一个简单的介绍，然后讨论了一下多线程并发相关内容。最后是对一个 Go 写的多线程爬虫代码进行了解读，关注点在并发处理、竞态、锁、多线程协作这块。</p>
+<p>本课相关的材料:</p>
+<ul>
+<li>课堂 Paper: 本课无论文阅读</li>
+<li>课堂录像: https://www.bilibili.com/video/BV1R7411t71W?p=2</li>
+<li>课堂 Note: https://pdos.csail.mit.edu/6.824/notes/l-rpc.txt</li>
+</ul>
+<h2>2 要点</h2>
+<h3>2.1 Why Go</h3>
+<ul>
+<li>Thread (goroutine) 支持</li>
+<li>Lock: 锁机制应对并发执行和竞态</li>
+<li>类型安全</li>
+<li>方便的 RPC 库</li>
+<li>GC 内存安全: 垃圾回收</li>
+</ul>
+<p>Go 要比 C++ 更容易使用，语言更简单直接，不会有特别的语法和特性，也不会有那么多奇怪的错误。</p>
+<h3>2.2 关注并发</h3>
+<p>对于 Go 来说，并发一般情况是多个 goroutine 在同一个地址空间并发执行。</p>
+<ul>
+<li>
+<p>I/O concurrency: 客户端可以请求多个服务端并发等待响应，服务端处理多个客户端的连接请求，在一个请求进行 IO 操作时可以切换处理另外一个请求的计算；</p>
+</li>
+<li>
+<p>Parallelism: 多线程利用多核，实际系统中应该尽量利用所有 CPU 的计算力；</p>
+</li>
+<li>Convenience: 后台运行，方便执行处理一些分离的任务；</li>
+</ul>
+<p>不用多线程，可以用异步编程 event-driven 的方式:</p>
+<ul>
+<li>单线程单 loop；</li>
+<li>保存每个状态: 比如请求客户端的状态；</li>
+<li>根据事件来执行切换执行任务；</li>
+<li>单个运行无法充分利用多核 CPU；</li>
+<li>实现相对复杂，使用起来也难以理解</li>
+</ul>
+<p>相对大量线程的情况会更优秀，比如有上百万的连接，对应上百万个线程来说，事件驱动更好，节省资源，同时还可以减少线程切换带来的性能损耗。实现上通常可以多个线程，每个线程都有个独立的事件循环来执行任务，这样可以利用多核资源。比如 Nginx，是基于多 Worker 线程的事件驱动模型来实现高性能并发处理大量请求的支持。</p>
+<h3>2.3 多线程的挑战</h3>
+<p>共享数据、竞态数据: 多线程访问处理容易出现 bug，并发更新可能会出现问题，机器操作可能不是原子指令</p>
+<ul>
+<li>需要使用锁来解决这个问题；</li>
+<li>或者避免共享可变数据；</li>
+</ul>
+<p>coordination 多线程协作执行</p>
+<ul>
+<li>channels</li>
+<li>sync.Cond</li>
+<li>waitGroup</li>
+</ul>
+<p>死锁</p>
+<ul>
+<li>锁或者 channel 误用，出现彼此依赖释放或者消费的情况，导致了死锁；</li>
+</ul>
+<h3>2.4 爬虫示例</h3>
+<p>示例代码主要是实现模拟爬虫处理页面抓取的功能，需要考虑以下内容：</p>
+<ul>
+<li>一个页面可能还包含了其他的页面 URL</li>
+<li>多个页面可能包含同一个 URL，不应该重复抓取</li>
+<li>多个页面直接包含 URL 可能会构成一个环</li>
+<li>页面抓取应当并发进行，可以加速整个任务的执行</li>
+</ul>
+<p>课堂上主要是介绍了两个版本的并发抓取爬虫：</p>
+<ol>
+<li>基于锁的并发爬虫</li>
+<li>每个发现的 URL 都创建一个抓取页面的线程</li>
+<li>多个线程之间共享一个 map 数据来记录已经抓取到的页面，避免重复和循环抓取</li>
+<li>多个线程对共享的 map 数据操作时需要加锁，避免出现竞态并发更新/读取，在 Go 这会导致 panic 或者内部数据异常</li>
+<li>可以通过 go 编译器自身的 <code>-race</code> 工具来检查代码中的竞态问题</li>
+<li>基于 Channel 的并发爬虫</li>
+<li>区分为 Master 和 Worker 线程</li>
+<li>Master 线程创建 Worker 线程去抓取单个页面</li>
+<li>Master 和 Worker 线程之间共享一个 channel，Worker 把抓取到的页面里面包含的 URL 发送到这个 channel；</li>
+<li>Master 记录 Worker 执行抓取过的 URL，从 channel 获取到新的页面，先检查是否已经抓取过，如果没有则启动新的 Worker 线程抓取，有则跳过；</li>
+</ol>
+<p>基于 channel 不需要加锁，是因为记录抓取过页面的 map 数据实际上没有在多个线程中共享，也不存在多线程并发读取更新的情况。但是实际上，channel 数据结构本身在 Go 的实现应该是存在着锁的，这样多个线程每次只有一个线程可以把 URL 发送到 channel 中。</p>
+<h2>3 总结</h2>
+<p>本课内容相对简单，Go 语言对于并发的支持比较好，提供了方便的线程(goroutine) 启动方式，此外还对多线程间的协作提供了包括 channel 、sync 等工具来支持。课程原本是用 C++ 来实现 Lab 相关的编码的，近些年在 Go 语言成熟起来后就切换了。使用 Go 来学习和实现分布式系统，可以让学生更关注分布式系统本身相关的内容，而不是在 C++ 的语言特性和代码 Bug 中花费大量的时间。</p>
+<p>Go 语言本身也比较适合网络编程，在业界中有不少的成熟的分布式系统实现，比如 etcd、TiDB、Kubernetes 等。</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://blog.tonychow.me/tag/mit6824.html">mit6.824</a>
+      <a href="https://blog.tonychow.me/tag/distributed-system.html">Distributed-System</a>
+    </p>
+  </div>
+
+
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; tonychow 2017 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Tonychow's Blog ",
+  "url" : "https://blog.tonychow.me",
+  "image": "/images/avatar.jpg",
+  "description": "tonychow's Thoughts and Writings"
+}
+</script>
+</body>
+</html>

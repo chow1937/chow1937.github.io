@@ -77,6 +77,102 @@
 
 <article>
   <header>
+    <h2><a href="https://blog.tonychow.me/mit6.824-letcture2-notes.html#mit6.824-letcture2-notes">6.824 Lecture 2 RPC and Threads Notes</a></h2>
+    <p>
+          Posted on 二 29 六月 2021 in <a href="https://blog.tonychow.me/category/course.html">course</a>
+
+
+          &#8226;     Tagged with
+
+              <a href="https://blog.tonychow.me/tag/mit6824.html">mit6.824</a>,              <a href="https://blog.tonychow.me/tag/distributed-system.html">Distributed-System</a>
+        &#8226; 1 min read
+    </p>
+  </header>
+  <div>
+      <h2>1 概要</h2>
+<p>本课没有涉及分布式系统方面的内容，主要是针对本课程 Lab 使用的编程语言 Go 进行了一个简单的介绍，然后讨论了一下多线程并发相关内容。最后是对一个 Go 写的多线程爬虫代码进行了解读，关注点在并发处理、竞态、锁、多线程协作这块。</p>
+<p>本课相关的材料:</p>
+<ul>
+<li>课堂 Paper: 本课无论文阅读</li>
+<li>课堂录像: https://www.bilibili.com/video/BV1R7411t71W?p=2</li>
+<li>课堂 Note: https://pdos.csail.mit.edu/6.824/notes/l-rpc.txt</li>
+</ul>
+<h2>2 要点</h2>
+<h3>2.1 Why Go</h3>
+<ul>
+<li>Thread (goroutine) 支持</li>
+<li>Lock: 锁机制应对并发执行和竞态</li>
+<li>类型安全</li>
+<li>方便的 RPC 库</li>
+<li>GC 内存安全: 垃圾回收</li>
+</ul>
+<p>Go 要比 C++ 更容易使用，语言更简单直接，不会有特别的语法和特性，也不会有那么多奇怪的错误。</p>
+<h3>2.2 关注并发</h3>
+<p>对于 Go 来说，并发一般情况是多个 goroutine 在同一个地址空间并发执行。</p>
+<ul>
+<li>
+<p>I/O concurrency: 客户端可以请求多个服务端并发等待响应，服务端处理多个客户端的连接请求，在一个请求进行 IO 操作时可以切换处理另外一个请求的计算；</p>
+</li>
+<li>
+<p>Parallelism: 多线程利用多核，实际系统中应该尽量利用所有 CPU 的计算力；</p>
+</li>
+<li>Convenience: 后台运行，方便执行处理一些分离的任务；</li>
+</ul>
+<p>不用多线程，可以用异步编程 event-driven 的方式:</p>
+<ul>
+<li>单线程单 loop；</li>
+<li>保存每个状态: 比如请求客户端的状态；</li>
+<li>根据事件来执行切换执行任务；</li>
+<li>单个运行无法充分利用多核 CPU；</li>
+<li>实现相对复杂，使用起来也难以理解</li>
+</ul>
+<p>相对大量线程的情况会更优秀，比如有上百万的连接，对应上百万个线程来说，事件驱动更好，节省资源，同时还可以减少线程切换带来的性能损耗。实现上通常可以多个线程，每个线程都有个独立的事件循环来执行任务，这样可以利用多核资源。比如 Nginx，是基于多 Worker 线程的事件驱动模型来实现高性能并发处理大量请求的支持。</p>
+<h3>2.3 多线程的挑战</h3>
+<p>共享数据、竞态数据: 多线程访问处理容易出现 bug，并发更新可能会出现问题，机器操作可能不是原子指令</p>
+<ul>
+<li>需要使用锁来解决这个问题；</li>
+<li>或者避免共享可变数据；</li>
+</ul>
+<p>coordination 多线程协作执行</p>
+<ul>
+<li>channels</li>
+<li>sync.Cond</li>
+<li>waitGroup</li>
+</ul>
+<p>死锁</p>
+<ul>
+<li>锁或者 channel 误用，出现彼此依赖释放或者消费的情况，导致了死锁；</li>
+</ul>
+<h3>2.4 爬虫示例</h3>
+<p>示例代码主要是实现模拟爬虫处理页面抓取的功能，需要考虑以下内容：</p>
+<ul>
+<li>一个页面可能还包含了其他的页面 URL</li>
+<li>多个页面可能包含同一个 URL，不应该重复抓取</li>
+<li>多个页面直接包含 URL 可能会构成一个环</li>
+<li>页面抓取应当并发进行，可以加速整个任务的执行</li>
+</ul>
+<p>课堂上主要是介绍了两个版本的并发抓取爬虫：</p>
+<ol>
+<li>基于锁的并发爬虫</li>
+<li>每个发现的 URL 都创建一个抓取页面的线程</li>
+<li>多个线程之间共享一个 map 数据来记录已经抓取到的页面，避免重复和循环抓取</li>
+<li>多个线程对共享的 map 数据操作时需要加锁，避免出现竞态并发更新/读取，在 Go 这会导致 panic 或者内部数据异常</li>
+<li>可以通过 go 编译器自身的 <code>-race</code> 工具来检查代码中的竞态问题</li>
+<li>基于 Channel 的并发爬虫</li>
+<li>区分为 Master 和 Worker 线程</li>
+<li>Master 线程创建 Worker 线程去抓取单个页面</li>
+<li>Master 和 Worker 线程之间共享一个 channel，Worker 把抓取到的页面里面包含的 URL 发送到这个 channel；</li>
+<li>Master 记录 Worker 执行抓取过的 URL，从 channel 获取到新的页面，先检查是否已经抓取过，如果没有则启动新的 Worker 线程抓取，有则跳过；</li>
+</ol>
+<p>基于 channel 不需要加锁，是因为记录抓取过页面的 map 数据实际上没有在多个线程中共享，也不存在多线程并发读取更新的情况。但是实际上，channel 数据结构本身在 Go 的实现应该是存在着锁的，这样多个线程每次只有一个线程可以把 URL 发送到 channel 中。</p>
+<h2>3 总结</h2>
+<p>本课内容相对简单，Go 语言对于并发的支持比较好，提供了方便的线程(goroutine) 启动方式，此外还对多线程间的协作提供了包括 channel 、sync 等工具来支持。课程原本是用 C++ 来实现 Lab 相关的编码的，近些年在 Go 语言成熟起来后就切换了。使用 Go 来学习和实现分布式系统，可以让学生更关注分布式系统本身相关的内容，而不是在 C++ 的语言特性和代码 Bug 中花费大量的时间。</p>
+<p>Go 语言本身也比较适合网络编程，在业界中有不少的成熟的分布式系统实现，比如 etcd、TiDB、Kubernetes 等。</p>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
     <h2><a href="https://blog.tonychow.me/mit6.824-letcture1-notes.html#mit6.824-letcture1-notes">6.824 Lecture 1 Introduction Notes & Paper Reading</a></h2>
     <p>
           Posted on 一 28 六月 2021 in <a href="https://blog.tonychow.me/category/course.html">course</a>
@@ -501,52 +597,6 @@ reduce(String key, Iterator values):
 <p>19.<code>re.findall(pattern, string[, flags])</code> 表示在指定字符串中搜索所有的匹配结果；</p>
 <p>20.<code>re.sub(pattern, repl, string, max=0)</code> 可以对匹配的结果进行替换；</p>
 <p>21.Python 的正则表达式是默认贪婪模式的，在利用通配符的时候会尝试匹配最多的字符，可以用 <code>?</code> 来限制；</p>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://blog.tonychow.me/corepython-reading-notes-how-day5.html#corepython-reading-notes-how-day5">Python 核心编程读书笔记 Day5</a></h2>
-    <p>
-          Posted on 三 16 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://blog.tonychow.me/tag/corepython.html">corepython</a>,              <a href="https://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>,              <a href="https://blog.tonychow.me/tag/python.html">python</a>
-        &#8226; 1 min read
-    </p>
-  </header>
-  <div>
-      <p>今天的内容是 Python 中的面向对象和 Python 的执行环境。Python 支持 OOP，虽然很多情况下 Python 直接写函数就可
-可以解决大部分的问题，但是 OOP 也是 Python 中的一个重要内容。下面继续总结笔记。</p>
-<h3>第十三章：面向对象编程</h3>
-<p>本章的内容是 Python 的面向对象编程，具体来说，讲述了 Python 中关于类和 OOP 的具体内容，包括继承，类的方法等
-内容，同时也涉及了 Python 中的特殊方法等类的内容。下面是要点：</p>
-<p>1.Python 中的实例方法都存在着第一个参数为 self 指示这个实例本身；</p>
-<p>2.Python 中的类方法存在着第一个参数为 cls 通常指示这个类本身；</p>
-<p>3.Python 中的 <code>__new__(cls,...)</code> 方法才是构建实例的方法，<code>__init__(self,...)</code> 方法是初始化实例的方法；</p>
-<p>4.Python 中的子类的构造方法会覆盖父类的构造方法，子类不存在构造方法才会调用父类的构造方法；</p>
-<p>5.Python 不支持纯虚函数或者抽象方法；</p>
-<p>6.类属性绑定到类的 <code>__dict__</code> 中，实例属性绑定到实例的 <code>__dict__</code> 中；</p>
-<p>7.如果实例中不存在一个和类属性同名的实例属性，则通过实例访问到的是类的属性，如果进行修改，则会在实例中保存
-一个同名的实例属性存放在实例的 <code>__dict__</code> 中，这个实例属性会屏蔽同名的类属性，注意是屏蔽不是覆盖；</p>
-<p>8.<code>__del__</code> 是实例的析构方法，只有在真正需要对该实例进行释放内存的时候才会调用，在 Python 中也就是意味着该
-实例的引用计数为 0，进行垃圾回收操作；</p>
-<!--more-->
-
-<p>9.类方法和实例方法也是普通的函数，和普通函数不同的是，类方法绑定了类，实例方法绑定了该实例，可以通过类调用
-实例方法，但是此时实例方法没有被绑定，需要显式地传入一个实例作为第一个参数；</p>
-<p>10.静态方法是在类范围内的普通函数，不是绑定的方法，静态方法也可以通过类继承的方式由子类继承；</p>
-<p>11.类的父类保存在 <code>__bases__</code> 类属性中；</p>
-<p>12.可以通过 <code>super(Cls, instance).method()</code> 的方式调用父类中的方法；</p>
-<p>13.Old-style 类的 MRO 顺序是深度优先地搜索，直到找到，New-style 类的 MRO 顺序是广度优先搜索；</p>
-<p>14.可以通过 <code>hasattr</code>，<code>getattr</code>，<code>setattr</code> 和 <code>delattr</code> 等内置函数对类和实例的属性进行操作；</p>
-<p>15.Python 中的属性都是公开的，但是以下划线开始的属性会被混淆修改成为另外一个名称，显示出私有的属性；</p>
-<p>16.字典会占用大量的内存，New-style 类可以通过 <code>__slots__</code> 属性存放实例属性，节省内存；</p>
-<p>17.New-style 的类支持 <code>__getattribute__</code> 方法，实现了这个方法的类在属性被查找的时候都会调用这个方法；</p>
-<p>18.描述符是一种将实现了 <code>__get__</code>，<code>__set__</code>，<code>__delete__</code> 特殊方法的类的实例作为另外一个类的类属性的对象
-；</p>
   </div>
 </article>
 

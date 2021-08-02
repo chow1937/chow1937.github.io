@@ -2,23 +2,31 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/stylesheet/style.min.css">
 
-  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/pygments/colorful.min.css">
-  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/font-awesome.min.css">
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://blog.tonychow.me/theme/pygments/colorful.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/solid.css">
 
 
     <link href="https://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom">
 
 
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="index, follow" />
+  
 
     <!-- Chrome, Firefox OS and Opera -->
     <meta name="theme-color" content="#333333">
@@ -27,50 +35,58 @@
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">
+
+ 
 
     <meta name="author" content="tonychow" />
     <meta name="description" content="tonychow's Thoughts and Writings" />
-<meta property="og:site_name" content="Tonychow's Blog"/>
-<meta property="og:type" content="blog"/>
-<meta property="og:title" content="Tonychow's Blog"/>
-<meta property="og:description" content="tonychow's Thoughts and Writings"/>
-<meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://blog.tonychow.me"/>
-<meta property="og:image" content="/images/avatar.jpg">
+  <meta property="og:site_name" content="Tonychow's Blog"/>
+  <meta property="og:type" content="blog"/>
+  <meta property="og:title" content="Tonychow's Blog"/>
+  <meta property="og:description" content="tonychow's Thoughts and Writings"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://blog.tonychow.me"/>
+  <meta property="og:image" content="/images/avatar.jpg">
 
-  <title>Tonychow's Blog &ndash;     Posts by tonychow
-:</title>
+  <title>Tonychow's Blog &ndash; Posts by tonychow:</title>
 
 </head>
-<body>
+<body class="light-theme">
   <aside>
     <div>
-      <a href="https://blog.tonychow.me">
+      <a href="https://blog.tonychow.me/">
         <img src="/images/avatar.jpg" alt="" title="">
       </a>
-      <h1><a href="https://blog.tonychow.me"></a></h1>
+
+      <h1>
+        <a href="https://blog.tonychow.me/"></a>
+      </h1>
 
 <p>Go/Python backend developer</p>
 
+
       <ul class="social">
-        <li><a class="sc-github" href="https://github.com/chow1937" target="_blank"><i class="fa fa-github"></i></a></li>
+          <li>
+            <a  class="sc-github" href="https://github.com/chow1937" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
       </ul>
     </div>
-
 
   </aside>
   <main>
 
     <nav>
-      <a href="https://blog.tonychow.me">    Home
-</a>
+      <a href="https://blog.tonychow.me/">Home</a>
 
       <a href="/archives.html">Archives</a>
       <a href="/categories.html">Categories</a>
       <a href="/tags.html">Tags</a>
 
-      <a href="https://blog.tonychow.me/feeds/all.atom.xml">    Atom
-</a>
+      <a href="https://blog.tonychow.me/feeds/all.atom.xml">Atom</a>
 
     </nav>
 
@@ -78,22 +94,43 @@
 
 <article>
   <header>
+    <h2><a href="https://blog.tonychow.me/mit6.824-letcture3-notes.html#mit6.824-letcture3-notes">6.824 Lecture 3 GFS Notes & Paper Reading</a></h2>
+    <p>
+      Posted on 一 02 八月 2021 in <a href="https://blog.tonychow.me/category/course.html">course</a>
+
+          &#8226; Tagged with
+              <a href="https://blog.tonychow.me/tag/mit6824.html">mit6.824</a>,              <a href="https://blog.tonychow.me/tag/distributed-system.html">Distributed-System</a>
+        &#8226; 6 min read
+    </p>
+  </header>
+  <div>
+      <div><p>本课主要是针对分布式系统中容错这个主题进行了讨论，关注的领域是分布式存储系统。先是概述了分布式存储系统的关键点和挑战，然后围绕 GFS 的实现进入了更深入的探讨。GFS 是一个曾经在谷歌中大规模应用的真实分布式系统，对之前课程中涉及到的 MapReduce 应用提供了底层的文件系统支撑。</p></div>
+        <br>
+        <a class="btn"
+           href="https://blog.tonychow.me/mit6.824-letcture3-notes.html#mit6.824-letcture3-notes">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
     <h2><a href="https://blog.tonychow.me/mit6.824-letcture2-notes.html#mit6.824-letcture2-notes">6.824 Lecture 2 RPC and Threads Notes</a></h2>
     <p>
-          Posted on 二 29 六月 2021 in <a href="https://blog.tonychow.me/category/course.html">course</a>
+      Posted on 二 29 六月 2021 in <a href="https://blog.tonychow.me/category/course.html">course</a>
 
-
-          &#8226;     Tagged with
-
+          &#8226; Tagged with
               <a href="https://blog.tonychow.me/tag/mit6824.html">mit6.824</a>,              <a href="https://blog.tonychow.me/tag/distributed-system.html">Distributed-System</a>
         &#8226; 1 min read
     </p>
   </header>
   <div>
-      
-      <br>
-      <a class="btn" href="https://blog.tonychow.me/mit6.824-letcture2-notes.html#mit6.824-letcture2-notes">    Continue reading
-</a>
+      <div></div>
+        <br>
+        <a class="btn"
+           href="https://blog.tonychow.me/mit6.824-letcture2-notes.html#mit6.824-letcture2-notes">
+          Continue reading
+        </a>
   </div>
   <hr />
 </article>
@@ -101,20 +138,20 @@
   <header>
     <h2><a href="https://blog.tonychow.me/mit6.824-letcture1-notes.html#mit6.824-letcture1-notes">6.824 Lecture 1 Introduction Notes & Paper Reading</a></h2>
     <p>
-          Posted on 一 28 六月 2021 in <a href="https://blog.tonychow.me/category/course.html">course</a>
+      Posted on 一 28 六月 2021 in <a href="https://blog.tonychow.me/category/course.html">course</a>
 
-
-          &#8226;     Tagged with
-
+          &#8226; Tagged with
               <a href="https://blog.tonychow.me/tag/mit6824.html">mit6.824</a>,              <a href="https://blog.tonychow.me/tag/distributed-system.html">Distributed-System</a>,              <a href="https://blog.tonychow.me/tag/paper.html">paper</a>
         &#8226; 4 min read
     </p>
   </header>
   <div>
-      
-      <br>
-      <a class="btn" href="https://blog.tonychow.me/mit6.824-letcture1-notes.html#mit6.824-letcture1-notes">    Continue reading
-</a>
+      <div></div>
+        <br>
+        <a class="btn"
+           href="https://blog.tonychow.me/mit6.824-letcture1-notes.html#mit6.824-letcture1-notes">
+          Continue reading
+        </a>
   </div>
   <hr />
 </article>
@@ -122,20 +159,20 @@
   <header>
     <h2><a href="https://blog.tonychow.me/thoughts-about-python-iterator.html#thoughts-about-python-iterator">关于 Python iterator 协议的一点思考</a></h2>
     <p>
-          Posted on 一 06 四月 2015 in <a href="https://blog.tonychow.me/category/python.html">python</a>
+      Posted on 一 06 四月 2015 in <a href="https://blog.tonychow.me/category/python.html">python</a>
 
-
-          &#8226;     Tagged with
-
+          &#8226; Tagged with
               <a href="https://blog.tonychow.me/tag/python.html">python</a>,              <a href="https://blog.tonychow.me/tag/iterator.html">iterator</a>,              <a href="https://blog.tonychow.me/tag/thoughts.html">thoughts</a>
         &#8226; 1 min read
     </p>
   </header>
   <div>
-      
-      <br>
-      <a class="btn" href="https://blog.tonychow.me/thoughts-about-python-iterator.html#thoughts-about-python-iterator">    Continue reading
-</a>
+      <div></div>
+        <br>
+        <a class="btn"
+           href="https://blog.tonychow.me/thoughts-about-python-iterator.html#thoughts-about-python-iterator">
+          Continue reading
+        </a>
   </div>
   <hr />
 </article>
@@ -143,59 +180,37 @@
   <header>
     <h2><a href="https://blog.tonychow.me/corepython-reading-notes-how-day7.html#corepython-reading-notes-how-day7">Python 核心编程读书笔记 Day7</a></h2>
     <p>
-          Posted on 五 18 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
+      Posted on 五 18 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
 
-
-          &#8226;     Tagged with
-
+          &#8226; Tagged with
               <a href="https://blog.tonychow.me/tag/corepython.html">corepython</a>,              <a href="https://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>,              <a href="https://blog.tonychow.me/tag/python.html">python</a>
         &#8226; 1 min read
     </p>
   </header>
   <div>
-      
-      <br>
-      <a class="btn" href="https://blog.tonychow.me/corepython-reading-notes-how-day7.html#corepython-reading-notes-how-day7">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://blog.tonychow.me/corepython-reading-notes-how-day6.html#corepython-reading-notes-how-day6">Python 核心编程读书笔记 Day6</a></h2>
-    <p>
-          Posted on 四 17 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://blog.tonychow.me/tag/corepython.html">corepython</a>,              <a href="https://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>,              <a href="https://blog.tonychow.me/tag/python.html">python</a>
-        &#8226; 1 min read
-    </p>
-  </header>
-  <div>
-      
-      <br>
-      <a class="btn" href="https://blog.tonychow.me/corepython-reading-notes-how-day6.html#corepython-reading-notes-how-day6">    Continue reading
-</a>
+      <div></div>
+        <br>
+        <a class="btn"
+           href="https://blog.tonychow.me/corepython-reading-notes-how-day7.html#corepython-reading-notes-how-day7">
+          Continue reading
+        </a>
   </div>
 </article>
 
   <div class="pagination">
-    <a class="btn" href="https://blog.tonychow.me/author/tonychow2.html">
-      <i class="fa fa-angle-left"></i>     Older Posts
-
+    <a class="btn float-left" href="https://blog.tonychow.me/author/tonychow2.html">
+      <i class="fa fa-angle-left"></i> Older Posts
     </a>
   </div>
 
 
 
-
     <footer>
 <p>
-  &copy; tonychow 2017 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+  &copy; 2017  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US" target="_blank">Creative Commons Attribution-ShareAlike</a>
 </p>
-<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
 </p><p>
   <a rel="license"
      href="http://creativecommons.org/licenses/by-sa/4.0/"
@@ -203,13 +218,12 @@
     <img alt="Creative Commons License"
          title="Creative Commons License"
          style="border-width:0"
-         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+           src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
          width="80"
          height="15"/>
   </a>
 </p>    </footer>
   </main>
-
 
 
 
@@ -224,5 +238,6 @@
   "description": "tonychow's Thoughts and Writings"
 }
 </script>
+
 </body>
 </html>

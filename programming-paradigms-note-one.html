@@ -2,23 +2,31 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/stylesheet/style.min.css">
 
-  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/pygments/colorful.min.css">
-  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/font-awesome.min.css">
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://blog.tonychow.me/theme/pygments/colorful.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/solid.css">
 
 
     <link href="https://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom">
 
 
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="index, follow" />
+  
 
     <!-- Chrome, Firefox OS and Opera -->
     <meta name="theme-color" content="#333333">
@@ -27,66 +35,77 @@
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">
+
+ 
 
 <meta name="author" content="tonychow" />
 <meta name="description" content="" />
 <meta name="keywords" content="opencourse, programming-paradigms, notes">
-<meta property="og:site_name" content="Tonychow's Blog"/>
-<meta property="og:title" content="斯坦福大学公开课-编程范式 笔记 1"/>
-<meta property="og:description" content=""/>
-<meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://blog.tonychow.me/programming-paradigms-note-one.html"/>
-<meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2013-07-07 00:00:00+08:00"/>
-<meta property="article:modified_time" content=""/>
-<meta property="article:author" content="https://blog.tonychow.me/author/tonychow.html">
-<meta property="article:section" content="opencourse"/>
-<meta property="article:tag" content="opencourse"/>
-<meta property="article:tag" content="programming-paradigms"/>
-<meta property="article:tag" content="notes"/>
-<meta property="og:image" content="/images/avatar.jpg">
+
+
+  <meta property="og:site_name" content="Tonychow's Blog"/>
+  <meta property="og:title" content="斯坦福大学公开课-编程范式 笔记 1"/>
+  <meta property="og:description" content=""/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://blog.tonychow.me/programming-paradigms-note-one.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2013-07-07 00:00:00+08:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://blog.tonychow.me/author/tonychow.html">
+  <meta property="article:section" content="opencourse"/>
+  <meta property="article:tag" content="opencourse"/>
+  <meta property="article:tag" content="programming-paradigms"/>
+  <meta property="article:tag" content="notes"/>
+  <meta property="og:image" content="/images/avatar.jpg">
 
   <title>Tonychow's Blog &ndash; 斯坦福大学公开课-编程范式 笔记 1</title>
 
 </head>
-<body>
+<body class="light-theme">
   <aside>
     <div>
-      <a href="https://blog.tonychow.me">
+      <a href="https://blog.tonychow.me/">
         <img src="/images/avatar.jpg" alt="" title="">
       </a>
-      <h1><a href="https://blog.tonychow.me"></a></h1>
+
+      <h1>
+        <a href="https://blog.tonychow.me/"></a>
+      </h1>
 
 <p>Go/Python backend developer</p>
 
+
       <ul class="social">
-        <li><a class="sc-github" href="https://github.com/chow1937" target="_blank"><i class="fa fa-github"></i></a></li>
+          <li>
+            <a  class="sc-github" href="https://github.com/chow1937" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
       </ul>
     </div>
-
 
   </aside>
   <main>
 
     <nav>
-      <a href="https://blog.tonychow.me">    Home
-</a>
+      <a href="https://blog.tonychow.me/">Home</a>
 
       <a href="/archives.html">Archives</a>
       <a href="/categories.html">Categories</a>
       <a href="/tags.html">Tags</a>
 
-      <a href="https://blog.tonychow.me/feeds/all.atom.xml">    Atom
-</a>
+      <a href="https://blog.tonychow.me/feeds/all.atom.xml">Atom</a>
 
     </nav>
 
 <article class="single">
   <header>
+      
     <h1 id="programming-paradigms-note-one">斯坦福大学公开课-编程范式 笔记 1</h1>
     <p>
-          Posted on 日 07 七月 2013 in <a href="https://blog.tonychow.me/category/opencourse.html">opencourse</a>
-
+      Posted on 日 07 七月 2013 in <a href="https://blog.tonychow.me/category/opencourse.html">opencourse</a>
 
         &#8226; 2 min read
     </p>
@@ -107,12 +126,11 @@
 <p>在这里，我要记下的是在课程中碰到的一些有趣的内容。</p>
 <h3>malloc 与 free</h3>
 <p>我们知道，malloc 函数是 C 中动态分配内存的一个函数，通过这个函数可以在堆中申请一块限定大小的内存使用。对应地，有申请内存函数就有释放内存函数，这个函数就是 free 函数。这两个函数的原型如下：</p>
-<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
 
 <span class="kt">void</span> <span class="o">*</span><span class="nf">malloc</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">);</span>
 <span class="kt">void</span> <span class="nf">free</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">);</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>通过这两个函数的原型我们可以看到一些信息。malloc 函数的参数是一个 size_t 类型的变量 size ，而 malloc 返回的则是一个 void * 类型的指针。这不意外，因为我们知道通过 malloc 函数分配制定大小的内存成功之后，会将这块内存的首地址作为返回值返回给某个类型的指针变量。而通过 C 的自动类型转换，void * 类型的指针地址将会被转换为该指针变量类型的指针。</p>
 <p>free 函数也是只有一个参数，类型为 void * 的指针变量 ptr ，无返回值。在这里问题出现了， free 函数如果只是接受某块内存的首地址作为参数，那它是如何得知这块内存的大小？或者说，free 函数怎么知道需要被释放的内存到底有多大？这块内存的大小是必要要知道的，因为如果不知道，free 函数是无法准确地将要释放的内存释放掉，也许会将后面接着的不允许释放的内存也释放掉，也许还遗留一部分内存没有释放掉。</p>
@@ -120,7 +138,7 @@
 <h3>malloc 的机制</h3>
 <p>答案并不复杂，那就是在 malloc 函数返回的地址前面，有 4 字节或者 8 字节同样也是属于这块内存的内容，这几个字节中储存了该内存地址的大小。free 函数接受这个地址的时候，会回退一部分地址，根据这个结构的内容，得到该内存块的大小，然后将相关的释放掉。</p>
 <p>以上是公开课中老师的简单讲述，那实际情况是怎样？下面进行一下简单的验证。首先测试的平台是 Fedora17 ，Linux 的内核版本为 3.6.11-5.fc17.i686.PAE ，使用的 C 编译器为 GCC 4.7.2 20120921 (Red Hat 4.7.2-2) 。测试代码如下：</p>
-<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
 
 
@@ -144,27 +162,24 @@
     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The start of char memory address is %x.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">cptr</span><span class="p">);</span>
     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Before this address, the value is %d.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">((</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">cptr</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
 <span class="p">}</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>测试代码并不复杂，简单定义了两个 int 类型的指针变量和一个 char * 类型的指针变量，然后用 malloc 函数分配一定数量的内存，返回的内存块首地址赋值给这三个变量，然后输出这三个内存块首地址前一个位置的值。注意对于 char * 类型的地址，首先强制转换成 int * 类型的再进行 -1 操作。</p>
 <p>代码的输出结果如下所示：</p>
-<div class="highlight"><pre><span></span>╰ ➤ ./a.out 
+<div class="highlight"><pre><span></span><code>╰ ➤ ./a.out 
 The start of num1 memory address is 9922008.
 Before this address, the value is 2057.
 The start of num2 memory address is 9922810.
 Before this address, the value is 4105.
 The start of char memory address is 9923818.
 Before this address, the value is 1033.
-</pre></div>
-
+</code></pre></div>
 
 <p>通过代码我们可以知道，ptr1 申请的内存块大小为 512  * 4 = 2048，ptr2 申请的内存块大小为 1024 * 4 = 4096，cptr 申请的内存块大小为 1024 * 1 = 1024，以上单位均为字节。根据输出，有如下计算：</p>
-<div class="highlight"><pre><span></span><span class="mi">2057</span> <span class="o">-</span> <span class="mi">2048</span> <span class="o">=</span> <span class="mi">9</span>
+<div class="highlight"><pre><span></span><code><span class="mi">2057</span> <span class="o">-</span> <span class="mi">2048</span> <span class="o">=</span> <span class="mi">9</span>
 <span class="mi">4105</span> <span class="o">-</span> <span class="mi">4096</span> <span class="o">=</span> <span class="mi">9</span>
 <span class="mi">1033</span> <span class="o">-</span> <span class="mi">1024</span> <span class="o">=</span> <span class="mi">9</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>可见，如果 malloc 函数返回的地址前一个字节保存了该内存块的整体大小，那可以推测到，其中 9 个字节作为额外的结构，保存了这块内存的信息，以提供给其他函数比如 free 函数利用。当然这只是一个推测，真实的情况需要深入到 glibc 的库的 malloc 和 free 的源码中。</p>
 <p>实际上，老师也说了，不同的编译器的实现是不同的，比如，可以参考下这篇文章：<a href="http://www.cnblogs.com/sinaxyz/archive/2012/08/20/2647631.html">malloc/new函数及malloc()的一种简单原理性实现</a> 。</p>
@@ -185,13 +200,15 @@ Before this address, the value is 1033.
 
 
 
+
 </article>
 
     <footer>
 <p>
-  &copy; tonychow 2017 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+  &copy; 2017  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US" target="_blank">Creative Commons Attribution-ShareAlike</a>
 </p>
-<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
 </p><p>
   <a rel="license"
      href="http://creativecommons.org/licenses/by-sa/4.0/"
@@ -199,13 +216,12 @@ Before this address, the value is 1033.
     <img alt="Creative Commons License"
          title="Creative Commons License"
          style="border-width:0"
-         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+           src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
          width="80"
          height="15"/>
   </a>
 </p>    </footer>
   </main>
-
 
 
 
@@ -220,5 +236,6 @@ Before this address, the value is 1033.
   "description": "tonychow's Thoughts and Writings"
 }
 </script>
+
 </body>
 </html>

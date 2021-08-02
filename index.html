@@ -2,23 +2,31 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/stylesheet/style.min.css">
 
-  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/pygments/colorful.min.css">
-  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/font-awesome.min.css">
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://blog.tonychow.me/theme/pygments/colorful.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/solid.css">
 
 
     <link href="https://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom">
 
 
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="index, follow" />
+  
 
     <!-- Chrome, Firefox OS and Opera -->
     <meta name="theme-color" content="#333333">
@@ -27,49 +35,58 @@
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">
+
+ 
 
     <meta name="author" content="tonychow" />
     <meta name="description" content="tonychow's Thoughts and Writings" />
-<meta property="og:site_name" content="Tonychow's Blog"/>
-<meta property="og:type" content="blog"/>
-<meta property="og:title" content="Tonychow's Blog"/>
-<meta property="og:description" content="tonychow's Thoughts and Writings"/>
-<meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://blog.tonychow.me"/>
-<meta property="og:image" content="/images/avatar.jpg">
+  <meta property="og:site_name" content="Tonychow's Blog"/>
+  <meta property="og:type" content="blog"/>
+  <meta property="og:title" content="Tonychow's Blog"/>
+  <meta property="og:description" content="tonychow's Thoughts and Writings"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://blog.tonychow.me"/>
+  <meta property="og:image" content="/images/avatar.jpg">
 
   <title>Tonychow's Blog</title>
 
 </head>
-<body>
+<body class="light-theme">
   <aside>
     <div>
-      <a href="https://blog.tonychow.me">
+      <a href="https://blog.tonychow.me/">
         <img src="/images/avatar.jpg" alt="" title="">
       </a>
-      <h1><a href="https://blog.tonychow.me"></a></h1>
+
+      <h1>
+        <a href="https://blog.tonychow.me/"></a>
+      </h1>
 
 <p>Go/Python backend developer</p>
 
+
       <ul class="social">
-        <li><a class="sc-github" href="https://github.com/chow1937" target="_blank"><i class="fa fa-github"></i></a></li>
+          <li>
+            <a  class="sc-github" href="https://github.com/chow1937" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
       </ul>
     </div>
-
 
   </aside>
   <main>
 
     <nav>
-      <a href="https://blog.tonychow.me">    Home
-</a>
+      <a href="https://blog.tonychow.me/">Home</a>
 
       <a href="/archives.html">Archives</a>
       <a href="/categories.html">Categories</a>
       <a href="/tags.html">Tags</a>
 
-      <a href="https://blog.tonychow.me/feeds/all.atom.xml">    Atom
-</a>
+      <a href="https://blog.tonychow.me/feeds/all.atom.xml">Atom</a>
 
     </nav>
 
@@ -77,13 +94,32 @@
 
 <article>
   <header>
+    <h2><a href="https://blog.tonychow.me/mit6.824-letcture3-notes.html#mit6.824-letcture3-notes">6.824 Lecture 3 GFS Notes & Paper Reading</a></h2>
+    <p>
+      Posted on 一 02 八月 2021 in <a href="https://blog.tonychow.me/category/course.html">course</a>
+
+          &#8226; Tagged with
+              <a href="https://blog.tonychow.me/tag/mit6824.html">mit6.824</a>,              <a href="https://blog.tonychow.me/tag/distributed-system.html">Distributed-System</a>
+        &#8226; 6 min read
+    </p>
+  </header>
+  <div>
+      <div><p>本课主要是针对分布式系统中容错这个主题进行了讨论，关注的领域是分布式存储系统。先是概述了分布式存储系统的关键点和挑战，然后围绕 GFS 的实现进入了更深入的探讨。GFS 是一个曾经在谷歌中大规模应用的真实分布式系统，对之前课程中涉及到的 MapReduce 应用提供了底层的文件系统支撑。</p></div>
+        <br>
+        <a class="btn"
+           href="https://blog.tonychow.me/mit6.824-letcture3-notes.html#mit6.824-letcture3-notes">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
     <h2><a href="https://blog.tonychow.me/mit6.824-letcture2-notes.html#mit6.824-letcture2-notes">6.824 Lecture 2 RPC and Threads Notes</a></h2>
     <p>
-          Posted on 二 29 六月 2021 in <a href="https://blog.tonychow.me/category/course.html">course</a>
+      Posted on 二 29 六月 2021 in <a href="https://blog.tonychow.me/category/course.html">course</a>
 
-
-          &#8226;     Tagged with
-
+          &#8226; Tagged with
               <a href="https://blog.tonychow.me/tag/mit6824.html">mit6.824</a>,              <a href="https://blog.tonychow.me/tag/distributed-system.html">Distributed-System</a>
         &#8226; 1 min read
     </p>
@@ -175,11 +211,9 @@
   <header>
     <h2><a href="https://blog.tonychow.me/mit6.824-letcture1-notes.html#mit6.824-letcture1-notes">6.824 Lecture 1 Introduction Notes & Paper Reading</a></h2>
     <p>
-          Posted on 一 28 六月 2021 in <a href="https://blog.tonychow.me/category/course.html">course</a>
+      Posted on 一 28 六月 2021 in <a href="https://blog.tonychow.me/category/course.html">course</a>
 
-
-          &#8226;     Tagged with
-
+          &#8226; Tagged with
               <a href="https://blog.tonychow.me/tag/mit6824.html">mit6.824</a>,              <a href="https://blog.tonychow.me/tag/distributed-system.html">Distributed-System</a>,              <a href="https://blog.tonychow.me/tag/paper.html">paper</a>
         &#8226; 4 min read
     </p>
@@ -309,46 +343,42 @@ Reduce(k, v)
 <p>本课的论文是来自谷歌 2004 年发表的 MapReduce，这是一个当年在谷歌基础设施中被广泛应用于大数据处理任务的编程框架，工程师只需要定义好 Map 和 Reduce 两种函数，就可以利用实现好的框架库在数千台服务器中并行执行大数据处理任务。这篇论文和 GFS、BigTable 并称为谷歌大数据三大论文， 一起催生了谷歌大数据基础设施的开源版本 Hadoop 。Hadoop 成为今后十多年大数据领域占用绝对地位的基础设施，至今，Hadoop 生态不断发展，依旧是大数据相关业务基础设施的最佳选择。</p>
 <h3>4.1 Map/Reduce 计算模型</h3>
 <p>Map/Reduce 计算模型源自函数编程语言，是用于处理列表类型数据的高阶函数，支持传入一个函数和列表，输出对列表应用传入函数的结果。以 <a href="https://gigamonkeys.com/book/collections.html">Common Lisp</a> 为例，Map 函数定义及示例如下:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">map</span> <span class="nv">result-type</span> <span class="k">function</span> <span class="nv">sequence1</span> <span class="nv">sequence2...</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nb">map</span> <span class="nv">result-type</span> <span class="k">function</span> <span class="nv">sequence1</span> <span class="nv">sequence2...</span><span class="p">)</span>
 
 <span class="c1">; 示例</span>
 <span class="p">(</span><span class="nb">map</span> <span class="ss">&#39;vector</span> <span class="nf">#&#39;</span><span class="nb">*</span> <span class="o">#(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">)</span> <span class="o">#(</span><span class="mi">10</span> <span class="mi">9</span> <span class="mi">8</span> <span class="mi">7</span> <span class="mi">6</span><span class="p">))</span> <span class="nv">==&gt;</span> <span class="o">#(</span><span class="mi">10</span> <span class="mi">18</span> <span class="mi">24</span> <span class="mi">28</span> <span class="mi">30</span><span class="p">)</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>Map 函数接受一个 N 参数的函数和 N 个序列，将 N 个序列同序号元素作为函数的参数，应用后将函数输出结果连接起来作为一个新的序列返回。如以上示例，<code>vector</code> 是返回的序列类型，<code>*</code> 是函数，<code>#(1 2 3 4 5)</code> 和 <code>#(10 9 8 7 6)</code> 是输入的两个序列，执行结果是两个序列同序号元素应用函数乘 <code>*</code> 后的结果序列 <code>#(10 18 24 28 30)</code>。</p>
 <p>Reduce 函数定义及示例如下:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">reduce</span> <span class="k">function</span> <span class="nc">sequence</span> <span class="k">&amp;key</span> <span class="ss">:from-end</span> <span class="ss">:start</span> <span class="ss">:end</span> <span class="ss">:initial-value</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nb">reduce</span> <span class="k">function</span> <span class="nc">sequence</span> <span class="k">&amp;key</span> <span class="ss">:from-end</span> <span class="ss">:start</span> <span class="ss">:end</span> <span class="ss">:initial-value</span><span class="p">)</span>
 
 <span class="c1">; 示例</span>
 <span class="p">(</span><span class="nb">reduce</span> <span class="nf">#&#39;</span><span class="nb">+</span> <span class="o">#(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">10</span><span class="p">))</span> <span class="nv">==&gt;</span> <span class="mi">55</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>Reduce 函数接受一个 2 参数的函数和一个序列，首先将该序列的前 2 个元素作为函数参数调用得到一个结果，然后将结果和后一个元素再次作为函数参数调用，依次一直到最后一次函数调用，得到最终的结果。如上示例，函数是加 <code>+</code>，示例表达式的效果是将序列里面的所有元素相加。</p>
 <h3>4.2 MapReduce 编程模型</h3>
 <p>在本论文中，MapReduce 的编程模型与 Map/Reduce 不太一样，计算任务被抽象为接收和产生 Key/Value 对的 Map 和 Reduce 函数，并且由用户根据计算定义提供给 MapReduce 框架进行执行。Map 函数接受输入的 Key/Value 对，然后产生中间 Key/Value 对，MapReduce 库将中间数据相同 Key 的 Value 数据聚合起来，再交给 Reduce 函数计算，然后输出最终的计算结果 Key/Value 对。简化表达如下:</p>
-<div class="highlight"><pre><span></span>map(k1,v1) → list(k2,v2)
+<div class="highlight"><pre><span></span><code>map(k1,v1) → list(k2,v2)
 reduce(k2,list(v2)) → list(v2)
-</pre></div>
-
+</code></pre></div>
 
 <p>论文中举了一个计算文件中每个单词出现数量的计算任务:</p>
-<div class="highlight"><pre><span></span>map(String key, String value): 
-  // key: document name
-  // value: document contents
-  for each word w in value:
-    EmitIntermediate(w, &quot;1&quot;);
+<div class="highlight"><pre><span></span><code><span class="nt">map</span><span class="o">(</span><span class="nt">String</span> <span class="nt">key</span><span class="o">,</span> <span class="nt">String</span> <span class="nt">value</span><span class="o">):</span> 
+  <span class="o">//</span> <span class="nt">key</span><span class="o">:</span> <span class="nt">document</span> <span class="nt">name</span>
+  <span class="o">//</span> <span class="nt">value</span><span class="o">:</span> <span class="nt">document</span> <span class="nt">contents</span>
+  <span class="nt">for</span> <span class="nt">each</span> <span class="nt">word</span> <span class="nt">w</span> <span class="nt">in</span> <span class="nt">value</span><span class="o">:</span>
+    <span class="nt">EmitIntermediate</span><span class="o">(</span><span class="nt">w</span><span class="o">,</span> <span class="s2">&quot;1&quot;</span><span class="o">);</span>
 
-reduce(String key, Iterator values): 
-  // key: a word
-  // values: a list of counts
-  int result = 0;
-  for each v in values:
-    result += ParseInt(v);
-  Emit(AsString(result));
-</pre></div>
-
+<span class="nt">reduce</span><span class="o">(</span><span class="nt">String</span> <span class="nt">key</span><span class="o">,</span> <span class="nt">Iterator</span> <span class="nt">values</span><span class="o">):</span> 
+  <span class="o">//</span> <span class="nt">key</span><span class="o">:</span> <span class="nt">a</span> <span class="nt">word</span>
+  <span class="o">//</span> <span class="nt">values</span><span class="o">:</span> <span class="nt">a</span> <span class="nt">list</span> <span class="nt">of</span> <span class="nt">counts</span>
+  <span class="nt">int</span> <span class="nt">result</span> <span class="o">=</span> <span class="nt">0</span><span class="o">;</span>
+  <span class="nt">for</span> <span class="nt">each</span> <span class="nt">v</span> <span class="nt">in</span> <span class="nt">values</span><span class="o">:</span>
+    <span class="nt">result</span> <span class="o">+=</span> <span class="nt">ParseInt</span><span class="o">(</span><span class="nt">v</span><span class="o">);</span>
+  <span class="nt">Emit</span><span class="o">(</span><span class="nt">AsString</span><span class="o">(</span><span class="nt">result</span><span class="o">));</span>
+</code></pre></div>
 
 <ul>
 <li>map 函数的参数 Key 是文件名，Value 是文件内容，函数体就是对文件内容 value 的每个单词直接输出一个 key/value 对到中间文件，key 是该单词，value 是 "1" 表示该单词出现了一次。</li>
@@ -356,7 +386,7 @@ reduce(String key, Iterator values):
 </ul>
 <p>从上面的编程模型来看，MapReduce 对于计算任务类型是有一定的要求的，需要能够将计算抽象为 Map 和 Reduce，并且应当是无副作用的。这样，才可以把大量数据的计算任务拆分为并行的处理任务分发到大量的服务器上进行计算。</p>
 <h3>4.3 架构与流程</h3>
-<p><img alt="mapreduce" src="../images/mapreduce.png" /></p>
+<p><img alt="mapreduce" src="../images/mapreduce.png"></p>
 <p>上图是 MapReduce 计算任务整体的一个架构和执行流程，MapReduce 是以一个库的形式存在，用户程序加载 MapReduce 库然后拷贝到整个集群的所有服务器上。在不同的服务器上，程序有 Master 和 Worker 两种运行模式，其中 Master 负责和其他 Worker 程序交互分发 Map 或者 Reduce 任务及记录状态等元数据。而 Worker 则分布在大量的服务器上分别执行用户程序定义的 Map 任务或者 Reduce 任务。</p>
 <p>在一个计算任务启动时，MapReduce 库会将任务数据分割为 M 个小文件，大小一般从 16 M 到 64 M ，这个主要是与底层依赖的 GFS 特性相关。</p>
 <p>Master 主要保存以下元数据:</p>
@@ -451,11 +481,9 @@ reduce(String key, Iterator values):
   <header>
     <h2><a href="https://blog.tonychow.me/thoughts-about-python-iterator.html#thoughts-about-python-iterator">关于 Python iterator 协议的一点思考</a></h2>
     <p>
-          Posted on 一 06 四月 2015 in <a href="https://blog.tonychow.me/category/python.html">python</a>
+      Posted on 一 06 四月 2015 in <a href="https://blog.tonychow.me/category/python.html">python</a>
 
-
-          &#8226;     Tagged with
-
+          &#8226; Tagged with
               <a href="https://blog.tonychow.me/tag/python.html">python</a>,              <a href="https://blog.tonychow.me/tag/iterator.html">iterator</a>,              <a href="https://blog.tonychow.me/tag/thoughts.html">thoughts</a>
         &#8226; 1 min read
     </p>
@@ -464,13 +492,13 @@ reduce(String key, Iterator values):
       <p>Python 中有好几种容器或者序列类型：<code>list</code> <code>tuple</code> <code>dict</code> <code>set</code> <code>str</code>，对于这些类型中的内容，往往需要一种方式去遍历获取它们来进行操作。所以 Python 提供了迭代器的类型来对这些类型的内容进行迭代遍历，迭代类型新增于 Python 2.2。</p>
 <p>迭代器类型指的是遵循迭代器协议的类型，对于 Python2.x 版本来说就是实现了 <code>__iter__</code> 和 <code>next</code> 函数的对象类型。如果一个对象实现了迭代器协议，则可以用 <code>for</code> 语句遍历这个对象的内容。其中 <code>__iter__</code> 函数返回一个迭代器对象，而 <code>next</code> 函数则需要返回容器的下一个内容，如果没有下一个则抛出 StopIteration 异常，这个异常在 <code>for ... in</code> 语句中将会被捕获然后结束迭代。迭代器协议详细内容可以查看 <a href="https://www.python.org/dev/peps/pep-0234/">PEP234</a> 。Python3.x 将 <code>next</code> 函数改成了 <code>__next__</code> 函数，以和其他内置的函数保持一致的双下划线风格。</p>
 <p>以前看迭代器协议的时候，经常可以看到这样一个实现：</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Reverse</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Reverse</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -478,31 +506,28 @@ reduce(String key, Iterator values):
             <span class="k">raise</span> <span class="ne">StopIteration</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">-=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>最近看到了这么一个写法：</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IterObj</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">IterObj</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
 
-    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>这个写法没有 <code>next</code> 函数了，初看起来好像没有完全实现迭代器协议的样子，但是仔细考虑下的话，<code>__iter__</code> 函数内部调用了内置函数 <code>iter</code> ，实际上是返回了一个迭代器对象，而这个迭代器对象当然是实现了迭代器协议的。所以第二种写法也是完全可以的，并且对比第一种写法来说更加简单。</p>
 <p>在官方文档 <a href="https://docs.python.org/2/library/stdtypes.html?highlight=iterator#iterator-types">迭代器类型</a> 中可以看到，对于 <code>list</code> <code>dict</code> 等容器对象来说，它们的 <code>__iter__</code> 函数返回的不是其自身，而是一个迭代器对象： <code>container.__iter__()</code> 。所以当一个容器对象需要提供迭代的功能的时候，不是把这个容器对象变成一个迭代器对象，而是返回一个迭代器对象，将迭代的功能委托给这个迭代器对象。所以上面两种写法的区别在于一个是实现了迭代器对象，一个是实现了可迭代的容器对象。所以第二种写法如果稍稍微修改下：</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IterObj</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">IterObj</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
 
-    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">Reverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>这样就利用了之前定义的迭代器对象 <code>Reverse</code> 来给对象 <code>IterObj</code> 提供了反向迭代的功能。可以看到，这样的处理方式将迭代的逻辑和容器对象分离了，更加的灵活，容器对象本身也更加精简。</p>
 <p>Python 的迭代器协议统一了  Python 中容器对象进行迭代的方式，另一方面来说，也为用户自定义类型添加迭代的功能添加了方便的实现方式，所以无论是从语言的标准化来说还是从用户使用角度的来说都是非常有用的一个协议。</p>
@@ -513,11 +538,9 @@ reduce(String key, Iterator values):
   <header>
     <h2><a href="https://blog.tonychow.me/corepython-reading-notes-how-day7.html#corepython-reading-notes-how-day7">Python 核心编程读书笔记 Day7</a></h2>
     <p>
-          Posted on 五 18 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
+      Posted on 五 18 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
 
-
-          &#8226;     Tagged with
-
+          &#8226; Tagged with
               <a href="https://blog.tonychow.me/tag/corepython.html">corepython</a>,              <a href="https://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>,              <a href="https://blog.tonychow.me/tag/python.html">python</a>
         &#8226; 1 min read
     </p>
@@ -555,66 +578,22 @@ reduce(String key, Iterator values):
 <p>花了大概一周的时间，看完了《Python 核心编程这本书》。这本书从内容来说，还是不错的，一些 Python 基本的东西都有涉及，也讲得很细，也有些经验之谈的东西也值得学习。虽然后面的章节有点凑字数的嫌疑，考虑是到面向的是 Python2.5，而现在 Python 的版本号已经跑到了 2.7 了，所以也能原谅。但是，中文版的质量真心的差强人意。不说遍布全书的各种 typo 问题(甚至连标题也出现 typo)，就一点来说，对于 Python 这种这么注重缩进的语言来说，书里的各种代码缩进乱七八糟真的好意思么。当然，考虑到这本中文版出书背后的各种八卦事情，似乎这种质量也是可以理解的。</p>
 <p>无论如何，看完这本书之后的确对 Python 有了更多的了解，或者说对 Python 的理解更加全面了，所以还是受益匪浅的。</p>
   </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://blog.tonychow.me/corepython-reading-notes-how-day6.html#corepython-reading-notes-how-day6">Python 核心编程读书笔记 Day6</a></h2>
-    <p>
-          Posted on 四 17 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://blog.tonychow.me/tag/corepython.html">corepython</a>,              <a href="https://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>,              <a href="https://blog.tonychow.me/tag/python.html">python</a>
-        &#8226; 1 min read
-    </p>
-  </header>
-  <div>
-      <p>今天阅读了 15-19 章的内容，前面的是 Python 中的关键重要内容，而这之后的几章内容都是 Python 的一些高级内容。所谓高级指的是这些章节描述了一些与 Python 相关的比较高的层面的内容，比如正则表达式，网络编程等等内容，下面继续总结今天的阅读笔记。</p>
-<h3>第十五章：正则表达式</h3>
-<p>在文本处理和数据处理中，正则表达式提供了一种模式匹配，搜索文本的方式。正则表达式在很多语言中都被支持，而同样 Python 也提供了对正则表达式支持的模块 re。本章的内容就是 Python 的正则表达式模块，下面是要点：</p>
-<p>1.正则表达式是一个由含有文本和特别字符组成的字符串，通过正则表达式可以描述想要匹配的内容；</p>
-<p>2.<code>re1|re2</code> 表示匹配 re1 或者 re2；</p>
-<p>3.<code>.</code> 表示匹配换行符 '\n' 之外的其他任何字符；</p>
-<p>4.<code>^</code> 表示匹配字符的开始，在 <code>[]</code> 内表示否定；</p>
-<p>5.<code>$</code> 表示匹配字符的结尾；</p>
-<!--more-->
-
-<p>6.<code>*</code> 表示匹配前面的正则表达式零次或者多次；</p>
-<p>7.<code>+</code> 表示匹配前面的正则表达式一次或者多次；</p>
-<p>8.<code>?</code> 表示匹配前面的正则表达式零次或者一次；</p>
-<p>9.<code>{N}</code> 表示匹配前面的正则表达式 N 次；</p>
-<p>10.<code>{M, N}</code> 表示匹配前面的表达式 M 次到 N 次；</p>
-<p>11.<code>[...]</code> 表示匹配里面出现的任意字符，一个；</p>
-<p>12.<code>\d</code> 匹配数字；</p>
-<p>13.<code>\w</code> 匹配数字及字母；</p>
-<p>14.<code>\s</code> 匹配任何空白符；</p>
-<p>15.<code>\b</code> 匹配单词的边界(开始)；</p>
-<p>16.<code>\D</code>，<code>\W</code>，<code>\S</code>，<code>\B</code> 表示和小写相反，即不匹配；</p>
-<p>17.<code>re.search(pattern, string, flags=0)</code> 表示在指定字符串中搜索指定的模式，第一次搜索到则返回匹配结果；</p>
-<p>18.<code>re.match(pattern, string, flags=0)</code> 表示对指定字符串从字符串的开始位置尝试匹配指定模式；</p>
-<p>19.<code>re.findall(pattern, string[, flags])</code> 表示在指定字符串中搜索所有的匹配结果；</p>
-<p>20.<code>re.sub(pattern, repl, string, max=0)</code> 可以对匹配的结果进行替换；</p>
-<p>21.Python 的正则表达式是默认贪婪模式的，在利用通配符的时候会尝试匹配最多的字符，可以用 <code>?</code> 来限制；</p>
-  </div>
 </article>
 
   <div class="pagination">
-    <a class="btn" href="https://blog.tonychow.me/index2.html">
-      <i class="fa fa-angle-left"></i>     Older Posts
-
+    <a class="btn float-left" href="https://blog.tonychow.me/index2.html">
+      <i class="fa fa-angle-left"></i> Older Posts
     </a>
   </div>
 
 
 
-
     <footer>
 <p>
-  &copy; tonychow 2017 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+  &copy; 2017  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US" target="_blank">Creative Commons Attribution-ShareAlike</a>
 </p>
-<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
 </p><p>
   <a rel="license"
      href="http://creativecommons.org/licenses/by-sa/4.0/"
@@ -622,13 +601,12 @@ reduce(String key, Iterator values):
     <img alt="Creative Commons License"
          title="Creative Commons License"
          style="border-width:0"
-         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+           src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
          width="80"
          height="15"/>
   </a>
 </p>    </footer>
   </main>
-
 
 
 
@@ -643,5 +621,6 @@ reduce(String key, Iterator values):
   "description": "tonychow's Thoughts and Writings"
 }
 </script>
+
 </body>
 </html>

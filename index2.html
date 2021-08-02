@@ -2,23 +2,31 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/stylesheet/style.min.css">
 
-  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/pygments/colorful.min.css">
-  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/font-awesome.min.css">
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://blog.tonychow.me/theme/pygments/colorful.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/solid.css">
 
 
     <link href="https://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom">
 
 
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="index, follow" />
+  
 
     <!-- Chrome, Firefox OS and Opera -->
     <meta name="theme-color" content="#333333">
@@ -27,49 +35,58 @@
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">
+
+ 
 
     <meta name="author" content="tonychow" />
     <meta name="description" content="tonychow's Thoughts and Writings" />
-<meta property="og:site_name" content="Tonychow's Blog"/>
-<meta property="og:type" content="blog"/>
-<meta property="og:title" content="Tonychow's Blog"/>
-<meta property="og:description" content="tonychow's Thoughts and Writings"/>
-<meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://blog.tonychow.me"/>
-<meta property="og:image" content="/images/avatar.jpg">
+  <meta property="og:site_name" content="Tonychow's Blog"/>
+  <meta property="og:type" content="blog"/>
+  <meta property="og:title" content="Tonychow's Blog"/>
+  <meta property="og:description" content="tonychow's Thoughts and Writings"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://blog.tonychow.me"/>
+  <meta property="og:image" content="/images/avatar.jpg">
 
   <title>Tonychow's Blog</title>
 
 </head>
-<body>
+<body class="light-theme">
   <aside>
     <div>
-      <a href="https://blog.tonychow.me">
+      <a href="https://blog.tonychow.me/">
         <img src="/images/avatar.jpg" alt="" title="">
       </a>
-      <h1><a href="https://blog.tonychow.me"></a></h1>
+
+      <h1>
+        <a href="https://blog.tonychow.me/"></a>
+      </h1>
 
 <p>Go/Python backend developer</p>
 
+
       <ul class="social">
-        <li><a class="sc-github" href="https://github.com/chow1937" target="_blank"><i class="fa fa-github"></i></a></li>
+          <li>
+            <a  class="sc-github" href="https://github.com/chow1937" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
       </ul>
     </div>
-
 
   </aside>
   <main>
 
     <nav>
-      <a href="https://blog.tonychow.me">    Home
-</a>
+      <a href="https://blog.tonychow.me/">Home</a>
 
       <a href="/archives.html">Archives</a>
       <a href="/categories.html">Categories</a>
       <a href="/tags.html">Tags</a>
 
-      <a href="https://blog.tonychow.me/feeds/all.atom.xml">    Atom
-</a>
+      <a href="https://blog.tonychow.me/feeds/all.atom.xml">Atom</a>
 
     </nav>
 
@@ -77,13 +94,52 @@
 
 <article>
   <header>
+    <h2><a href="https://blog.tonychow.me/corepython-reading-notes-how-day6.html#corepython-reading-notes-how-day6">Python 核心编程读书笔记 Day6</a></h2>
+    <p>
+      Posted on 四 17 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
+
+          &#8226; Tagged with
+              <a href="https://blog.tonychow.me/tag/corepython.html">corepython</a>,              <a href="https://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>,              <a href="https://blog.tonychow.me/tag/python.html">python</a>
+        &#8226; 1 min read
+    </p>
+  </header>
+  <div>
+      <p>今天阅读了 15-19 章的内容，前面的是 Python 中的关键重要内容，而这之后的几章内容都是 Python 的一些高级内容。所谓高级指的是这些章节描述了一些与 Python 相关的比较高的层面的内容，比如正则表达式，网络编程等等内容，下面继续总结今天的阅读笔记。</p>
+<h3>第十五章：正则表达式</h3>
+<p>在文本处理和数据处理中，正则表达式提供了一种模式匹配，搜索文本的方式。正则表达式在很多语言中都被支持，而同样 Python 也提供了对正则表达式支持的模块 re。本章的内容就是 Python 的正则表达式模块，下面是要点：</p>
+<p>1.正则表达式是一个由含有文本和特别字符组成的字符串，通过正则表达式可以描述想要匹配的内容；</p>
+<p>2.<code>re1|re2</code> 表示匹配 re1 或者 re2；</p>
+<p>3.<code>.</code> 表示匹配换行符 '\n' 之外的其他任何字符；</p>
+<p>4.<code>^</code> 表示匹配字符的开始，在 <code>[]</code> 内表示否定；</p>
+<p>5.<code>$</code> 表示匹配字符的结尾；</p>
+<!--more-->
+
+<p>6.<code>*</code> 表示匹配前面的正则表达式零次或者多次；</p>
+<p>7.<code>+</code> 表示匹配前面的正则表达式一次或者多次；</p>
+<p>8.<code>?</code> 表示匹配前面的正则表达式零次或者一次；</p>
+<p>9.<code>{N}</code> 表示匹配前面的正则表达式 N 次；</p>
+<p>10.<code>{M, N}</code> 表示匹配前面的表达式 M 次到 N 次；</p>
+<p>11.<code>[...]</code> 表示匹配里面出现的任意字符，一个；</p>
+<p>12.<code>\d</code> 匹配数字；</p>
+<p>13.<code>\w</code> 匹配数字及字母；</p>
+<p>14.<code>\s</code> 匹配任何空白符；</p>
+<p>15.<code>\b</code> 匹配单词的边界(开始)；</p>
+<p>16.<code>\D</code>，<code>\W</code>，<code>\S</code>，<code>\B</code> 表示和小写相反，即不匹配；</p>
+<p>17.<code>re.search(pattern, string, flags=0)</code> 表示在指定字符串中搜索指定的模式，第一次搜索到则返回匹配结果；</p>
+<p>18.<code>re.match(pattern, string, flags=0)</code> 表示对指定字符串从字符串的开始位置尝试匹配指定模式；</p>
+<p>19.<code>re.findall(pattern, string[, flags])</code> 表示在指定字符串中搜索所有的匹配结果；</p>
+<p>20.<code>re.sub(pattern, repl, string, max=0)</code> 可以对匹配的结果进行替换；</p>
+<p>21.Python 的正则表达式是默认贪婪模式的，在利用通配符的时候会尝试匹配最多的字符，可以用 <code>?</code> 来限制；</p>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
     <h2><a href="https://blog.tonychow.me/corepython-reading-notes-how-day5.html#corepython-reading-notes-how-day5">Python 核心编程读书笔记 Day5</a></h2>
     <p>
-          Posted on 三 16 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
+      Posted on 三 16 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
 
-
-          &#8226;     Tagged with
-
+          &#8226; Tagged with
               <a href="https://blog.tonychow.me/tag/corepython.html">corepython</a>,              <a href="https://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>,              <a href="https://blog.tonychow.me/tag/python.html">python</a>
         &#8226; 1 min read
     </p>
@@ -125,11 +181,9 @@
   <header>
     <h2><a href="https://blog.tonychow.me/corepython-reading-notes-how-day4.html#corepython-reading-notes-how-day4">Python 核心编程读书笔记 Day4</a></h2>
     <p>
-          Posted on 二 15 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
+      Posted on 二 15 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
 
-
-          &#8226;     Tagged with
-
+          &#8226; Tagged with
               <a href="https://blog.tonychow.me/tag/corepython.html">corepython</a>,              <a href="https://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>,              <a href="https://blog.tonychow.me/tag/python.html">python</a>
         &#8226; 1 min read
     </p>
@@ -172,11 +226,9 @@
   <header>
     <h2><a href="https://blog.tonychow.me/corepython-reading-notes-how-day3.html#corepython-reading-notes-how-day3">Python 核心编程读书笔记 Day3</a></h2>
     <p>
-          Posted on 日 13 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
+      Posted on 日 13 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
 
-
-          &#8226;     Tagged with
-
+          &#8226; Tagged with
               <a href="https://blog.tonychow.me/tag/corepython.html">corepython</a>,              <a href="https://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>,              <a href="https://blog.tonychow.me/tag/python.html">python</a>
         &#8226; 1 min read
     </p>
@@ -212,11 +264,9 @@
   <header>
     <h2><a href="https://blog.tonychow.me/corepython-reading-notes-how-day2.html#corepython-reading-notes-how-day2">Python 核心编程读书笔记 Day2</a></h2>
     <p>
-          Posted on 五 11 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
+      Posted on 五 11 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
 
-
-          &#8226;     Tagged with
-
+          &#8226; Tagged with
               <a href="https://blog.tonychow.me/tag/corepython.html">corepython</a>,              <a href="https://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>,              <a href="https://blog.tonychow.me/tag/python.html">python</a>
         &#8226; 1 min read
     </p>
@@ -251,75 +301,25 @@
 <p>9.Unicode 字符串 encode 为 str 字符串，str 字符串 decode 为 Unicode 字符串；</p>
 <p>10.列表是可变类型，支持添加插入或者删除元素，并不会产生新的元素；</p>
   </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://blog.tonychow.me/corepython-reading-notes-how-day1.html#corepython-reading-notes-how-day1">Python 核心编程读书笔记 Day1</a></h2>
-    <p>
-          Posted on 四 10 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://blog.tonychow.me/tag/corepython.html">corepython</a>,              <a href="https://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>,              <a href="https://blog.tonychow.me/tag/python.html">python</a>
-        &#8226; 1 min read
-    </p>
-  </header>
-  <div>
-      <p>今天主要阅读了 1 - 4 章的内容，下面总结下每章的主要内容和一些要点。</p>
-<h3>第一章：Python 核心</h3>
-<p>书本的开始只是一些关于 Python 的常识性的内容，包括但不限于起源、各个特性、各个系统的安装
-方式还有其他语言(C 语言之外)的实现方式，下面是一些要点：</p>
-<p>1.Python 是一门解释性的语言，但是却有个编译成字节码的编译过程，这一点和 Java 是类似的，
-因为编译成字节码可以得到性能上的增强；</p>
-<p>2.标准的 Python 官方发行的是 C 实现的 Python 版本，被称为 CPython，此外也有其他语言实现
-的版本，比如 Java 实现的 Jython，运行在 JVM 上，可以利用到 JVM 的 JIT 技术，并且可以使用
-Java 的类库。此外还有 C# 语言实现的 IronPython，可以运行在 .NET 及 Mono 环境上。还有一个
-基于 CPython 修改的 Stackless Python ，这个版本对 CPython 解释器进行了大量的修改，实现了
-用户级别的微线程。</p>
-<!--more-->
-
-<h3>第二章：快速入门</h3>
-<p>第二章非常简略地过了一遍 Python 的一些特性和语言结构数据类型等，以下是要点：</p>
-<p>1.用 "Docstring" 或者 """Docstring""" 在模块，类或者函数起始添加可以实现运行时访问这个文
-档字符串；</p>
-<p>2.<code>**</code> 是乘方运算符，<code>//</code>是取比商小的最大整数运算；</p>
-<p>3.Python 支持复数数字类型，形式类似 4 + 5j；</p>
-<p>4.元组和列表都是可以保存任意数量任意类型的 Python 对象的容器对象，并且都是从 0 开始索引
-访问元素，元组可以看成只读的列表，两者都支持切片；</p>
-<p>5.Python 通过缩进来区分代码块；</p>
-<p>6.可以通过列表解释来生成一个列表；</p>
-<h3>第三章：Python 基础</h3>
-<p>这章的主要内容是基本的 Python 语法，也介绍了标识符，变量和关键字等内容。要点如下：</p>
-<p>1.可以通过 <code>\</code> 连接多行的 Python 代码，也可以在含有小括号，中括号和花括号的时候跨行；</p>
-<p>2.Python 中，对象是通过引用传递的，将一个对象赋值给一个变量，就是将这个对象的引用赋给
-这个变量；</p>
-<p>3.Python 中支持增量赋值 <code>+=</code>，但不支持 <code>++</code> 这种自增符；</p>
-<p>4.Python 中支持多元赋值，可以同时将多个对象赋给多个变量，这种方式的赋值等号两边其实是两个元组；</p>
-<p>5.Python 中下划线对解释器有特殊的意义， <code>_xx</code> 表示模块私有，<code>__xxx__</code> 表示系统定义的</p>
-  </div>
 </article>
 
   <div class="pagination">
-    <a class="btn" href="https://blog.tonychow.me/index3.html">
-      <i class="fa fa-angle-left"></i>     Older Posts
-
+    <a class="btn float-left" href="https://blog.tonychow.me/index3.html">
+      <i class="fa fa-angle-left"></i> Older Posts
     </a>
     <a class="btn float-right" href="https://blog.tonychow.me/index.html">
-          Newer Posts
- <i class="fa fa-angle-right"></i>
+      Newer Posts <i class="fa fa-angle-right"></i>
     </a>
   </div>
-
 
 
 
     <footer>
 <p>
-  &copy; tonychow 2017 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+  &copy; 2017  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US" target="_blank">Creative Commons Attribution-ShareAlike</a>
 </p>
-<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
 </p><p>
   <a rel="license"
      href="http://creativecommons.org/licenses/by-sa/4.0/"
@@ -327,13 +327,12 @@ Java 的类库。此外还有 C# 语言实现的 IronPython，可以运行在 .N
     <img alt="Creative Commons License"
          title="Creative Commons License"
          style="border-width:0"
-         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+           src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
          width="80"
          height="15"/>
   </a>
 </p>    </footer>
   </main>
-
 
 
 
@@ -348,5 +347,6 @@ Java 的类库。此外还有 C# 语言实现的 IronPython，可以运行在 .N
   "description": "tonychow's Thoughts and Writings"
 }
 </script>
+
 </body>
 </html>

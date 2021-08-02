@@ -2,23 +2,31 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/stylesheet/style.min.css">
 
-  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/pygments/colorful.min.css">
-  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/font-awesome.min.css">
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://blog.tonychow.me/theme/pygments/colorful.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://blog.tonychow.me/theme/font-awesome/css/solid.css">
 
 
     <link href="https://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom">
 
 
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="index, follow" />
+  
 
     <!-- Chrome, Firefox OS and Opera -->
     <meta name="theme-color" content="#333333">
@@ -27,66 +35,77 @@
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">
+
+ 
 
 <meta name="author" content="tonychow" />
 <meta name="description" content="" />
 <meta name="keywords" content="mit6.824, Distributed-System, paper">
-<meta property="og:site_name" content="Tonychow's Blog"/>
-<meta property="og:title" content="6.824 Lecture 1 Introduction Notes & Paper Reading"/>
-<meta property="og:description" content=""/>
-<meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://blog.tonychow.me/mit6.824-letcture1-notes.html"/>
-<meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2021-06-28 00:00:00+08:00"/>
-<meta property="article:modified_time" content=""/>
-<meta property="article:author" content="https://blog.tonychow.me/author/tonychow.html">
-<meta property="article:section" content="course"/>
-<meta property="article:tag" content="mit6.824"/>
-<meta property="article:tag" content="Distributed-System"/>
-<meta property="article:tag" content="paper"/>
-<meta property="og:image" content="/images/avatar.jpg">
 
-  <title>Tonychow's Blog &ndash; 6.824 Lecture 1 Introduction Notes & Paper Reading</title>
+
+  <meta property="og:site_name" content="Tonychow's Blog"/>
+  <meta property="og:title" content="6.824 Lecture 1 Introduction Notes &amp; Paper Reading"/>
+  <meta property="og:description" content=""/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://blog.tonychow.me/mit6.824-letcture1-notes.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2021-06-28 00:00:00+08:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://blog.tonychow.me/author/tonychow.html">
+  <meta property="article:section" content="course"/>
+  <meta property="article:tag" content="mit6.824"/>
+  <meta property="article:tag" content="Distributed-System"/>
+  <meta property="article:tag" content="paper"/>
+  <meta property="og:image" content="/images/avatar.jpg">
+
+  <title>Tonychow's Blog &ndash; 6.824 Lecture 1 Introduction Notes &amp; Paper Reading</title>
 
 </head>
-<body>
+<body class="light-theme">
   <aside>
     <div>
-      <a href="https://blog.tonychow.me">
+      <a href="https://blog.tonychow.me/">
         <img src="/images/avatar.jpg" alt="" title="">
       </a>
-      <h1><a href="https://blog.tonychow.me"></a></h1>
+
+      <h1>
+        <a href="https://blog.tonychow.me/"></a>
+      </h1>
 
 <p>Go/Python backend developer</p>
 
+
       <ul class="social">
-        <li><a class="sc-github" href="https://github.com/chow1937" target="_blank"><i class="fa fa-github"></i></a></li>
+          <li>
+            <a  class="sc-github" href="https://github.com/chow1937" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
       </ul>
     </div>
-
 
   </aside>
   <main>
 
     <nav>
-      <a href="https://blog.tonychow.me">    Home
-</a>
+      <a href="https://blog.tonychow.me/">Home</a>
 
       <a href="/archives.html">Archives</a>
       <a href="/categories.html">Categories</a>
       <a href="/tags.html">Tags</a>
 
-      <a href="https://blog.tonychow.me/feeds/all.atom.xml">    Atom
-</a>
+      <a href="https://blog.tonychow.me/feeds/all.atom.xml">Atom</a>
 
     </nav>
 
 <article class="single">
   <header>
+      
     <h1 id="mit6.824-letcture1-notes">6.824 Lecture 1 Introduction Notes & Paper Reading</h1>
     <p>
-          Posted on 一 28 六月 2021 in <a href="https://blog.tonychow.me/category/course.html">course</a>
-
+      Posted on 一 28 六月 2021 in <a href="https://blog.tonychow.me/category/course.html">course</a>
 
         &#8226; 4 min read
     </p>
@@ -218,46 +237,42 @@ Reduce(k, v)
 <p>本课的论文是来自谷歌 2004 年发表的 MapReduce，这是一个当年在谷歌基础设施中被广泛应用于大数据处理任务的编程框架，工程师只需要定义好 Map 和 Reduce 两种函数，就可以利用实现好的框架库在数千台服务器中并行执行大数据处理任务。这篇论文和 GFS、BigTable 并称为谷歌大数据三大论文， 一起催生了谷歌大数据基础设施的开源版本 Hadoop 。Hadoop 成为今后十多年大数据领域占用绝对地位的基础设施，至今，Hadoop 生态不断发展，依旧是大数据相关业务基础设施的最佳选择。</p>
 <h3>4.1 Map/Reduce 计算模型</h3>
 <p>Map/Reduce 计算模型源自函数编程语言，是用于处理列表类型数据的高阶函数，支持传入一个函数和列表，输出对列表应用传入函数的结果。以 <a href="https://gigamonkeys.com/book/collections.html">Common Lisp</a> 为例，Map 函数定义及示例如下:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">map</span> <span class="nv">result-type</span> <span class="k">function</span> <span class="nv">sequence1</span> <span class="nv">sequence2...</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nb">map</span> <span class="nv">result-type</span> <span class="k">function</span> <span class="nv">sequence1</span> <span class="nv">sequence2...</span><span class="p">)</span>
 
 <span class="c1">; 示例</span>
 <span class="p">(</span><span class="nb">map</span> <span class="ss">&#39;vector</span> <span class="nf">#&#39;</span><span class="nb">*</span> <span class="o">#(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">)</span> <span class="o">#(</span><span class="mi">10</span> <span class="mi">9</span> <span class="mi">8</span> <span class="mi">7</span> <span class="mi">6</span><span class="p">))</span> <span class="nv">==&gt;</span> <span class="o">#(</span><span class="mi">10</span> <span class="mi">18</span> <span class="mi">24</span> <span class="mi">28</span> <span class="mi">30</span><span class="p">)</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>Map 函数接受一个 N 参数的函数和 N 个序列，将 N 个序列同序号元素作为函数的参数，应用后将函数输出结果连接起来作为一个新的序列返回。如以上示例，<code>vector</code> 是返回的序列类型，<code>*</code> 是函数，<code>#(1 2 3 4 5)</code> 和 <code>#(10 9 8 7 6)</code> 是输入的两个序列，执行结果是两个序列同序号元素应用函数乘 <code>*</code> 后的结果序列 <code>#(10 18 24 28 30)</code>。</p>
 <p>Reduce 函数定义及示例如下:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">reduce</span> <span class="k">function</span> <span class="nc">sequence</span> <span class="k">&amp;key</span> <span class="ss">:from-end</span> <span class="ss">:start</span> <span class="ss">:end</span> <span class="ss">:initial-value</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nb">reduce</span> <span class="k">function</span> <span class="nc">sequence</span> <span class="k">&amp;key</span> <span class="ss">:from-end</span> <span class="ss">:start</span> <span class="ss">:end</span> <span class="ss">:initial-value</span><span class="p">)</span>
 
 <span class="c1">; 示例</span>
 <span class="p">(</span><span class="nb">reduce</span> <span class="nf">#&#39;</span><span class="nb">+</span> <span class="o">#(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">10</span><span class="p">))</span> <span class="nv">==&gt;</span> <span class="mi">55</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>Reduce 函数接受一个 2 参数的函数和一个序列，首先将该序列的前 2 个元素作为函数参数调用得到一个结果，然后将结果和后一个元素再次作为函数参数调用，依次一直到最后一次函数调用，得到最终的结果。如上示例，函数是加 <code>+</code>，示例表达式的效果是将序列里面的所有元素相加。</p>
 <h3>4.2 MapReduce 编程模型</h3>
 <p>在本论文中，MapReduce 的编程模型与 Map/Reduce 不太一样，计算任务被抽象为接收和产生 Key/Value 对的 Map 和 Reduce 函数，并且由用户根据计算定义提供给 MapReduce 框架进行执行。Map 函数接受输入的 Key/Value 对，然后产生中间 Key/Value 对，MapReduce 库将中间数据相同 Key 的 Value 数据聚合起来，再交给 Reduce 函数计算，然后输出最终的计算结果 Key/Value 对。简化表达如下:</p>
-<div class="highlight"><pre><span></span>map(k1,v1) → list(k2,v2)
+<div class="highlight"><pre><span></span><code>map(k1,v1) → list(k2,v2)
 reduce(k2,list(v2)) → list(v2)
-</pre></div>
-
+</code></pre></div>
 
 <p>论文中举了一个计算文件中每个单词出现数量的计算任务:</p>
-<div class="highlight"><pre><span></span>map(String key, String value): 
-  // key: document name
-  // value: document contents
-  for each word w in value:
-    EmitIntermediate(w, &quot;1&quot;);
+<div class="highlight"><pre><span></span><code><span class="nt">map</span><span class="o">(</span><span class="nt">String</span> <span class="nt">key</span><span class="o">,</span> <span class="nt">String</span> <span class="nt">value</span><span class="o">):</span> 
+  <span class="o">//</span> <span class="nt">key</span><span class="o">:</span> <span class="nt">document</span> <span class="nt">name</span>
+  <span class="o">//</span> <span class="nt">value</span><span class="o">:</span> <span class="nt">document</span> <span class="nt">contents</span>
+  <span class="nt">for</span> <span class="nt">each</span> <span class="nt">word</span> <span class="nt">w</span> <span class="nt">in</span> <span class="nt">value</span><span class="o">:</span>
+    <span class="nt">EmitIntermediate</span><span class="o">(</span><span class="nt">w</span><span class="o">,</span> <span class="s2">&quot;1&quot;</span><span class="o">);</span>
 
-reduce(String key, Iterator values): 
-  // key: a word
-  // values: a list of counts
-  int result = 0;
-  for each v in values:
-    result += ParseInt(v);
-  Emit(AsString(result));
-</pre></div>
-
+<span class="nt">reduce</span><span class="o">(</span><span class="nt">String</span> <span class="nt">key</span><span class="o">,</span> <span class="nt">Iterator</span> <span class="nt">values</span><span class="o">):</span> 
+  <span class="o">//</span> <span class="nt">key</span><span class="o">:</span> <span class="nt">a</span> <span class="nt">word</span>
+  <span class="o">//</span> <span class="nt">values</span><span class="o">:</span> <span class="nt">a</span> <span class="nt">list</span> <span class="nt">of</span> <span class="nt">counts</span>
+  <span class="nt">int</span> <span class="nt">result</span> <span class="o">=</span> <span class="nt">0</span><span class="o">;</span>
+  <span class="nt">for</span> <span class="nt">each</span> <span class="nt">v</span> <span class="nt">in</span> <span class="nt">values</span><span class="o">:</span>
+    <span class="nt">result</span> <span class="o">+=</span> <span class="nt">ParseInt</span><span class="o">(</span><span class="nt">v</span><span class="o">);</span>
+  <span class="nt">Emit</span><span class="o">(</span><span class="nt">AsString</span><span class="o">(</span><span class="nt">result</span><span class="o">));</span>
+</code></pre></div>
 
 <ul>
 <li>map 函数的参数 Key 是文件名，Value 是文件内容，函数体就是对文件内容 value 的每个单词直接输出一个 key/value 对到中间文件，key 是该单词，value 是 "1" 表示该单词出现了一次。</li>
@@ -265,7 +280,7 @@ reduce(String key, Iterator values):
 </ul>
 <p>从上面的编程模型来看，MapReduce 对于计算任务类型是有一定的要求的，需要能够将计算抽象为 Map 和 Reduce，并且应当是无副作用的。这样，才可以把大量数据的计算任务拆分为并行的处理任务分发到大量的服务器上进行计算。</p>
 <h3>4.3 架构与流程</h3>
-<p><img alt="mapreduce" src="../images/mapreduce.png" /></p>
+<p><img alt="mapreduce" src="../images/mapreduce.png"></p>
 <p>上图是 MapReduce 计算任务整体的一个架构和执行流程，MapReduce 是以一个库的形式存在，用户程序加载 MapReduce 库然后拷贝到整个集群的所有服务器上。在不同的服务器上，程序有 Master 和 Worker 两种运行模式，其中 Master 负责和其他 Worker 程序交互分发 Map 或者 Reduce 任务及记录状态等元数据。而 Worker 则分布在大量的服务器上分别执行用户程序定义的 Map 任务或者 Reduce 任务。</p>
 <p>在一个计算任务启动时，MapReduce 库会将任务数据分割为 M 个小文件，大小一般从 16 M 到 64 M ，这个主要是与底层依赖的 GFS 特性相关。</p>
 <p>Master 主要保存以下元数据:</p>
@@ -365,13 +380,15 @@ reduce(String key, Iterator values):
 
 
 
+
 </article>
 
     <footer>
 <p>
-  &copy; tonychow 2017 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+  &copy; 2017  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US" target="_blank">Creative Commons Attribution-ShareAlike</a>
 </p>
-<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
 </p><p>
   <a rel="license"
      href="http://creativecommons.org/licenses/by-sa/4.0/"
@@ -379,13 +396,12 @@ reduce(String key, Iterator values):
     <img alt="Creative Commons License"
          title="Creative Commons License"
          style="border-width:0"
-         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+           src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
          width="80"
          height="15"/>
   </a>
 </p>    </footer>
   </main>
-
 
 
 
@@ -400,5 +416,6 @@ reduce(String key, Iterator values):
   "description": "tonychow's Thoughts and Writings"
 }
 </script>
+
 </body>
 </html>

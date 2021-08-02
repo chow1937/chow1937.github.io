@@ -1,6 +1,12 @@
-# Flex [![Build Status](https://travis-ci.org/alexandrevicenzi/Flex.svg?branch=master)](https://travis-ci.org/alexandrevicenzi/Flex) [![Dependency Status](https://david-dm.org/alexandrevicenzi/Flex.svg)](https://david-dm.org/alexandrevicenzi/Flex) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/alexandre-vicenzi/flex?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+# Flex [![Build Status](https://travis-ci.org/alexandrevicenzi/Flex.svg?branch=master)](https://travis-ci.org/alexandrevicenzi/Flex)
 
 The minimalist [Pelican](http://blog.getpelican.com/) theme.
+
+## Notes
+
+- If you have questions open an issue
+- The theme is not under huge development anymore, it's stable and has a lot of features already
+- If you want a [Hugo](https://gohugo.io/) theme check out [Soho](https://github.com/alexandrevicenzi/soho)
 
 ## Features
 
@@ -10,62 +16,68 @@ The minimalist [Pelican](http://blog.getpelican.com/) theme.
 - SEO Best Practices
 - Open Graph
 - Rich Snippets (JSON-LD)
-- Related Posts (via [plugin](https://github.com/getpelican/pelican-plugins/tree/master/related_posts))
-- Minute read like [Medium](https://medium.com/) (via [plugin](https://github.com/getpelican/pelican-plugins/tree/master/post_stats)) (new in 2.0)
-- [Multiple Code Highlight Styles](https://github.com/alexandrevicenzi/Flex/wiki/Code-highlight-support)
-- [Translation Support](https://github.com/alexandrevicenzi/Flex/wiki/Translation-support) (new in 2.0)
+- Related Posts (via [plugin](https://github.com/getpelican/pelican-plugins/tree/master/related_posts) or AddThis)
+- Minute read (via [plugin](https://github.com/getpelican/pelican-plugins/tree/master/post_stats))
+- [Multiple Code Highlight Styles](https://github.com/alexandrevicenzi/Flex/wiki/Code-Highlight)
+- [Translation Support](https://github.com/alexandrevicenzi/Flex/wiki/Translations)
+- [Dark Mode](https://github.com/alexandrevicenzi/Flex/wiki/Dark-Mode)
 
 ## Integrations
 
 - [AddThis](http://www.addthis.com/)
 - [Disqus](https://disqus.com/)
-- [Gauges](http://get.gaug.es/)
-- [Google AdSense](https://www.google.com.br/adsense/start/) (new in 2.1)
+- [Gauges Analytics](http://get.gaug.es/)
+- [Google AdSense](https://www.google.com.br/adsense/start/)
 - [Google Analytics](https://www.google.com/analytics/web/)
 - [Google Tag Manager](https://www.google.com/tagmanager/)
-- [Piwik](http://piwik.org/)
+- [Matomo Analytics (formerly Piwik)](https://matomo.org/)
 - [StatusCake](https://www.statuscake.com/)
+- [Isso](https://posativ.org/isso/)
+- [Microsoft Clarity](https://clarity.microsoft.com)
+
+## Plugins Support
+
+- [Github Corners](https://github.com/tholman/github-corners)
+- [I18N Sub-sites](https://github.com/getpelican/pelican-plugins/tree/master/i18n_subsites)
+- [Minute read](https://github.com/getpelican/pelican-plugins/tree/master/post_stats)
+- [Related Posts](https://github.com/getpelican/pelican-plugins/tree/master/related_posts)
+- [Representative image](https://github.com/getpelican/pelican-plugins/tree/master/representative_image)
+- [Neighbors](https://github.com/getpelican/pelican-plugins/tree/master/neighbors)
+- [Tipue Search](https://github.com/getpelican/pelican-plugins/blob/master/tipue_search/)
+- [SEO](https://github.com/pelican-plugins/seo)
 
 ## Install
 
-The recommend way to install is over [pelican-themes](https://github.com/getpelican/pelican-themes).
+The best way to install is over [pelican-themes](https://github.com/getpelican/pelican-themes).
 
-The `master` branch is the development branch. If you're happy with fresh new things and maybe sometimes (~most of time~) broken things you can clone the `master`, but I would recommend to you to clone a tag branch.
+The alternative way is to clone this repository. The `master` branch is stable and is safe to checkout, but I would recommend you to checkout a tag branch.
 
-## Docs
+## Documentation
 
-[Go to Wiki](https://github.com/alexandrevicenzi/Flex/wiki)
+The documentation covers most of the settings available and how to use this theme.
+If something is missing or broken you can open a PR or fix the documentation by yourself.
 
-## Contributing
-
-Always open an issue before sending a PR. Talk about the problem/feature that you want to fix. If it's really a good thing you can submit your PR. If you send an PR without talking about before what it is, you may work for nothing.
-
-As always, if you want something that only make sense to you, just fork Flex and start a new theme.
-
-## Translate
-
-Translate this theme to new languages at [Transifex](https://www.transifex.com/alexandrevicenzi/flex-pelican/).
-
-![Translations](https://github.com/alexandrevicenzi/Flex/blob/master/translation_chart.png)
-
-Read more about [Translation Support](https://github.com/alexandrevicenzi/Flex/wiki/Translation-support).
+[Flex Wiki](https://github.com/alexandrevicenzi/Flex/wiki)
 
 ## Live example
 
-You can see how things looks like [here](https://blog.alexandrevicenzi.com/flex-pelican-theme.html).
-Or you can take a look at [Flex users](https://github.com/alexandrevicenzi/Flex/wiki/Flex-users).
+You can see how this theme looks like at [http://flex.alxd.me/](http://flex.alxd.me/).
 
-I'm using Flex in my [personal blog](http://blog.alexandrevicenzi.com/).
+The code is available in this project under `docs` folder.
 
-![Screenshot](https://github.com/alexandrevicenzi/Flex/blob/master/screenshot.png)
+## Contributing
 
-## Donate
+**ALWAYS** open an issue before sending a PR.
+Discuss the problem/feature that you want to code.
+After discussing, send a PR with your changes.
 
-Did you liked this theme? Buy me a beer and support new features.
+As always, if you want something that only makes sense to you, fork Flex and create a new theme.
 
-[![Gratipay](https://img.shields.io/gratipay/user/alexandrevicenzi.svg?maxAge=2592000)](https://gratipay.com/~alexandrevicenzi/)
+## Translations
 
-[![PayPal](https://img.shields.io/badge/paypal-donate-yellow.svg?maxAge=2592000)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KZCMH3N74KKFN&lc=BR&item_name=Alexandre%20Vicenzi&item_number=flex&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
+Translate this theme to new languages at [Transifex](https://www.transifex.com/alexandrevicenzi/flex-pelican/).
+
+Read more about [Translation Support](https://github.com/alexandrevicenzi/Flex/wiki/Translations) in the Wiki.
 
 ## License
 

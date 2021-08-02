@@ -57,3 +57,8 @@ venv
 
 # NPM
 node_modules
+package-lock.json
+
+# Pelican
+output
+plugins

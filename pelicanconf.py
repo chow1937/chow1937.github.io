@@ -65,7 +65,6 @@ PLUGIN_PATHS = ['plugins']
 PLUGINS = [
     'sitemap',
     'post_stats',
-    'i18n_subsites',
     'summary',
 ]
 
@@ -86,3 +85,9 @@ SITEMAP = {
 SOCIAL = (
     ('github', 'https://github.com/chow1937'),
 )
+
+# JINJA
+#JINJA_ENVIRONMENT = {
+#    'jinja2.ext.i18n': True,
+#}
+#JINJA_EXTENSIONS = JINJA_ENVIRONMENT

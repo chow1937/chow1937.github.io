@@ -2,24 +2,36 @@
 
 {% block meta %}
 <meta name="author" content="{{ article.author.name }}" />
-<meta name="description" content="{{ article.summary|striptags }}" />
-<meta name="keywords" content="{{ article.tags|join(', ') }}">
+<meta name="description" content="{{ article.summary|striptags|escape }}" />
+<meta name="keywords" content="{{ article.tags|join(', ')|escape }}">
+
+{% if article.translations -%}
+<link rel="alternate" href="{{ SITEURL }}/{{ article.url }}" hreflang="{{ article.lang }}" />
+{% for a in article.translations %}
+<link rel="alternate" href="{{ SITEURL }}/{{ a.url }}" hreflang="{{ a.lang }}" />
+{% endfor %}
+{% endif %}
+
 {% include "partial/og_article.html" %}
 {% endblock %}
 
-{% block title %} &ndash; {{ article.title|striptags }}{% endblock %}
+{% block title %} &ndash; {{ article.title|striptags|escape }}{% endblock %}
 
 {% block content %}
 <article class="single">
   <header>
+    {% if not ARTICLE_HIDE_TRANSLATION %}
+      {% import 'partial/translations.html' as translations with context %}
+      {{ translations.translations_for(article) }}
+    {% endif %}
     <h1 id="{{ article.slug }}">{{ article.title }}</h1>
     <p>
       {{ _('Posted on %(when)s in %(category)s',
            when=article.locale_date,
            category='<a href="%s/%s">%s</a>'|format(SITEURL, article.category.url, article.category)|safe) }}
 
-      {% if 'post_stats' in PLUGINS %}
-        &#8226; {{ article.stats['read_mins'] }} min read
+      {% if PLUGINS and 'post_stats' in PLUGINS %}
+        &#8226; {{ _('%(minutes)s min read', minutes=article.stats['read_mins']) }}
       {% endif %}
     </p>
   </header>
@@ -52,8 +64,11 @@
     <p>{{ _('Like this article? Share it with your friends!') }}</p>
     <div class="addthis_native_toolbox"></div>
     <div class="addthis_sharing_toolbox"></div>
+    <div class="addthis_inline_share_toolbox"></div>
   </div>
   {% endif %}
+
+  {% include "partial/neighbors.html" %}
 
   {% if article.related_posts %}
   <div class="related-posts">
@@ -64,6 +79,8 @@
     {% endfor %}
     </ul>
   </div>
+  {% elif ADD_THIS_ID %}
+    <div class="addthis_relatedposts_inline"></div>
   {% endif %}
 
   {% if GOOGLE_ADSENSE and GOOGLE_ADSENSE.ads.article_bottom %}
@@ -77,5 +94,6 @@
   {% endif %}
 
   {% include "partial/disqus.html" %}
+  {% include "partial/isso.html" %}
 </article>
 {% endblock %}

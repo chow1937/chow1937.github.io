@@ -5,28 +5,28 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://blog.tonychow.me/</loc>
-<lastmod>2021-08-03T01:41:35-00:00</lastmod>
+<lastmod>2021-08-03T01:47:08-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
 
 <url>
 <loc>https://blog.tonychow.me/archives.html</loc>
-<lastmod>2021-08-03T01:41:35-00:00</lastmod>
+<lastmod>2021-08-03T01:47:08-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
 
 <url>
 <loc>https://blog.tonychow.me/tags.html</loc>
-<lastmod>2021-08-03T01:41:35-00:00</lastmod>
+<lastmod>2021-08-03T01:47:08-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
 
 <url>
 <loc>https://blog.tonychow.me/categories.html</loc>
-<lastmod>2021-08-03T01:41:35-00:00</lastmod>
+<lastmod>2021-08-03T01:47:08-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>

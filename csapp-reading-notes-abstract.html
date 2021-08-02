@@ -1,51 +1,121 @@
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-        <meta charset="utf-8" />
-        <title>CSAPP 读书笔记-计算机系统中的抽象-操作系统</title>
-        <link rel="stylesheet" href="http://blog.tonychow.me/theme/css/main.css" />
-        <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom Feed" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="http://blog.tonychow.me/theme/pygments/colorful.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/font-awesome/css/solid.css">
+
+
+
+
+
+  
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">
+
+ 
+
+<meta name="author" content="tonychow" />
+<meta name="description" content="" />
+<meta name="keywords" content="csapp, abstract">
+
+
+  <meta property="og:site_name" content="Tonychow's Blog"/>
+  <meta property="og:title" content="CSAPP 读书笔记-计算机系统中的抽象-操作系统"/>
+  <meta property="og:description" content=""/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="http://blog.tonychow.me/csapp-reading-notes-abstract.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2013-04-05 00:00:00+08:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="http://blog.tonychow.me/author/tonychow.html">
+  <meta property="article:section" content="readings"/>
+  <meta property="article:tag" content="csapp"/>
+  <meta property="article:tag" content="abstract"/>
+  <meta property="og:image" content="/images/avatar.jpg">
+
+  <title>Tonychow's Blog &ndash; CSAPP 读书笔记-计算机系统中的抽象-操作系统</title>
+
 </head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="http://blog.tonychow.me/">
+        <img src="/images/avatar.jpg" alt="" title="">
+      </a>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="http://blog.tonychow.me/">Tonychow's Blog </a></h1>
-                <nav><ul>
-                    <li><a href="http://blog.tonychow.me/category/linux.html">linux</a></li>
-                    <li><a href="http://blog.tonychow.me/category/opencourse.html">opencourse</a></li>
-                    <li><a href="http://blog.tonychow.me/category/python.html">python</a></li>
-                    <li class="active"><a href="http://blog.tonychow.me/category/readings.html">readings</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="http://blog.tonychow.me/csapp-reading-notes-abstract.html" rel="bookmark"
-           title="Permalink to CSAPP 读书笔记-计算机系统中的抽象-操作系统">CSAPP 读书笔记-计算机系统中的抽象-操作系统</a></h1>
-    </header>
+      <h1>
+        <a href="http://blog.tonychow.me/"></a>
+      </h1>
 
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-04-05T00:00:00+08:00">
-                Published: 五 05 四月 2013
-        </abbr>
+<p>Go/Python backend developer</p>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/readings.html">readings</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/csapp.html">csapp</a> <a href="http://blog.tonychow.me/tag/abstract.html">abstract</a> </p>
-</footer><!-- /.post-info -->      <h3>初言</h3>
+
+      <ul class="social">
+          <li>
+            <a  class="sc-github" href="https://github.com/chow1937" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="http://blog.tonychow.me/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="csapp-reading-notes-abstract">CSAPP 读书笔记-计算机系统中的抽象-操作系统</h1>
+    <p>
+      Posted on 五 05 四月 2013 in <a href="http://blog.tonychow.me/category/readings.html">readings</a>
+
+        &#8226; 1 min read
+    </p>
+  </header>
+
+
+  <div>
+    <h3>初言</h3>
 <p>我们使用着计算机系统提供的种种功能,安装不同的操作系统,使用不同的软件,听歌,上网,看视频,似乎理所当然.我们也知道,信息时代是建立在0和1的基础之上的,我们的计算机系统也是遵循着0和1的二进制.但是这两者是如何关联到一起的?当我们启动一个软件的时候,计算机系统底层是怎样的?我们打开一个网页如此的简单,但是这背后,计算机系统又发生了什么事情?</p>
 <h3>程序的执行</h3>
-<p>如果是计算机系的学生,或者对计算机技术有着兴趣的人,都会知道计算机操作系统的一些概念,也知道一个程序的执行其实到底是怎么一回事.无非就是将一段在硬盘上的二进制代码加载到内存中,然后由CPU执行相关的指令.程序的执行简单来说就是这么一回事,所以一个软件的启动和执行,也就是在这个简单的基础上再加上一些复杂的操作.
+<p>如果是计算机系的学生,或者对计算机技术有着兴趣的人,都会知道计算机操作系统的一些概念,也知道一个程序的执行其实到底是怎么一回事.无非就是将一段在硬盘上的二进制代码加载到内存中,然后由CPU执行相关的指令.程序的执行简单来说就是这么一回事,所以一个软件的启动和执行,也就是在这个简单的基础上再加上一些复杂的操作.</p>
 <!--more-->
-更深入点,我们知道操作系统也是软件,计算机关闭的时候操作系统的编译后的可执行对象也是保存在硬盘上.在计算机启动的时候,将操作系统加载到内存上,之后,操作系统就会一直运行直至计算机重新关闭.一般来说,我们将程序运行分为两种状态,用户的应用程序运行在用户态,而操作系统则是运行在内核态.</p>
+<p>更深入点,我们知道操作系统也是软件,计算机关闭的时候操作系统的编译后的可执行对象也是保存在硬盘上.在计算机启动的时候,将操作系统加载到内存上,之后,操作系统就会一直运行直至计算机重新关闭.一般来说,我们将程序运行分为两种状态,用户的应用程序运行在用户态,而操作系统则是运行在内核态.</p>
 <h3>操作系统的抽象</h3>
 <p>计算机系统中的抽象其实应该是涉及两个方面.一个是处理器方面的,处理器的指令集对于硬件的抽象;而另一方面则是操作系统方面的抽象.</p>
 <p>正如上面提及到的,程序运行于两种状态,这是为了安全的考虑,用户态的用户程序是无法直接进行一些直接操作硬件的指令的.比如创建保存一个文件的操作,涉及到了IO操作,而保存在硬盘上也涉及到磁盘的寻道.这些操作完全交由用户来进行一方面是非常的不安全,另一方面,每个人都有自己的实现方式,那将会导致各种混乱的代码.所以,操作系统一般会通过提供一些系统调用函数给用户程序,用户程序通过系统API从而实现对系统代码的调用.而这些系统代码将会进行相关的底层操作.通过系统API,操作系统作为硬件和用户应用程序的中间层,对用户应用程序隐藏了对硬件的操作,将硬件的操作细节抽象为一个个系统调用.</p>
@@ -59,27 +129,53 @@
 <li>进程对于处理器,内存和IO设备的抽象</li>
 </ul>
 <p>-EOF-</p>
-    </div><!-- /.entry-content -->
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://blog.tonychow.me/tag/csapp.html">csapp</a>
+      <a href="http://blog.tonychow.me/tag/abstract.html">abstract</a>
+    </p>
+  </div>
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-                            <li><a href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2017  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Tonychow's Blog ",
+  "url" : "http://blog.tonychow.me",
+  "image": "/images/avatar.jpg",
+  "description": "tonychow's Thoughts and Writings"
+}
+</script>
 
 </body>
 </html>

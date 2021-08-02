@@ -1,313 +1,241 @@
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-        <meta charset="utf-8" />
-        <title>Tonychow's Blog - tonychow</title>
-        <link rel="stylesheet" href="http://blog.tonychow.me/theme/css/main.css" />
-        <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom Feed" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="http://blog.tonychow.me/theme/pygments/colorful.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/font-awesome/css/solid.css">
+
+
+
+
+
+  
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">
+
+ 
+
+    <meta name="author" content="tonychow" />
+    <meta name="description" content="tonychow's Thoughts and Writings" />
+  <meta property="og:site_name" content="Tonychow's Blog"/>
+  <meta property="og:type" content="blog"/>
+  <meta property="og:title" content="Tonychow's Blog"/>
+  <meta property="og:description" content="tonychow's Thoughts and Writings"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="http://blog.tonychow.me"/>
+  <meta property="og:image" content="/images/avatar.jpg">
+
+  <title>Tonychow's Blog &ndash; Posts by tonychow:</title>
+
 </head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="http://blog.tonychow.me/">
+        <img src="/images/avatar.jpg" alt="" title="">
+      </a>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="http://blog.tonychow.me/">Tonychow's Blog </a></h1>
-                <nav><ul>
-                    <li><a href="http://blog.tonychow.me/category/linux.html">linux</a></li>
-                    <li><a href="http://blog.tonychow.me/category/opencourse.html">opencourse</a></li>
-                    <li><a href="http://blog.tonychow.me/category/python.html">python</a></li>
-                    <li><a href="http://blog.tonychow.me/category/readings.html">readings</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
+      <h1>
+        <a href="http://blog.tonychow.me/"></a>
+      </h1>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="http://blog.tonychow.me/thoughts-about-python-iterator.html">关于 Python iterator 协议的一点思考</a></h1>
-<footer class="post-info">
-        <abbr class="published" title="2015-04-06T00:00:00+08:00">
-                Published: 一 06 四月 2015
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/python.html">python</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/python.html">python</a> <a href="http://blog.tonychow.me/tag/iterator.html">iterator</a> <a href="http://blog.tonychow.me/tag/thoughts.html">thoughts</a> </p>
-</footer><!-- /.post-info --><p>Python 中有好几种容器或者序列类型：<code>list</code> <code>tuple</code> <code>dict</code> <code>set</code> <code>str</code>，对于这些类型中的内容，往往需要一种方式去遍历获取它们来进行操作。所以 Python 提供了迭代器的类型来对这些类型的内容进行迭代遍历，迭代类型新增于 Python 2.2。</p>
-<p>迭代器类型指的是遵循迭代器协议的类型，对于 Python2.x 版本来说就是实现了 <code>__iter__</code> 和 <code>next</code> 函数的对象类型。如果一个对象实现了迭代器协议，则可以用 <code>for</code> 语句遍历这个对象的内容。其中 <code>__iter__</code> 函数返回一个迭代器对象，而 <code>next</code> 函数则需要返回容器的下一个内容，如果没有下一个则抛出 StopIteration 异常，这个异常在 <code>for ... in</code> 语句中将会被捕获然后结束迭代。迭代器协议详细内容可以查看 <a href="https://www.python.org/dev/peps/pep-0234/">PEP234</a> 。Python3.x 将 <code>next</code> 函数改成了 <code>__next__</code> 函数，以和其他内置的函数保持一致的双下划线风格。</p>
-<!--more-->
-
-<p>以前看迭代器协议的时候，经常可以看到这样一个实现：</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Reverse</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span>
-
-    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">StopIteration</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">-=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
-</pre></div>
+<p>Go/Python backend developer</p>
 
 
-<p>最近看到了这么一个写法：</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IterObj</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+      <ul class="social">
+          <li>
+            <a  class="sc-github" href="https://github.com/chow1937" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+  </aside>
+  <main>
 
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
+    <nav>
+      <a href="http://blog.tonychow.me/">Home</a>
 
-
-<p>这个写法没有 <code>next</code> 函数了，初看起来好像没有完全实现迭代器协议的样子，但是仔细考虑下的话，<code>__iter__</code> 函数内部调用了内置函数 <code>iter</code> ，实际上是返回了一个迭代器对象，而这个迭代器对象当然是实现了迭代器协议的。所以第二种写法也是完全可以的，并且对比第一种写法来说更加简单。</p>
-<p>在官方文档 <a href="https://docs.python.org/2/library/stdtypes.html?highlight=iterator#iterator-types">迭代器类型</a> 中可以看到，对于 <code>list</code> <code>dict</code> 等容器对象来说，它们的 <code>__iter__</code> 函数返回的不是其自身，而是一个迭代器对象： <code>container.__iter__()</code> 。所以当一个容器对象需要提供迭代的功能的时候，不是把这个容器对象变成一个迭代器对象，而是返回一个迭代器对象，将迭代的功能委托给这个迭代器对象。所以上面两种写法的区别在于一个是实现了迭代器对象，一个是实现了可迭代的容器对象。所以第二种写法如果稍稍微修改下：</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IterObj</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
-
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Reverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
 
 
-<p>这样就利用了之前定义的迭代器对象 <code>Reverse</code> 来给对象 <code>IterObj</code> 提供了反向迭代的功能。可以看到，这样的处理方式将迭代的逻辑和容器对象分离了，更加的灵活，容器对象本身也更加精简。</p>
-<p>Python 的迭代器协议统一了  Python 中容器对象进行迭代的方式，另一方面来说，也为用户自定义类型添加迭代的功能添加了方便的实现方式，所以无论是从语言的标准化来说还是从用户使用角度的来说都是非常有用的一个协议。</p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+    </nav>
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://blog.tonychow.me/corepython-reading-notes-how-day7.html" rel="bookmark"
-                           title="Permalink to Python 核心编程读书笔记 Day7">Python 核心编程读书笔记 Day7</a></h1>
-                </header>
 
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-07-18T00:00:00+08:00">
-                Published: 五 18 七月 2014
-        </abbr>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/readings.html">readings</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/corepython.html">corepython</a> <a href="http://blog.tonychow.me/tag/reading-notes.html">reading-notes</a> <a href="http://blog.tonychow.me/tag/python.html">python</a> </p>
-</footer><!-- /.post-info -->                
-                <a class="readmore" href="http://blog.tonychow.me/corepython-reading-notes-how-day7.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
+<article>
+  <header>
+    <h2><a href="http://blog.tonychow.me/mit6.824-letcture3-notes.html#mit6.824-letcture3-notes">6.824 Lecture 3 GFS Notes & Paper Reading</a></h2>
+    <p>
+      Posted on 一 02 八月 2021 in <a href="http://blog.tonychow.me/category/course.html">course</a>
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://blog.tonychow.me/corepython-reading-notes-how-day6.html" rel="bookmark"
-                           title="Permalink to Python 核心编程读书笔记 Day6">Python 核心编程读书笔记 Day6</a></h1>
-                </header>
+          &#8226; Tagged with
+              <a href="http://blog.tonychow.me/tag/mit6824.html">mit6.824</a>,              <a href="http://blog.tonychow.me/tag/distributed-system.html">Distributed-System</a>
+        &#8226; 6 min read
+    </p>
+  </header>
+  <div>
+      <div></div>
+        <br>
+        <a class="btn"
+           href="http://blog.tonychow.me/mit6.824-letcture3-notes.html#mit6.824-letcture3-notes">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="http://blog.tonychow.me/mit6.824-letcture2-notes.html#mit6.824-letcture2-notes">6.824 Lecture 2 RPC and Threads Notes</a></h2>
+    <p>
+      Posted on 二 29 六月 2021 in <a href="http://blog.tonychow.me/category/course.html">course</a>
 
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-07-17T00:00:00+08:00">
-                Published: 四 17 七月 2014
-        </abbr>
+          &#8226; Tagged with
+              <a href="http://blog.tonychow.me/tag/mit6824.html">mit6.824</a>,              <a href="http://blog.tonychow.me/tag/distributed-system.html">Distributed-System</a>
+        &#8226; 1 min read
+    </p>
+  </header>
+  <div>
+      <div></div>
+        <br>
+        <a class="btn"
+           href="http://blog.tonychow.me/mit6.824-letcture2-notes.html#mit6.824-letcture2-notes">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="http://blog.tonychow.me/mit6.824-letcture1-notes.html#mit6.824-letcture1-notes">6.824 Lecture 1 Introduction Notes & Paper Reading</a></h2>
+    <p>
+      Posted on 一 28 六月 2021 in <a href="http://blog.tonychow.me/category/course.html">course</a>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/readings.html">readings</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/corepython.html">corepython</a> <a href="http://blog.tonychow.me/tag/reading-notes.html">reading-notes</a> <a href="http://blog.tonychow.me/tag/python.html">python</a> </p>
-</footer><!-- /.post-info -->                
-                <a class="readmore" href="http://blog.tonychow.me/corepython-reading-notes-how-day6.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
+          &#8226; Tagged with
+              <a href="http://blog.tonychow.me/tag/mit6824.html">mit6.824</a>,              <a href="http://blog.tonychow.me/tag/distributed-system.html">Distributed-System</a>,              <a href="http://blog.tonychow.me/tag/paper.html">paper</a>
+        &#8226; 4 min read
+    </p>
+  </header>
+  <div>
+      <div></div>
+        <br>
+        <a class="btn"
+           href="http://blog.tonychow.me/mit6.824-letcture1-notes.html#mit6.824-letcture1-notes">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="http://blog.tonychow.me/thoughts-about-python-iterator.html#thoughts-about-python-iterator">关于 Python iterator 协议的一点思考</a></h2>
+    <p>
+      Posted on 一 06 四月 2015 in <a href="http://blog.tonychow.me/category/python.html">python</a>
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://blog.tonychow.me/corepython-reading-notes-how-day5.html" rel="bookmark"
-                           title="Permalink to Python 核心编程读书笔记 Day5">Python 核心编程读书笔记 Day5</a></h1>
-                </header>
+          &#8226; Tagged with
+              <a href="http://blog.tonychow.me/tag/python.html">python</a>,              <a href="http://blog.tonychow.me/tag/iterator.html">iterator</a>,              <a href="http://blog.tonychow.me/tag/thoughts.html">thoughts</a>
+        &#8226; 1 min read
+    </p>
+  </header>
+  <div>
+      <div></div>
+        <br>
+        <a class="btn"
+           href="http://blog.tonychow.me/thoughts-about-python-iterator.html#thoughts-about-python-iterator">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="http://blog.tonychow.me/corepython-reading-notes-how-day7.html#corepython-reading-notes-how-day7">Python 核心编程读书笔记 Day7</a></h2>
+    <p>
+      Posted on 五 18 七月 2014 in <a href="http://blog.tonychow.me/category/readings.html">readings</a>
 
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-07-16T00:00:00+08:00">
-                Published: 三 16 七月 2014
-        </abbr>
+          &#8226; Tagged with
+              <a href="http://blog.tonychow.me/tag/corepython.html">corepython</a>,              <a href="http://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>,              <a href="http://blog.tonychow.me/tag/python.html">python</a>
+        &#8226; 1 min read
+    </p>
+  </header>
+  <div>
+      <div></div>
+        <br>
+        <a class="btn"
+           href="http://blog.tonychow.me/corepython-reading-notes-how-day7.html#corepython-reading-notes-how-day7">
+          Continue reading
+        </a>
+  </div>
+</article>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/readings.html">readings</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/corepython.html">corepython</a> <a href="http://blog.tonychow.me/tag/reading-notes.html">reading-notes</a> <a href="http://blog.tonychow.me/tag/python.html">python</a> </p>
-</footer><!-- /.post-info -->                
-                <a class="readmore" href="http://blog.tonychow.me/corepython-reading-notes-how-day5.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
+  <div class="pagination">
+    <a class="btn float-left" href="http://blog.tonychow.me/author/tonychow2.html">
+      <i class="fa fa-angle-left"></i> Older Posts
+    </a>
+  </div>
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://blog.tonychow.me/corepython-reading-notes-how-day4.html" rel="bookmark"
-                           title="Permalink to Python 核心编程读书笔记 Day4">Python 核心编程读书笔记 Day4</a></h1>
-                </header>
 
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-07-15T00:00:00+08:00">
-                Published: 二 15 七月 2014
-        </abbr>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/readings.html">readings</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/corepython.html">corepython</a> <a href="http://blog.tonychow.me/tag/reading-notes.html">reading-notes</a> <a href="http://blog.tonychow.me/tag/python.html">python</a> </p>
-</footer><!-- /.post-info -->                
-                <a class="readmore" href="http://blog.tonychow.me/corepython-reading-notes-how-day4.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://blog.tonychow.me/corepython-reading-notes-how-day3.html" rel="bookmark"
-                           title="Permalink to Python 核心编程读书笔记 Day3">Python 核心编程读书笔记 Day3</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-07-13T00:00:00+08:00">
-                Published: 日 13 七月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/readings.html">readings</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/corepython.html">corepython</a> <a href="http://blog.tonychow.me/tag/reading-notes.html">reading-notes</a> <a href="http://blog.tonychow.me/tag/python.html">python</a> </p>
-</footer><!-- /.post-info -->                
-                <a class="readmore" href="http://blog.tonychow.me/corepython-reading-notes-how-day3.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://blog.tonychow.me/corepython-reading-notes-how-day2.html" rel="bookmark"
-                           title="Permalink to Python 核心编程读书笔记 Day2">Python 核心编程读书笔记 Day2</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-07-11T00:00:00+08:00">
-                Published: 五 11 七月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/readings.html">readings</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/corepython.html">corepython</a> <a href="http://blog.tonychow.me/tag/reading-notes.html">reading-notes</a> <a href="http://blog.tonychow.me/tag/python.html">python</a> </p>
-</footer><!-- /.post-info -->                
-                <a class="readmore" href="http://blog.tonychow.me/corepython-reading-notes-how-day2.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://blog.tonychow.me/corepython-reading-notes-how-day1.html" rel="bookmark"
-                           title="Permalink to Python 核心编程读书笔记 Day1">Python 核心编程读书笔记 Day1</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-07-10T00:00:00+08:00">
-                Published: 四 10 七月 2014
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/readings.html">readings</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/corepython.html">corepython</a> <a href="http://blog.tonychow.me/tag/reading-notes.html">reading-notes</a> <a href="http://blog.tonychow.me/tag/python.html">python</a> </p>
-</footer><!-- /.post-info -->                
-                <a class="readmore" href="http://blog.tonychow.me/corepython-reading-notes-how-day1.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://blog.tonychow.me/python-class-object-source-code.html" rel="bookmark"
-                           title="Permalink to Python 类对象与实例对象源码分析">Python 类对象与实例对象源码分析</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-10-02T00:00:00+08:00">
-                Published: 三 02 十月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/python.html">python</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/python.html">python</a> <a href="http://blog.tonychow.me/tag/source-reading.html">source-reading</a> </p>
-</footer><!-- /.post-info -->                
-                <a class="readmore" href="http://blog.tonychow.me/python-class-object-source-code.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://blog.tonychow.me/programming-paradigms-note-one.html" rel="bookmark"
-                           title="Permalink to 斯坦福大学公开课-编程范式 笔记 1">斯坦福大学公开课-编程范式 笔记 1</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2013-07-07T00:00:00+08:00">
-                Published: 日 07 七月 2013
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/opencourse.html">opencourse</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/opencourse.html">opencourse</a> <a href="http://blog.tonychow.me/tag/programming-paradigms.html">programming-paradigms</a> <a href="http://blog.tonychow.me/tag/notes.html">notes</a> </p>
-</footer><!-- /.post-info -->                
-                <a class="readmore" href="http://blog.tonychow.me/programming-paradigms-note-one.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
-<p class="paginator">
-    Page 1 / 2
-        <a href="http://blog.tonychow.me/author/tonychow2.html">&raquo;</a>
+    <footer>
+<p>
+  &copy; 2017  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US" target="_blank">Creative Commons Attribution-ShareAlike</a>
 </p>
-                </section><!-- /#content -->
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-                            <li><a href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
 
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Tonychow's Blog ",
+  "url" : "http://blog.tonychow.me",
+  "image": "/images/avatar.jpg",
+  "description": "tonychow's Thoughts and Writings"
+}
+</script>
 
 </body>
 </html>

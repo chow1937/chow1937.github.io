@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Tonychow's Blog - opencourse</title><link href="http://blog.tonychow.me/" rel="alternate"></link><link href="http://blog.tonychow.me/feeds/opencourse.atom.xml" rel="self"></link><id>http://blog.tonychow.me/</id><updated>2013-07-07T00:00:00+08:00</updated><entry><title>斯坦福大学公开课-编程范式 笔记 1</title><link href="http://blog.tonychow.me/programming-paradigms-note-one.html" rel="alternate"></link><published>2013-07-07T00:00:00+08:00</published><updated>2013-07-07T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2013-07-07:/programming-paradigms-note-one.html</id><summary type="html"></summary><content type="html">&lt;h3&gt;前言&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Tonychow's Blog - opencourse</title><link href="https://blog.tonychow.me/" rel="alternate"></link><link href="https://blog.tonychow.me/feeds/opencourse.atom.xml" rel="self"></link><id>https://blog.tonychow.me/</id><updated>2013-07-07T00:00:00+08:00</updated><entry><title>斯坦福大学公开课-编程范式 笔记 1</title><link href="https://blog.tonychow.me/programming-paradigms-note-one.html" rel="alternate"></link><published>2013-07-07T00:00:00+08:00</published><updated>2013-07-07T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2013-07-07:/programming-paradigms-note-one.html</id><summary type="html"></summary><content type="html">&lt;h3&gt;前言&lt;/h3&gt;
 &lt;p&gt;最近在跟一门斯坦福大学的公开课 &lt;a href="http://see.stanford.edu/see/courseInfo.aspx?coll=2d712634-2bf1-4b55-9a3a-ca9d470755ee"&gt;Programming Paradigms&lt;/a&gt; ,网易公开课也有其中文翻译版，翻译已经完成了：&lt;a href="http://v.163.com/special/opencourse/paradigms.html"&gt;斯坦福大学公开课：编程范式&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;课程内容：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -12,12 +12,11 @@
 &lt;p&gt;在这里，我要记下的是在课程中碰到的一些有趣的内容。&lt;/p&gt;
 &lt;h3&gt;malloc 与 free&lt;/h3&gt;
 &lt;p&gt;我们知道，malloc 函数是 C 中动态分配内存的一个函数，通过这个函数可以在堆中申请一块限定大小的内存使用。对应地，有申请内存函数就有释放内存函数，这个函数就是 free 函数。这两个函数的原型如下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
 &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nf"&gt;malloc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;size_t&lt;/span&gt; &lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;free&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;ptr&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;通过这两个函数的原型我们可以看到一些信息。malloc 函数的参数是一个 size_t 类型的变量 size ，而 malloc 返回的则是一个 void * 类型的指针。这不意外，因为我们知道通过 malloc 函数分配制定大小的内存成功之后，会将这块内存的首地址作为返回值返回给某个类型的指针变量。而通过 C 的自动类型转换，void * 类型的指针地址将会被转换为该指针变量类型的指针。&lt;/p&gt;
 &lt;p&gt;free 函数也是只有一个参数，类型为 void * 的指针变量 ptr ，无返回值。在这里问题出现了， free 函数如果只是接受某块内存的首地址作为参数，那它是如何得知这块内存的大小？或者说，free 函数怎么知道需要被释放的内存到底有多大？这块内存的大小是必要要知道的，因为如果不知道，free 函数是无法准确地将要释放的内存释放掉，也许会将后面接着的不允许释放的内存也释放掉，也许还遗留一部分内存没有释放掉。&lt;/p&gt;
@@ -25,7 +24,7 @@
 &lt;h3&gt;malloc 的机制&lt;/h3&gt;
 &lt;p&gt;答案并不复杂，那就是在 malloc 函数返回的地址前面，有 4 字节或者 8 字节同样也是属于这块内存的内容，这几个字节中储存了该内存地址的大小。free 函数接受这个地址的时候，会回退一部分地址，根据这个结构的内容，得到该内存块的大小，然后将相关的释放掉。&lt;/p&gt;
 &lt;p&gt;以上是公开课中老师的简单讲述，那实际情况是怎样？下面进行一下简单的验证。首先测试的平台是 Fedora17 ，Linux 的内核版本为 3.6.11-5.fc17.i686.PAE ，使用的 C 编译器为 GCC 4.7.2 20120921 (Red Hat 4.7.2-2) 。测试代码如下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 &lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
 
@@ -49,27 +48,24 @@
     &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;The start of char memory address is %x.&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;cptr&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Before this address, the value is %d.&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;cptr&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;测试代码并不复杂，简单定义了两个 int 类型的指针变量和一个 char * 类型的指针变量，然后用 malloc 函数分配一定数量的内存，返回的内存块首地址赋值给这三个变量，然后输出这三个内存块首地址前一个位置的值。注意对于 char * 类型的地址，首先强制转换成 int * 类型的再进行 -1 操作。&lt;/p&gt;
 &lt;p&gt;代码的输出结果如下所示：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;╰ ➤ ./a.out 
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;╰ ➤ ./a.out 
 The start of num1 memory address is 9922008.
 Before this address, the value is 2057.
 The start of num2 memory address is 9922810.
 Before this address, the value is 4105.
 The start of char memory address is 9923818.
 Before this address, the value is 1033.
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;通过代码我们可以知道，ptr1 申请的内存块大小为 512  * 4 = 2048，ptr2 申请的内存块大小为 1024 * 4 = 4096，cptr 申请的内存块大小为 1024 * 1 = 1024，以上单位均为字节。根据输出，有如下计算：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="mi"&gt;2057&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;2048&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="mi"&gt;2057&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;2048&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;
 &lt;span class="mi"&gt;4105&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;4096&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;
 &lt;span class="mi"&gt;1033&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1024&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;可见，如果 malloc 函数返回的地址前一个字节保存了该内存块的整体大小，那可以推测到，其中 9 个字节作为额外的结构，保存了这块内存的信息，以提供给其他函数比如 free 函数利用。当然这只是一个推测，真实的情况需要深入到 glibc 的库的 malloc 和 free 的源码中。&lt;/p&gt;
 &lt;p&gt;实际上，老师也说了，不同的编译器的实现是不同的，比如，可以参考下这篇文章：&lt;a href="http://www.cnblogs.com/sinaxyz/archive/2012/08/20/2647631.html"&gt;malloc/new函数及malloc()的一种简单原理性实现&lt;/a&gt; 。&lt;/p&gt;

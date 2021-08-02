@@ -1,46 +1,117 @@
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-        <meta charset="utf-8" />
-        <title>Python 核心编程读书笔记 Day7</title>
-        <link rel="stylesheet" href="http://blog.tonychow.me/theme/css/main.css" />
-        <link href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Tonychow's Blog Atom Feed" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="http://blog.tonychow.me/theme/pygments/colorful.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="http://blog.tonychow.me/theme/font-awesome/css/solid.css">
+
+
+
+
+
+  
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">
+
+ 
+
+<meta name="author" content="tonychow" />
+<meta name="description" content="" />
+<meta name="keywords" content="corepython, reading-notes, python">
+
+
+  <meta property="og:site_name" content="Tonychow's Blog"/>
+  <meta property="og:title" content="Python 核心编程读书笔记 Day7"/>
+  <meta property="og:description" content=""/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="http://blog.tonychow.me/corepython-reading-notes-how-day7.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2014-07-18 00:00:00+08:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="http://blog.tonychow.me/author/tonychow.html">
+  <meta property="article:section" content="readings"/>
+  <meta property="article:tag" content="corepython"/>
+  <meta property="article:tag" content="reading-notes"/>
+  <meta property="article:tag" content="python"/>
+  <meta property="og:image" content="/images/avatar.jpg">
+
+  <title>Tonychow's Blog &ndash; Python 核心编程读书笔记 Day7</title>
+
 </head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="http://blog.tonychow.me/">
+        <img src="/images/avatar.jpg" alt="" title="">
+      </a>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="http://blog.tonychow.me/">Tonychow's Blog </a></h1>
-                <nav><ul>
-                    <li><a href="http://blog.tonychow.me/category/linux.html">linux</a></li>
-                    <li><a href="http://blog.tonychow.me/category/opencourse.html">opencourse</a></li>
-                    <li><a href="http://blog.tonychow.me/category/python.html">python</a></li>
-                    <li class="active"><a href="http://blog.tonychow.me/category/readings.html">readings</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="http://blog.tonychow.me/corepython-reading-notes-how-day7.html" rel="bookmark"
-           title="Permalink to Python 核心编程读书笔记 Day7">Python 核心编程读书笔记 Day7</a></h1>
-    </header>
+      <h1>
+        <a href="http://blog.tonychow.me/"></a>
+      </h1>
 
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-07-18T00:00:00+08:00">
-                Published: 五 18 七月 2014
-        </abbr>
+<p>Go/Python backend developer</p>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://blog.tonychow.me/author/tonychow.html">tonychow</a>
-        </address>
-<p>In <a href="http://blog.tonychow.me/category/readings.html">readings</a>.</p>
-<p>tags: <a href="http://blog.tonychow.me/tag/corepython.html">corepython</a> <a href="http://blog.tonychow.me/tag/reading-notes.html">reading-notes</a> <a href="http://blog.tonychow.me/tag/python.html">python</a> </p>
-</footer><!-- /.post-info -->      <p>今天把剩下的 20-23 章的内容阅读完毕了，这几章也是与 Python 相关的高级内容，包括 Web 编程，数据库接口和 Python 扩展等内容，下面稍微总结下每章的内容。</p>
+
+      <ul class="social">
+          <li>
+            <a  class="sc-github" href="https://github.com/chow1937" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="http://blog.tonychow.me/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="corepython-reading-notes-how-day7">Python 核心编程读书笔记 Day7</h1>
+    <p>
+      Posted on 五 18 七月 2014 in <a href="http://blog.tonychow.me/category/readings.html">readings</a>
+
+        &#8226; 1 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>今天把剩下的 20-23 章的内容阅读完毕了，这几章也是与 Python 相关的高级内容，包括 Web 编程，数据库接口和 Python 扩展等内容，下面稍微总结下每章的内容。</p>
 <h3>第二十章：Web 编程</h3>
 <p>这一章所谓的 Web 编程内容实际上讲的是利用 urllib 模块进行的 Web 相关的编程，同时也讲到了利用 cgi 模块进行的
 原始的 cgi 编程。从内容来说的话主要介绍了 urllib 和 cgi 模块的一些使用。cgi 是比较早期的服务器处理客户端的
@@ -71,27 +142,54 @@
 <h3>最终总结</h3>
 <p>花了大概一周的时间，看完了《Python 核心编程这本书》。这本书从内容来说，还是不错的，一些 Python 基本的东西都有涉及，也讲得很细，也有些经验之谈的东西也值得学习。虽然后面的章节有点凑字数的嫌疑，考虑是到面向的是 Python2.5，而现在 Python 的版本号已经跑到了 2.7 了，所以也能原谅。但是，中文版的质量真心的差强人意。不说遍布全书的各种 typo 问题(甚至连标题也出现 typo)，就一点来说，对于 Python 这种这么注重缩进的语言来说，书里的各种代码缩进乱七八糟真的好意思么。当然，考虑到这本中文版出书背后的各种八卦事情，似乎这种质量也是可以理解的。</p>
 <p>无论如何，看完这本书之后的确对 Python 有了更多的了解，或者说对 Python 的理解更加全面了，所以还是受益匪浅的。</p>
-    </div><!-- /.entry-content -->
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://blog.tonychow.me/tag/corepython.html">corepython</a>
+      <a href="http://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>
+      <a href="http://blog.tonychow.me/tag/python.html">python</a>
+    </p>
+  </div>
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-                            <li><a href="http://blog.tonychow.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2017  - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-sa/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Tonychow's Blog ",
+  "url" : "http://blog.tonychow.me",
+  "image": "/images/avatar.jpg",
+  "description": "tonychow's Thoughts and Writings"
+}
+</script>
 
 </body>
 </html>

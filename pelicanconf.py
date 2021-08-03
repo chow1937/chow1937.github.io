@@ -19,6 +19,7 @@ EXTRA_PATH_METADATA = {
     'extra/favicon.ico': {'path': 'favicon.ico'},
     'extra/custom.css': {'path': 'static/custom.css'},
 }
+
 THEME = 'themes/Flex'
 
 MAIN_MENU = True

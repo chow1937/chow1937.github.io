@@ -1,7 +1,7 @@
 title: Python 内置函数 reduce
 date: 2013-3-18
 category: python
-tags: python, reduce
+tags: python
 slug: reduce-function-in-python
 author: tonychow
 summary: 
@@ -24,7 +24,7 @@ reduce 函数原型是 reduce(function, iterable[, initializer]),返回值是一
 
 结果是抛出了错误,提示 <lambda>() 函数只接受一个参数缺给了两个参数.所以在 reduce 内部中,我们可以知道对于作为参数的 function ,接受了两个值作为参数的.
 
-<!--more-->
+
 
 ####深入
 

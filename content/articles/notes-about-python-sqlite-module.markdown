@@ -10,7 +10,7 @@ summary:
 
 Python 的标准库中包含了对 sqlite 这个轻巧的数据库的支持模块，也就是 sqlite3 模块。sqlite 数据库的好处我就不多说了，小型而强大，适合很多小型或者中型的数据库应用。最近在使用 sqlite3 模块遇到一些问题，解决了，顺便就记下来。
 
-<!--more-->
+
 
 ### 问题
 
@@ -22,14 +22,14 @@ sqlite3 模块的使用很简单，如下这段测试代码，创建一个 perso
 
 
     import sqlite3
-
+    
     SCHEMA = """
              CREATE TABLE person (
                  p_id int,
                  p_name text
              )
              """
-
+    
     def init():
         data = [(1, 'tony'), (1, 'jack')]
         conn = sqlite3.connect(':memory:')
@@ -91,22 +91,22 @@ sqlite3 模块的使用很简单，如下这段测试代码，创建一个 perso
 
     :::c
     ...
-
+    
     /* execute() */
     if (!PyArg_ParseTuple(args, "O|O", &operation, &second_argument)) {
         goto error;
     }
-
+    
     if (!PyString_Check(operation) && !PyUnicode_Check(operation)) {
         PyErr_SetString(PyExc_ValueError, "operation parameter must be str or unicode");
         goto error;
     }
-
+    
     parameters_list = PyList_New(0);
     if (!parameters_list) {
         goto error;
     }
-
+    
     if (second_argument == NULL) {
         second_argument = PyTuple_New(0);
         if (!second_argument) {
@@ -120,12 +120,12 @@ sqlite3 模块的使用很简单，如下这段测试代码，创建一个 perso
         goto error;
     }
     Py_DECREF(second_argument);
-
+    
     parameters_iter = PyObject_GetIter(parameters_list);
     if (!parameters_iter) {
         goto error;
     }
-
+    
     ...
 
 从这段源码中可以看到这段代码将参数 args 解析成为 Python 的一个元组作为 parameters_list ，然后最这个得到的元组进行 iter 操作，不断地读取这个元组的元素作为参数，而 Python 中对一个字符串进行 parse tuple 会怎样？我觉得 PyArg_ParseTuple 这个函数的操作和以下代码会是类似的：

@@ -33,8 +33,6 @@ summary:
 
 10.生成器表达式：(expr for iter_var in iterable)；
 
-<!--more-->
-
 ### 第九章：文件和输入输出
 
 本章主要关注 Python 中的文件对象及输入和输出方面，下面是要点：

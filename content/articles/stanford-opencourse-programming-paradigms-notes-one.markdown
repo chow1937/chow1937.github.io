@@ -14,7 +14,7 @@ summary:
 
 >Advanced memory management features of C and C++; the differences between imperative and object-oriented paradigms. The functional paradigm (using LISP) and concurrent programming (using C and C++). Brief survey of other modern languages such as Python, Objective C, and C#.
 
-<!--more-->
+
 
 首先涉及的是 C/C++ 的高级内存管理，内容包括 C 的各种数据类型的内存布局，malloc 和 free 的实现，等等。然后还有命令式和面向对象，函数式编程等等几种不同的编程范式及他们的差别。
 
@@ -28,7 +28,7 @@ summary:
 
     :::c
     #include <stdlib.h>
-
+    
     void *malloc(size_t size);
     void free(void *ptr);
 
@@ -54,7 +54,7 @@ free 函数也是只有一个参数，类型为 void * 的指针变量 ptr ，�
     {
         int *ptr1, *ptr2, num1, num2;
         char *cptr;
-
+    
         ptr1 = &num1;
         ptr1 = (int *)malloc(512 * sizeof(int));
         ptr2 = &num2;
@@ -81,7 +81,7 @@ free 函数也是只有一个参数，类型为 void * 的指针变量 ptr ，�
     Before this address, the value is 4105.
     The start of char memory address is 9923818.
     Before this address, the value is 1033.
-    
+
 通过代码我们可以知道，ptr1 申请的内存块大小为 512  * 4 = 2048，ptr2 申请的内存块大小为 1024 * 4 = 4096，cptr 申请的内存块大小为 1024 * 1 = 1024，以上单位均为字节。根据输出，有如下计算：
 
     :::c

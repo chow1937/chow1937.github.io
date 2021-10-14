@@ -12,7 +12,7 @@ CSAPP中，1.2节讲到了程序的编译:
 
 程序由其他程序翻译成不同的形式，其实看下面这张图应该可以很清晰地了解上面这一句：
 
-![c程序编译](http://om3cpjyz4.bkt.clouddn.com/articles/c-program-compilation.jpg)
+![c程序编译](../images/c-program-compilation.webp)
 
 上图是一个 hello 的 C 程序由 GCC 编译器从源码文件 hello.c 中读取内容并将其翻译成为一个可执行的对象文件 hello 的过程。这个过程包含了几个阶段：
 
@@ -79,7 +79,7 @@ CSAPP中，1.2节讲到了程序的编译:
 
     :::c
     hello.o:     file format elf64-x86-64
-
+    
     Contents of section .text:
      0000 554889e5 4883ec10 897dfc48 8975f0bf  UH..H....}.H.u..
      0010 00000000 e8000000 00c9c3             ...........
@@ -99,7 +99,7 @@ CSAPP中，1.2节讲到了程序的编译:
 
     :::c
     hello:     file format elf64-x86-64
-
+    
     Contents of section .interp:
      400200 2f6c6962 36342f6c 642d6c69 6e75782d  /lib64/ld-linux-
      400210 7838362d 36342e73 6f2e3200           x86-64.so.2.

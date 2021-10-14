@@ -31,8 +31,6 @@ summary:
 
 7.`__exit__` 具有三个参数，exc_type， exc_value， exc_traceback；
 
-<!--more-->
-
 ### 第十一章：函数和函数式编程
 
 函数在 Python 中其实也是一个对象，保存了函数的相关内容，所以在 Python 中，函

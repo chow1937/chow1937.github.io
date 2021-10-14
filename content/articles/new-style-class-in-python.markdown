@@ -1,7 +1,7 @@
 title: Python 中的 New-style 和 Old-style classes
 date: 2013-4-6
 category: python
-tags: python, class
+tags: python
 slug: class-in-python
 author: tonychow
 summary:
@@ -29,8 +29,6 @@ super 函数是 Python 中的一个内置函数,提供对继承的类的函数�
       File "<stdin>", line 1, in <module>
       File "<stdin>", line 3, in __init__
     TypeError: must be type, not classobj
-
-<!--more-->
 
 可以看到抛出了参数类型错误的错误.一开始完全不知所措,然后将出错信息 google 了一下,找到了解决方式:
 

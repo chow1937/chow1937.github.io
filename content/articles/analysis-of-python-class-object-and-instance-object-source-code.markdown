@@ -31,9 +31,7 @@ summary:
         100
         >>> t.new_var
         100
-
-<!--more-->
-这段代码中，定义了一个类 TestCls ，然后实例化了一个 TestCls 的对象 t。在 Python 中，一切皆对象，这是老生长谈了。而 Python 中的对象还有另外一个特性，就是可以在创建之后修改这个对象的属性和方法。如上所示，我们可以在创建了一个类对象 TestCls 和一个实例对象 t 之后，修改这两个对象，给它们分别添加了 `new_var` 和 `ins_new_var` 属性。从上面的运行结果可以看到，当我们给实例对象 t 添加属性 `ins_new_var` 之后，类对象 TestCls 中访问不了这个属性，但是对于类对象 TestCls 添加的新属性 `new_var` ，这个类对象的实例 t 却可以访问到。
+    这段代码中，定义了一个类 TestCls ，然后实例化了一个 TestCls 的对象 t。在 Python 中，一切皆对象，这是老生长谈了。而 Python 中的对象还有另外一个特性，就是可以在创建之后修改这个对象的属性和方法。如上所示，我们可以在创建了一个类对象 TestCls 和一个实例对象 t 之后，修改这两个对象，给它们分别添加了 `new_var` 和 `ins_new_var` 属性。从上面的运行结果可以看到，当我们给实例对象 t 添加属性 `ins_new_var` 之后，类对象 TestCls 中访问不了这个属性，但是对于类对象 TestCls 添加的新属性 `new_var` ，这个类对象的实例 t 却可以访问到。
 
 从 Python 代码的这个表现，我们可以推测出一些事情。那就是 Python 中，对一个对象的属性的访问会首先在这个对象的命名空间搜索，如果找不到，那就去搜索这个对象的类的命名空间，直到找到，然后取值，或者抛出没有这个属性的异常。很明显， Python 中一个对象的实例，同时还共享了这个对象的命名空间。如下：
 
@@ -270,7 +268,7 @@ CPython 是 C 写的(很明显)，类对象和实例对象的数据结构都是 
     :::c
     PyObject *klass;
     PyObject *dict = Py_None;
-
+    
     if (!PyArg_ParseTuple(args, "O!|O:instance",
                           &PyClass_Type, &klass, &dict))
         return NULL;

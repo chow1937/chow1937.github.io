@@ -22,8 +22,6 @@ Java 的类库。此外还有 C# 语言实现的 IronPython，可以运行在 .N
 基于 CPython 修改的 Stackless Python ，这个版本对 CPython 解释器进行了大量的修改，实现了
 用户级别的微线程。
 
-<!--more-->
-
 ### 第二章：快速入门
 
 第二章非常简略地过了一遍 Python 的一些特性和语言结构数据类型等，以下是要点：

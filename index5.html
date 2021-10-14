@@ -120,8 +120,6 @@
 <span class="k">HAVING</span> <span class="k">c</span><span class="p">.</span><span class="n">accounts_per_product</span> <span class="o">=</span> <span class="k">MAX</span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">accounts_per_product</span><span class="p">)</span>
 </code></pre></div>
 
-<!--more-->
-
 <p>这个 SQL 查询语句的作用是查询相关账号最多的产品。在这两个查询语句中我注意到的是 accounts_per_product 和 products_per_account 这两个本来不存在的字段。很明显这两个是通过 AS 得到的字段。AS 也就是 Alias (别名)，通过 Alias 可以方便组织多表查询特别是在涉及到自身对应自身表的时候，比如评论表如果想要父级和子级的结果查询，同时也可以用 Alias 给表的字段起一个别名，便于输出，比如上面的两个 SQL 查询。</p>
 <p>第一个 SQL 查询语句中，通过将 c.product_id，COUNT(*) 这个要查询的字段 alias 成 products_per_account，这样输出的结果类似于：</p>
 <div class="highlight"><pre><span></span><code><span class="n">products_per_account</span>
@@ -162,7 +160,7 @@
 <p>Programs Are Translated By Other Programs into Different Forms.</p>
 </blockquote>
 <p>程序由其他程序翻译成不同的形式，其实看下面这张图应该可以很清晰地了解上面这一句：</p>
-<p><img alt="c程序编译" src="http://om3cpjyz4.bkt.clouddn.com/articles/c-program-compilation.jpg"></p>
+<p><img alt="c程序编译" src="../images/c-program-compilation.webp"></p>
 <p>上图是一个 hello 的 C 程序由 GCC 编译器从源码文件 hello.c 中读取内容并将其翻译成为一个可执行的对象文件 hello 的过程。这个过程包含了几个阶段：</p>
 <p>首先是源文件，此时是处于文本类型：</p>
 <div class="highlight"><pre><span></span><code><span class="mi">1</span> <span class="c1">// C 代码</span>

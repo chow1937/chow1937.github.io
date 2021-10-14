@@ -42,7 +42,7 @@
 
 <meta name="author" content="tonychow" />
 <meta name="description" content="" />
-<meta name="keywords" content="python, reduce">
+<meta name="keywords" content="python">
 
 
   <meta property="og:site_name" content="Tonychow's Blog"/>
@@ -56,7 +56,6 @@
   <meta property="article:author" content="https://blog.tonychow.me/author/tonychow.html">
   <meta property="article:section" content="python"/>
   <meta property="article:tag" content="python"/>
-  <meta property="article:tag" content="reduce"/>
   <meta property="og:image" content="/images/avatar.jpg">
 
   <title>Tonychow's Blog &ndash; Python 内置函数 reduce</title>
@@ -126,8 +125,6 @@
 </code></pre></div>
 
 <p>结果是抛出了错误,提示 <lambda>() 函数只接受一个参数缺给了两个参数.所以在 reduce 内部中,我们可以知道对于作为参数的 function ,接受了两个值作为参数的.</p>
-<!--more-->
-
 <h4>深入</h4>
 <p>第一个例子中, reduce 函数返回的是 list 变量元素的和,那 reduce 函数是如何实现将这个 list 变量元素相加起来呢?考虑到定义的匿名函数体中将 x 的值和 y 的值加起来了,所以应该和这个函数是相关的,那 reduce 函数给赋给这个 lambda 函数的两个参数分别是什么呢?</p>
 <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
@@ -175,7 +172,6 @@
   <div class="tag-cloud">
     <p>
       <a href="https://blog.tonychow.me/tag/python.html">python</a>
-      <a href="https://blog.tonychow.me/tag/reduce.html">reduce</a>
     </p>
   </div>
 

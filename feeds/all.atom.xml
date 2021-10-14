@@ -202,7 +202,7 @@
 &lt;p&gt;总而言之，支持备份 VM 也执行磁盘读操作会带来实现上很大的复杂性，而优点只是降低日志通道的带宽和流量。这个方案只是在特定的应用场景下适用，比如磁盘读操作非常多而写相对少的应用。&lt;/p&gt;
 &lt;h2&gt;4 总结&lt;/h2&gt;
 &lt;p&gt;VMware 的 FT 系统是非常有意思的一个实现，在看到本篇论文之前，个人对于复制相关的系统基本上都是基于应用层的一个理解和场景印象，而 FT 基于虚拟机指令级别的复制的确给我带来的一定的震撼。当然，FT 的实现还是有其前提条件的，一个是基于 hypervisor 对虚拟机的管理，使得 FT 系统可以拦截和处理虚拟机的任何执行指令，进行复制相关的逻辑，另外，本论文实现的 FT 还是只针对单处理器的虚拟机，对于并行多核的虚拟机暂未有实际的支持和实现。&lt;/p&gt;
-&lt;p&gt;虽然 FT 的应用和实现比较受限，但是最终还是实现了一个完整商用的虚拟机级别的复制容错分布式系统，在 FT 上运行的任意操作系统及应用，都可以无需任何额外处理即可获得分布式容错的能力。而 FT 实现中的很多设计和考虑，在我们实现应用层级别的复制时也是可以进行参考的。&lt;/p&gt;</content><category term="mit6.824"></category><category term="Distributed-System"></category></entry><entry><title>6.824 Lecture 3 GFS Notes &amp; Paper Reading</title><link href="https://blog.tonychow.me/mit6.824-letcture3-notes.html" rel="alternate"></link><published>2021-08-02T00:00:00+08:00</published><updated>2021-08-02T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2021-08-02:/mit6.824-letcture3-notes.html</id><summary type="html"></summary><content type="html">&lt;h2&gt;1 概要&lt;/h2&gt;
+&lt;p&gt;虽然 FT 的应用和实现比较受限，但是最终还是实现了一个完整商用的虚拟机级别的复制容错分布式系统，在 FT 上运行的任意操作系统及应用，都可以无需任何额外处理即可获得分布式容错的能力。而 FT 实现中的很多设计和考虑，在我们实现应用层级别的复制时也是可以进行参考的。&lt;/p&gt;</content><category term="mit6.824"></category><category term="distributed-system"></category></entry><entry><title>6.824 Lecture 3 GFS Notes &amp; Paper Reading</title><link href="https://blog.tonychow.me/mit6.824-letcture3-notes.html" rel="alternate"></link><published>2021-08-02T00:00:00+08:00</published><updated>2021-08-02T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2021-08-02:/mit6.824-letcture3-notes.html</id><summary type="html"></summary><content type="html">&lt;h2&gt;1 概要&lt;/h2&gt;
 &lt;p&gt;本课主要是针对分布式系统中容错这个主题进行了讨论，关注的领域是分布式存储系统。先是概述了分布式存储系统的关键点和挑战，然后围绕 GFS 的实现进入了更深入的探讨。GFS 是一个曾经在谷歌中大规模应用的真实分布式系统，对之前课程中涉及到的 MapReduce 应用提供了底层的文件系统支撑。&lt;/p&gt;
 &lt;p&gt;本课相关的材料:&lt;/p&gt;
 &lt;ul&gt;
@@ -563,7 +563,7 @@
 &lt;p&gt;整篇 GFS 的论文包含了大量的系统实现细节，讨论了一个业界真实应用的大型分布式系统中的方方面面，其中很多设计在现在很多新的开源分布式系统中都可以找到类似的实现。GFS 是基于实际的业务场景来设计，设计上即解决了实际的业务问题和硬件资源问题，同时也兼顾考虑实现上的简易性，最终还可以保持相当的健壮性和可靠性。&lt;/p&gt;
 &lt;p&gt;这是一篇值得不断重复阅读的论文。&lt;/p&gt;
 &lt;h2&gt;5 后记&lt;/h2&gt;
-&lt;p&gt;写这篇论文的阅读这节内容期间因为公司各种出差和事务繁忙，另外一方面也因为论文阅读这节内容一开始是逐句翻译，花费了大量的精力和时间。后面几节内容调整为记录重点内容和用自己的语言重新整理描述论文的实现和关键，整体的速度就快 了很多，而且还可以加强理解和思考。后续的课程论文阅读也计划用这个方式进行。&lt;/p&gt;</content><category term="mit6.824"></category><category term="Distributed-System"></category></entry><entry><title>6.824 Lecture 2 RPC and Threads Notes</title><link href="https://blog.tonychow.me/mit6.824-letcture2-notes.html" rel="alternate"></link><published>2021-06-29T00:00:00+08:00</published><updated>2021-06-29T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2021-06-29:/mit6.824-letcture2-notes.html</id><summary type="html"></summary><content type="html">&lt;h2&gt;1 概要&lt;/h2&gt;
+&lt;p&gt;写这篇论文的阅读这节内容期间因为公司各种出差和事务繁忙，另外一方面也因为论文阅读这节内容一开始是逐句翻译，花费了大量的精力和时间。后面几节内容调整为记录重点内容和用自己的语言重新整理描述论文的实现和关键，整体的速度就快 了很多，而且还可以加强理解和思考。后续的课程论文阅读也计划用这个方式进行。&lt;/p&gt;</content><category term="mit6.824"></category><category term="distributed-system"></category></entry><entry><title>6.824 Lecture 2 RPC and Threads Notes</title><link href="https://blog.tonychow.me/mit6.824-letcture2-notes.html" rel="alternate"></link><published>2021-06-29T00:00:00+08:00</published><updated>2021-06-29T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2021-06-29:/mit6.824-letcture2-notes.html</id><summary type="html"></summary><content type="html">&lt;h2&gt;1 概要&lt;/h2&gt;
 &lt;p&gt;本课没有涉及分布式系统方面的内容，主要是针对本课程 Lab 使用的编程语言 Go 进行了一个简单的介绍，然后讨论了一下多线程并发相关内容。最后是对一个 Go 写的多线程爬虫代码进行了解读，关注点在并发处理、竞态、锁、多线程协作这块。&lt;/p&gt;
 &lt;p&gt;本课相关的材料:&lt;/p&gt;
 &lt;ul&gt;
@@ -641,7 +641,7 @@
 &lt;p&gt;基于 channel 不需要加锁，是因为记录抓取过页面的 map 数据实际上没有在多个线程中共享，也不存在多线程并发读取更新的情况。但是实际上，channel 数据结构本身在 Go 的实现应该是存在着锁的，这样多个线程每次只有一个线程可以把 URL 发送到 channel 中。&lt;/p&gt;
 &lt;h2&gt;3 总结&lt;/h2&gt;
 &lt;p&gt;本课内容相对简单，Go 语言对于并发的支持比较好，提供了方便的线程(goroutine) 启动方式，此外还对多线程间的协作提供了包括 channel 、sync 等工具来支持。课程原本是用 C++ 来实现 Lab 相关的编码的，近些年在 Go 语言成熟起来后就切换了。使用 Go 来学习和实现分布式系统，可以让学生更关注分布式系统本身相关的内容，而不是在 C++ 的语言特性和代码 Bug 中花费大量的时间。&lt;/p&gt;
-&lt;p&gt;Go 语言本身也比较适合网络编程，在业界中有不少的成熟的分布式系统实现，比如 etcd、TiDB、Kubernetes 等。&lt;/p&gt;</content><category term="mit6.824"></category><category term="Distributed-System"></category></entry><entry><title>6.824 Lecture 1 Introduction Notes &amp; Paper Reading</title><link href="https://blog.tonychow.me/mit6.824-letcture1-notes.html" rel="alternate"></link><published>2021-06-28T00:00:00+08:00</published><updated>2021-06-28T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2021-06-28:/mit6.824-letcture1-notes.html</id><summary type="html"></summary><content type="html">&lt;h2&gt;1 写在前面&lt;/h2&gt;
+&lt;p&gt;Go 语言本身也比较适合网络编程，在业界中有不少的成熟的分布式系统实现，比如 etcd、TiDB、Kubernetes 等。&lt;/p&gt;</content><category term="mit6.824"></category><category term="distributed-system"></category></entry><entry><title>6.824 Lecture 1 Introduction Notes &amp; Paper Reading</title><link href="https://blog.tonychow.me/mit6.824-letcture1-notes.html" rel="alternate"></link><published>2021-06-28T00:00:00+08:00</published><updated>2021-06-28T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2021-06-28:/mit6.824-letcture1-notes.html</id><summary type="html"></summary><content type="html">&lt;h2&gt;1 写在前面&lt;/h2&gt;
 &lt;p&gt;&lt;a href="https://pdos.csail.mit.edu/6.824/index.html"&gt;MIT 6.824 分布式系统&lt;/a&gt; 是一门研究生课程，主要关注的内容是分布式系统相关的抽象及实现技术，包含容错、复制、一致性等主题。方式上是通过研读分布式领域的经典论文，分析和讨论这些论文包含的系统实现来进行学习和理解分布式系统。&lt;/p&gt;
 &lt;p&gt;从课程的论文来看，偏向工程实践，包含了业界经典的分布式系统工程论文，比如来自谷歌的 MapReduce、GFS、Spanner，也包含了 Zookeeper、Spark、Memcached 等流行的开源分布式中间件，此外还有 Bitcoin 等相对新的分布式系统。&lt;/p&gt;
 &lt;p&gt;课程还包含了 4 个 Lab，引导学生从实现经典的 MapReduce 到实现分布式一致性算法 Raft 来进行容错的复制集群，最终会实现一个基于 Raft 的分片 kv 分布式存储系统。从 Lab 的设计来看，这门课程包含了不少的动手编码内容，有一定的挑战性。&lt;/p&gt;
@@ -895,7 +895,7 @@ reduce(k2,list(v2)) → list(v2)
 &lt;p&gt;在计算任务执行过程中，基于统计等需求，总是需要对一些事件或者情况发生的次数进行计数处理。MapReduce 中提供了一个计数器的机制，用户可以在用户代码中创建一个 Counter，并在 Map 等任务处理中根据具体业务增加 Counter 值。MapReduce 框架会从 Worker 节点定时把某个任务的 Counter 信息在 ping 响应时汇报给 Master 节点，当一个任务执行完毕时，Master 节点会聚合计数器信息返回给用户代码。同时，Master 节点针对重复执行的任务汇报的计数器信息也会进行过滤处理，避免同个任务多次计数。计数器信息也会展示在 MapReduce 的状态页面上。&lt;/p&gt;
 &lt;h2&gt;5 总结&lt;/h2&gt;
 &lt;p&gt;本课主要还是针对分布式系统做了一个概括性的介绍，包含了什么是分布式系统，为什么需要分布式系统以及在当前，分布式系统存在那些挑战，我们整个课程关注的是分布式系统中哪些内容。通过本课的学习，基本能对分布式系统的领域及问题有一个初步的了解。&lt;/p&gt;
-&lt;p&gt;MapReduce 论文是一篇相对旧的论文，也是一篇非常经典的分布式系统方面的论文。从论文里面，我们可以看到，基于一个简单的模型，加上对问题域的简化，我们可以利用分布式系统来解决一个传统意义上单机非常难以解决的问题。论文中除了系统的架构和模型值得我们去关注之外，整个系统对于容错、恢复处理等的机制，也是很值得我们去参考的。在当前的业界中，这些思想仍然具备很大的价值。&lt;/p&gt;</content><category term="mit6.824"></category><category term="Distributed-System"></category><category term="paper"></category></entry><entry><title>关于 Python iterator 协议的一点思考</title><link href="https://blog.tonychow.me/thoughts-about-python-iterator.html" rel="alternate"></link><published>2015-04-06T00:00:00+08:00</published><updated>2015-04-06T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2015-04-06:/thoughts-about-python-iterator.html</id><summary type="html"></summary><content type="html">&lt;p&gt;Python 中有好几种容器或者序列类型：&lt;code&gt;list&lt;/code&gt; &lt;code&gt;tuple&lt;/code&gt; &lt;code&gt;dict&lt;/code&gt; &lt;code&gt;set&lt;/code&gt; &lt;code&gt;str&lt;/code&gt;，对于这些类型中的内容，往往需要一种方式去遍历获取它们来进行操作。所以 Python 提供了迭代器的类型来对这些类型的内容进行迭代遍历，迭代类型新增于 Python 2.2。&lt;/p&gt;
+&lt;p&gt;MapReduce 论文是一篇相对旧的论文，也是一篇非常经典的分布式系统方面的论文。从论文里面，我们可以看到，基于一个简单的模型，加上对问题域的简化，我们可以利用分布式系统来解决一个传统意义上单机非常难以解决的问题。论文中除了系统的架构和模型值得我们去关注之外，整个系统对于容错、恢复处理等的机制，也是很值得我们去参考的。在当前的业界中，这些思想仍然具备很大的价值。&lt;/p&gt;</content><category term="mit6.824"></category><category term="distributed-system"></category><category term="paper"></category></entry><entry><title>关于 Python iterator 协议的一点思考</title><link href="https://blog.tonychow.me/thoughts-about-python-iterator.html" rel="alternate"></link><published>2015-04-06T00:00:00+08:00</published><updated>2015-04-06T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2015-04-06:/thoughts-about-python-iterator.html</id><summary type="html"></summary><content type="html">&lt;p&gt;Python 中有好几种容器或者序列类型：&lt;code&gt;list&lt;/code&gt; &lt;code&gt;tuple&lt;/code&gt; &lt;code&gt;dict&lt;/code&gt; &lt;code&gt;set&lt;/code&gt; &lt;code&gt;str&lt;/code&gt;，对于这些类型中的内容，往往需要一种方式去遍历获取它们来进行操作。所以 Python 提供了迭代器的类型来对这些类型的内容进行迭代遍历，迭代类型新增于 Python 2.2。&lt;/p&gt;
 &lt;p&gt;迭代器类型指的是遵循迭代器协议的类型，对于 Python2.x 版本来说就是实现了 &lt;code&gt;__iter__&lt;/code&gt; 和 &lt;code&gt;next&lt;/code&gt; 函数的对象类型。如果一个对象实现了迭代器协议，则可以用 &lt;code&gt;for&lt;/code&gt; 语句遍历这个对象的内容。其中 &lt;code&gt;__iter__&lt;/code&gt; 函数返回一个迭代器对象，而 &lt;code&gt;next&lt;/code&gt; 函数则需要返回容器的下一个内容，如果没有下一个则抛出 StopIteration 异常，这个异常在 &lt;code&gt;for ... in&lt;/code&gt; 语句中将会被捕获然后结束迭代。迭代器协议详细内容可以查看 &lt;a href="https://www.python.org/dev/peps/pep-0234/"&gt;PEP234&lt;/a&gt; 。Python3.x 将 &lt;code&gt;next&lt;/code&gt; 函数改成了 &lt;code&gt;__next__&lt;/code&gt; 函数，以和其他内置的函数保持一致的双下划线风格。&lt;/p&gt;
 &lt;p&gt;以前看迭代器协议的时候，经常可以看到这样一个实现：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Reverse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
@@ -941,8 +941,6 @@ reduce(k2,list(v2)) → list(v2)
 &lt;p&gt;这一章所谓的 Web 编程内容实际上讲的是利用 urllib 模块进行的 Web 相关的编程，同时也讲到了利用 cgi 模块进行的
 原始的 cgi 编程。从内容来说的话主要介绍了 urllib 和 cgi 模块的一些使用。cgi 是比较早期的服务器处理客户端的
 请求的方式，目前的 Python Web 编程已经不使用这种技术了。但是总的来说，过去和现在的 Web 编程总是接收请求，然后返回数据给客户端的模式。此外，鉴于 HTTP 协议的无状态性质，可以利用 cookie 的方式来在客户端和服务器端进行一定的状态判断。&lt;/p&gt;
-&lt;!--more--&gt;
-
 &lt;h3&gt;第二十一章：数据库编程&lt;/h3&gt;
 &lt;p&gt;无论是什么形式的应用程序，总会涉及到数据持久化的内容，而相比于普通的文件持久化或者 Python 提供的其他持久化的方式模块，利用数据库进行数据的持久化更适合复杂的数据和大型的系统。这章主要讲了 Python 利用数据库进行数据的持久化的内容，其中的数据库在本章主要指关系型数据库。Python 关于数据库这方面的内容，有一点让我觉得很牛逼的就是，它统一了一个数据库接口，也就是 PEP249 中规定的 Python 的 DB-API。这个规范规定了 Python 在数据库操作方面的一些通用的做法，任何依照这个规定实现的不同数据库的接口库都会表现出一致的操作方式。这样就大大地减少了程序员操作不同数据库的差异程度。虽然不是所有的接口都完全遵守，但是大体上是一致的。下面有几点：&lt;/p&gt;
 &lt;p&gt;1.&lt;code&gt;connect&lt;/code&gt; 方法连接数据库；&lt;/p&gt;
@@ -974,8 +972,6 @@ reduce(k2,list(v2)) → list(v2)
 &lt;p&gt;3.&lt;code&gt;.&lt;/code&gt; 表示匹配换行符 '\n' 之外的其他任何字符；&lt;/p&gt;
 &lt;p&gt;4.&lt;code&gt;^&lt;/code&gt; 表示匹配字符的开始，在 &lt;code&gt;[]&lt;/code&gt; 内表示否定；&lt;/p&gt;
 &lt;p&gt;5.&lt;code&gt;$&lt;/code&gt; 表示匹配字符的结尾；&lt;/p&gt;
-&lt;!--more--&gt;
-
 &lt;p&gt;6.&lt;code&gt;*&lt;/code&gt; 表示匹配前面的正则表达式零次或者多次；&lt;/p&gt;
 &lt;p&gt;7.&lt;code&gt;+&lt;/code&gt; 表示匹配前面的正则表达式一次或者多次；&lt;/p&gt;
 &lt;p&gt;8.&lt;code&gt;?&lt;/code&gt; 表示匹配前面的正则表达式零次或者一次；&lt;/p&gt;
@@ -1006,8 +1002,6 @@ reduce(k2,list(v2)) → list(v2)
 一个同名的实例属性存放在实例的 &lt;code&gt;__dict__&lt;/code&gt; 中，这个实例属性会屏蔽同名的类属性，注意是屏蔽不是覆盖；&lt;/p&gt;
 &lt;p&gt;8.&lt;code&gt;__del__&lt;/code&gt; 是实例的析构方法，只有在真正需要对该实例进行释放内存的时候才会调用，在 Python 中也就是意味着该
 实例的引用计数为 0，进行垃圾回收操作；&lt;/p&gt;
-&lt;!--more--&gt;
-
 &lt;p&gt;9.类方法和实例方法也是普通的函数，和普通函数不同的是，类方法绑定了类，实例方法绑定了该实例，可以通过类调用
 实例方法，但是此时实例方法没有被绑定，需要显式地传入一个实例作为第一个参数；&lt;/p&gt;
 &lt;p&gt;10.静态方法是在类范围内的普通函数，不是绑定的方法，静态方法也可以通过类继承的方式由子类继承；&lt;/p&gt;
@@ -1034,8 +1028,6 @@ reduce(k2,list(v2)) → list(v2)
 &lt;p&gt;5.try-except 同样也支持 else 子句，不发生异常则执行 else 子句的语句；&lt;/p&gt;
 &lt;p&gt;6.实现了 &lt;code&gt;__enter_&lt;/code&gt; 和 &lt;code&gt;__exit__&lt;/code&gt; 方法的类可以利用 with 语句；&lt;/p&gt;
 &lt;p&gt;7.&lt;code&gt;__exit__&lt;/code&gt; 具有三个参数，exc_type， exc_value， exc_traceback；&lt;/p&gt;
-&lt;!--more--&gt;
-
 &lt;h3&gt;第十一章：函数和函数式编程&lt;/h3&gt;
 &lt;p&gt;函数在 Python 中其实也是一个对象，保存了函数的相关内容，所以在 Python 中，函
 数也和普通的对象一样，可以传给一个函数，也可以作为函数的返回值返回，因此也导
@@ -1062,8 +1054,6 @@ reduce(k2,list(v2)) → list(v2)
 &lt;p&gt;8.迭代器对象需要实现 next 和 &lt;code&gt;__iter__&lt;/code&gt; 方法；&lt;/p&gt;
 &lt;p&gt;9.列表解释：[expr for iter_var in iterable]，返回列表；&lt;/p&gt;
 &lt;p&gt;10.生成器表达式：(expr for iter_var in iterable)；&lt;/p&gt;
-&lt;!--more--&gt;
-
 &lt;h3&gt;第九章：文件和输入输出&lt;/h3&gt;
 &lt;p&gt;本章主要关注 Python 中的文件对象及输入和输出方面，下面是要点：&lt;/p&gt;
 &lt;p&gt;1.文件只是连续的字节序列；&lt;/p&gt;
@@ -1082,8 +1072,6 @@ reduce(k2,list(v2)) → list(v2)
 &lt;p&gt;5.divmod 函数用于数值计算，返回一个包含商和余数的元组；&lt;/p&gt;
 &lt;p&gt;6.round 函数对数值进行四舍五入取整，返回一个浮点数；&lt;/p&gt;
 &lt;p&gt;7.chr 函数将 ASCII 值的数字转换为 ASCII 字符，ord 则相反；&lt;/p&gt;
-&lt;!--more--&gt;
-
 &lt;h3&gt;第六章：序列：字符串，列表和元组&lt;/h3&gt;
 &lt;p&gt;这一章关注的是 Python 中的序列类型，这些类型的特点是其成员有序排序，可以通过下标以类似偏移量的方式访问其成员，具体
 来说这样的序列类型有三个：字符串，列表和元组。本章详细地介绍了这三个序列类型的操作符内建函数和特性等内容，以下为要
@@ -1108,8 +1096,6 @@ reduce(k2,list(v2)) → list(v2)
 Java 的类库。此外还有 C# 语言实现的 IronPython，可以运行在 .NET 及 Mono 环境上。还有一个
 基于 CPython 修改的 Stackless Python ，这个版本对 CPython 解释器进行了大量的修改，实现了
 用户级别的微线程。&lt;/p&gt;
-&lt;!--more--&gt;
-
 &lt;h3&gt;第二章：快速入门&lt;/h3&gt;
 &lt;p&gt;第二章非常简略地过了一遍 Python 的一些特性和语言结构数据类型等，以下是要点：&lt;/p&gt;
 &lt;p&gt;1.用 "Docstring" 或者 """Docstring""" 在模块，类或者函数起始添加可以实现运行时访问这个文
@@ -1149,10 +1135,9 @@ Java 的类库。此外还有 C# 语言实现的 IronPython，可以运行在 .N
     &lt;span class="mi"&gt;100&lt;/span&gt;
     &lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new_var&lt;/span&gt;
     &lt;span class="mi"&gt;100&lt;/span&gt;
+&lt;span class="n"&gt;这段代码中&lt;/span&gt;&lt;span class="err"&gt;，&lt;/span&gt;&lt;span class="n"&gt;定义了一个类&lt;/span&gt; &lt;span class="n"&gt;TestCls&lt;/span&gt; &lt;span class="err"&gt;，&lt;/span&gt;&lt;span class="n"&gt;然后实例化了一个&lt;/span&gt; &lt;span class="n"&gt;TestCls&lt;/span&gt; &lt;span class="n"&gt;的对象&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="err"&gt;。&lt;/span&gt;&lt;span class="n"&gt;在&lt;/span&gt; &lt;span class="n"&gt;Python&lt;/span&gt; &lt;span class="n"&gt;中&lt;/span&gt;&lt;span class="err"&gt;，&lt;/span&gt;&lt;span class="n"&gt;一切皆对象&lt;/span&gt;&lt;span class="err"&gt;，&lt;/span&gt;&lt;span class="n"&gt;这是老生长谈了&lt;/span&gt;&lt;span class="err"&gt;。&lt;/span&gt;&lt;span class="n"&gt;而&lt;/span&gt; &lt;span class="n"&gt;Python&lt;/span&gt; &lt;span class="n"&gt;中的对象还有另外一个特性&lt;/span&gt;&lt;span class="err"&gt;，&lt;/span&gt;&lt;span class="n"&gt;就是可以在创建之后修改这个对象的属性和方法&lt;/span&gt;&lt;span class="err"&gt;。&lt;/span&gt;&lt;span class="n"&gt;如上所示&lt;/span&gt;&lt;span class="err"&gt;，&lt;/span&gt;&lt;span class="n"&gt;我们可以在创建了一个类对象&lt;/span&gt; &lt;span class="n"&gt;TestCls&lt;/span&gt; &lt;span class="n"&gt;和一个实例对象&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;之后&lt;/span&gt;&lt;span class="err"&gt;，&lt;/span&gt;&lt;span class="n"&gt;修改这两个对象&lt;/span&gt;&lt;span class="err"&gt;，&lt;/span&gt;&lt;span class="n"&gt;给它们分别添加了&lt;/span&gt; &lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="n"&gt;new_var&lt;/span&gt;&lt;span class="err"&gt;`&lt;/span&gt; &lt;span class="n"&gt;和&lt;/span&gt; &lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="n"&gt;ins_new_var&lt;/span&gt;&lt;span class="err"&gt;`&lt;/span&gt; &lt;span class="n"&gt;属性&lt;/span&gt;&lt;span class="err"&gt;。&lt;/span&gt;&lt;span class="n"&gt;从上面的运行结果可以看到&lt;/span&gt;&lt;span class="err"&gt;，&lt;/span&gt;&lt;span class="n"&gt;当我们给实例对象&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;添加属性&lt;/span&gt; &lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="n"&gt;ins_new_var&lt;/span&gt;&lt;span class="err"&gt;`&lt;/span&gt; &lt;span class="n"&gt;之后&lt;/span&gt;&lt;span class="err"&gt;，&lt;/span&gt;&lt;span class="n"&gt;类对象&lt;/span&gt; &lt;span class="n"&gt;TestCls&lt;/span&gt; &lt;span class="n"&gt;中访问不了这个属性&lt;/span&gt;&lt;span class="err"&gt;，&lt;/span&gt;&lt;span class="n"&gt;但是对于类对象&lt;/span&gt; &lt;span class="n"&gt;TestCls&lt;/span&gt; &lt;span class="n"&gt;添加的新属性&lt;/span&gt; &lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="n"&gt;new_var&lt;/span&gt;&lt;span class="err"&gt;`&lt;/span&gt; &lt;span class="err"&gt;，&lt;/span&gt;&lt;span class="n"&gt;这个类对象的实例&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;却可以访问到&lt;/span&gt;&lt;span class="err"&gt;。&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;!--more--&gt;
-&lt;p&gt;这段代码中，定义了一个类 TestCls ，然后实例化了一个 TestCls 的对象 t。在 Python 中，一切皆对象，这是老生长谈了。而 Python 中的对象还有另外一个特性，就是可以在创建之后修改这个对象的属性和方法。如上所示，我们可以在创建了一个类对象 TestCls 和一个实例对象 t 之后，修改这两个对象，给它们分别添加了 &lt;code&gt;new_var&lt;/code&gt; 和 &lt;code&gt;ins_new_var&lt;/code&gt; 属性。从上面的运行结果可以看到，当我们给实例对象 t 添加属性 &lt;code&gt;ins_new_var&lt;/code&gt; 之后，类对象 TestCls 中访问不了这个属性，但是对于类对象 TestCls 添加的新属性 &lt;code&gt;new_var&lt;/code&gt; ，这个类对象的实例 t 却可以访问到。&lt;/p&gt;
 &lt;p&gt;从 Python 代码的这个表现，我们可以推测出一些事情。那就是 Python 中，对一个对象的属性的访问会首先在这个对象的命名空间搜索，如果找不到，那就去搜索这个对象的类的命名空间，直到找到，然后取值，或者抛出没有这个属性的异常。很明显， Python 中一个对象的实例，同时还共享了这个对象的命名空间。如下：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;    &lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="nb"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;__class__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__delattr__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__dict__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__doc__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__format__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -1892,8 +1877,6 @@ Java 的类库。此外还有 C# 语言实现的 IronPython，可以运行在 .N
 &lt;blockquote&gt;
 &lt;p&gt;Advanced memory management features of C and C++; the differences between imperative and object-oriented paradigms. The functional paradigm (using LISP) and concurrent programming (using C and C++). Brief survey of other modern languages such as Python, Objective C, and C#.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;!--more--&gt;
-
 &lt;p&gt;首先涉及的是 C/C++ 的高级内存管理，内容包括 C 的各种数据类型的内存布局，malloc 和 free 的实现，等等。然后还有命令式和面向对象，函数式编程等等几种不同的编程范式及他们的差别。&lt;/p&gt;
 &lt;p&gt;可以说这些内容应该是属于比较高级的内容。我之前偶尔也会接触到一些，有些书也会讲到，但是在我所在的大学的课堂上，这些内容基本上是不讲授的。在上 C 课程的时候，甚至连指针都语焉不详，更别提有一门专门的课程来讲述这些高级内容。上这个公开课刚好可以完整地补全我对这方面内容的不足，毕竟一个斯坦福大学的教授给你讲解这些内容总比自己看书效果要好得多。&lt;/p&gt;
 &lt;p&gt;在这里，我要记下的是在课程中碰到的一些有趣的内容。&lt;/p&gt;
@@ -1965,12 +1948,10 @@ Before this address, the value is 1033.
 &lt;h4&gt;1.1 进程&lt;/h4&gt;
 &lt;p&gt;操作系统是在计算机硬件和应用程序或者用户程序之间的一个软件层，它通过对硬件资源的抽象，对应用程序隐藏了复杂的硬件资源，状态及操作，同时也隔离了应用程序和硬件资源，防止应用软件随意地操作硬件而带来的安全隐患。操作系统为应用程序提供了几种重要的抽象概念，进程就是操作系统中最基础的抽象概念之一。&lt;/p&gt;
 &lt;p&gt;通常情况下，我们认为进程是一个程序(program)的运行实例。当一个程序存放在储存介质上的时候，它只是一个指令，数据及其组织形式的描述。操作系统可以将一个程序加载到内存中以一个进程的形式运行起来，这就是这个程序的一个运行实例。所以我们也是可以多次加载一个程序到内存中，形成该程序的多个独立的运行实例。一个进程的内容不单只是程序的执行指令，还包括了诸如打开的文件，等待的信号，内部内核数据，处理器状态，内存地址空间及内存映射等等的资源。&lt;/p&gt;
-&lt;!--more--&gt;
-
 &lt;p&gt;在早期的分时系统和面向进程的操作系统(比如早期的Unix和Linux)中，进程被认为是运行的基本单位。而在面向线程的操作系统(比如Linux2.6或更高版本)中，进程是资源分配的基本单位，而线程才是运行的基本单位。进程是线程的容器，而一个进程中会有一个或多个线程。实际上，在Linux中，对线程和进程有着特别的统一实现，线程只是一种特别的进程。这在下面的分析中将会提及。&lt;/p&gt;
 &lt;h4&gt;1.2 进程空间&lt;/h4&gt;
 &lt;p&gt;在进程被创建的时候，操作系统同时也给这个进程创建了一个独立的虚拟内存地址空间。这个虚拟内存地址空间使得一个进程存在着它独自使用着所有的内存资源的错觉，而且这也是该进程独立的，完全不受其他进程的干扰，所以这也使得各个进程区分开来。虽然对于一个进程而言，它拥有着很大的一个虚拟内存地址空间，但是这并不意味着每个进程实际上都拥有这么大物理内存。只有在真正使用某一部分内存空间的时候，这一部分虚拟内存才会被映射到物理内存上。此外，一个进程也不是可以访问或者修改这个虚拟内存地址空间的所有地址的。一个典型的进程内存地址空间会被分为 stack，heap，text，data，bss 等多个段，如下图(来自 Unix 高级环境编程)所示，这是一个进程在Intel x86架构机器上面的进程空间的逻辑表示：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="进程空间" src="http://om3cpjyz4.bkt.clouddn.com/linux-process-memory-model.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="进程空间" src="../images/linux-process-memory-model.webp"&gt;&lt;/p&gt;
 &lt;p&gt;从上图可以看到，从低地址到高地址，有：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;text 段，主要保存着程序的代码对应的机器指令，这也将会是 CPU 所将要执行的机器指令的集合。text 段是可共享的，所以对于经常执行的程序只需保留一份 text 段的拷贝在内存中就可以了。特别地，text 段是只读的，进程无法对 text 段进行修改，这样可以防止一个进程意外地修改它自己的指令。&lt;/li&gt;
@@ -1984,12 +1965,12 @@ Before this address, the value is 1033.
 &lt;p&gt;此外，stack 和 heap 段的增长方式是不同的，stack 段的内存是从高地址向低地址增长的，而 heap 段是从低地址向高地址增长的。一般情况下，stack 段的大小是有限制的，而 heap 段的大小是没有限制的，可以一直增长到整个系统的极限。在 stack 和 heap 之间是非常巨大的一个空间。&lt;/p&gt;
 &lt;h4&gt;1.3 进程描述符&lt;/h4&gt;
 &lt;p&gt;在 Linux 操作系统中，每个进程被创建的时候，内核会给这个进程分配一个进程描述符结构。进程描述符在一般的操作系统概念中也被称为 PCB ，也就是进程控制块。这个进程描述符保存了这个进程的状态，标识符，打开的文件，等待的信号，文件系统等待的资源信息。每个进程描述符都表示了独立的一个进程，而在系统中，每个进程的进程描述都加入到一个双向循环的任务队列中，由操作系统进行进程的调度，决定哪个进程可以占用 CPU ，哪个进程应该让出 CPU 。Linux 中的进程描述符是一个 task_struct 类型的结构体。在 Linux 中，一个进程的进程描述符结构如下图所示：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="进程描述符" src="http://om3cpjyz4.bkt.clouddn.com/linux-task-struct.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="进程描述符" src="../images/linux-task-struct.webp"&gt;)&lt;/p&gt;
 &lt;p&gt;task_struct 是一个相当大的数据结构，同时里面也指向了其他类型的数据结构，比如 thread_info，指向的是这个进程的线程信息; mm_struct 指向了这个进程的内存结构; file_struct 指向了这个进程打开的进程描述符结构，等等。task_struct 是一个复杂的数据结构，我们将会在下面对其进行更详细的分析。&lt;/p&gt;
 &lt;h4&gt;1.4 系统调用&lt;/h4&gt;
 &lt;p&gt;操作系统内核的代码运行在内核空间中，而应用程序或者我们平时所写的程序是运行在用户空间中的。操作系统对内核空间有相关的限制和保护，以免操作系统内核的空间受到用户应用程序的修改。也就是说只有内核才具有访问内核空间的权限，而应用程序是无法直接访问内核空间的。结合虚拟内存空间和进程空间，我们可以知道，内核空间的页表是常驻在内存中，不会被替换出去的。&lt;/p&gt;
 &lt;p&gt;我们上面提到，操作系统将硬件资源和应用程序隔离开来，那应用程序如果需要操作一些硬件或者获取一些资源如何实现？答案是内核提供了一系列的服务比如 IO 或者进程管理等给应用程序调用，也就是通过系统调用( system call )。如下图：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="系统调用" src="http://om3cpjyz4.bkt.clouddn.com/linux-os.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="系统调用" src="../images/linux-os.webp"&gt;&lt;/p&gt;
 &lt;p&gt;系统调用实际上就是函数调用，也是一系列的指令的集合。和普通的应用程序不同，系统调用是运行在内核空间的。当应用程序调用系统调用的时候，将会从用户空间切换到内核空间运行内核的代码。不同的架构实现内核调用的方式不同，在 i386 架构上，运行在用户空间的应用程序如果需要调用相关的系统调用，可以首先把系统调用编号和参数存放在相关的寄存器中，然后使用0x80这个值来执行软中断 int 。软中断发生之后，内核根据寄存器中的系统调用编号去执行相关的系统调用指令。&lt;/p&gt;
 &lt;p&gt;正如上面的图所展示的，应用程序可以直接通过系统调用接口调用内核提供的系统调用，也可以通过调用一些 C 库函数，而这些 C 库函数实际上是通过系统调用接口调用相关的系统调用。C 库函数有些在调用系统调用前后做一些特别的处理，但也有些函数只是单纯地对系统调用做了一层包装。&lt;/p&gt;
 &lt;h4&gt;1.5 fork 系统调用&lt;/h4&gt;
@@ -2430,7 +2411,7 @@ Before this address, the value is 1033.
 &lt;p&gt;这个程序只是简单地调用了一次 fork ，创建了一个子进程，然后分别在父子进程中查看申请的一块内存的起始地址。此外还添加了一个 while 死循环，方便父子进程的进程控制块进行查看。&lt;/p&gt;
 &lt;h4&gt;3.2 相关分析&lt;/h4&gt;
 &lt;p&gt;这个程序执行的结果截图如下：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="执行结果" src="http://om3cpjyz4.bkt.clouddn.com/linux-fork-analysis.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="执行结果" src="../images/linux-fork-analysis.webp"&gt;&lt;/p&gt;
 &lt;p&gt;可以看到，通过对 pid 的值检测，我们让父子进程执行了不同的代码。&lt;/p&gt;
 &lt;p&gt;通过 ps aux | grep a.out 指令，我们可以得到父子进程的 PID：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;$ps&lt;/span&gt; aux &lt;span class="p"&gt;|&lt;/span&gt; grep a.out
@@ -2744,8 +2725,6 @@ max realtime timeout      unlimited            unlimited            us
 
 &lt;p&gt;上面第一段代码是 funcobject 的 func_new 中的代码，也就应该是 functions 对象的 &lt;strong&gt;new&lt;/strong&gt; 函数代码。可以看到，如果 defaults 不是 None，也就是说有值，而我们上面也提到 Python 中一切都是对象，所以就会对这个对象进行 Py_INCREF 操作，并且将这个 defaults 值设定为 func_defaults。Py_INCREF 操作是什么？从第二段代码可以看到，这是一个宏定义，将参数 op 的 ob_refcnt 值加一。ob_refcnt 是什么？refcnt----reference count，这样明白了，就是将该对象的引用计数值加一。在执行了函数函数之后，该命名函数的缺省值对象并没有被销毁，而是随着该函数对象的存在而存在。对这个缺省之对象的修改当然也会被保留下来。&lt;/p&gt;</content><category term="python"></category></entry><entry><title>Python 中 sqlite3 模块使用小记</title><link href="https://blog.tonychow.me/sqlite3-in-python.html" rel="alternate"></link><published>2013-05-12T00:00:00+08:00</published><updated>2013-05-12T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2013-05-12:/sqlite3-in-python.html</id><summary type="html"></summary><content type="html">&lt;h3&gt;前记&lt;/h3&gt;
 &lt;p&gt;Python 的标准库中包含了对 sqlite 这个轻巧的数据库的支持模块，也就是 sqlite3 模块。sqlite 数据库的好处我就不多说了，小型而强大，适合很多小型或者中型的数据库应用。最近在使用 sqlite3 模块遇到一些问题，解决了，顺便就记下来。&lt;/p&gt;
-&lt;!--more--&gt;
-
 &lt;h3&gt;问题&lt;/h3&gt;
 &lt;p&gt;sqlite3 模块的使用很简单，如下这段测试代码，创建一个 person 数据表然后进行一次数据库查询操作。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/usr/bin/env pypthon&lt;/span&gt;
@@ -2895,8 +2874,6 @@ max realtime timeout      unlimited            unlimited            us
 &lt;span class="ne"&gt;TypeError&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;must&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;classobj&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;!--more--&gt;
-
 &lt;p&gt;可以看到抛出了参数类型错误的错误.一开始完全不知所措,然后将出错信息 google 了一下,找到了解决方式:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Base&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
 &lt;span class="o"&gt;...&lt;/span&gt;     &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
@@ -2948,12 +2925,11 @@ max realtime timeout      unlimited            unlimited            us
 &lt;li&gt;http://docs.python.org/2/reference/datamodel.html#newstyle&lt;/li&gt;
 &lt;li&gt;http://stackoverflow.com/questions/9698614/super-raises-typeerror-must-be-type-not-classobj-for-new-style-class&lt;/li&gt;
 &lt;li&gt;http://stackoverflow.com/questions/9699591/instance-is-an-object-but-class-is-not-a-subclass-of-object-how-is-this-po/9699961#9699961&lt;/li&gt;
-&lt;/ul&gt;</content><category term="python"></category><category term="class"></category></entry><entry><title>CSAPP 读书笔记-计算机系统中的抽象-操作系统</title><link href="https://blog.tonychow.me/csapp-reading-notes-abstract.html" rel="alternate"></link><published>2013-04-05T00:00:00+08:00</published><updated>2013-04-05T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2013-04-05:/csapp-reading-notes-abstract.html</id><summary type="html"></summary><content type="html">&lt;h3&gt;初言&lt;/h3&gt;
+&lt;/ul&gt;</content><category term="python"></category></entry><entry><title>CSAPP 读书笔记-计算机系统中的抽象-操作系统</title><link href="https://blog.tonychow.me/csapp-reading-notes-abstract.html" rel="alternate"></link><published>2013-04-05T00:00:00+08:00</published><updated>2013-04-05T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2013-04-05:/csapp-reading-notes-abstract.html</id><summary type="html"></summary><content type="html">&lt;h3&gt;初言&lt;/h3&gt;
 &lt;p&gt;我们使用着计算机系统提供的种种功能,安装不同的操作系统,使用不同的软件,听歌,上网,看视频,似乎理所当然.我们也知道,信息时代是建立在0和1的基础之上的,我们的计算机系统也是遵循着0和1的二进制.但是这两者是如何关联到一起的?当我们启动一个软件的时候,计算机系统底层是怎样的?我们打开一个网页如此的简单,但是这背后,计算机系统又发生了什么事情?&lt;/p&gt;
 &lt;h3&gt;程序的执行&lt;/h3&gt;
-&lt;p&gt;如果是计算机系的学生,或者对计算机技术有着兴趣的人,都会知道计算机操作系统的一些概念,也知道一个程序的执行其实到底是怎么一回事.无非就是将一段在硬盘上的二进制代码加载到内存中,然后由CPU执行相关的指令.程序的执行简单来说就是这么一回事,所以一个软件的启动和执行,也就是在这个简单的基础上再加上一些复杂的操作.&lt;/p&gt;
-&lt;!--more--&gt;
-&lt;p&gt;更深入点,我们知道操作系统也是软件,计算机关闭的时候操作系统的编译后的可执行对象也是保存在硬盘上.在计算机启动的时候,将操作系统加载到内存上,之后,操作系统就会一直运行直至计算机重新关闭.一般来说,我们将程序运行分为两种状态,用户的应用程序运行在用户态,而操作系统则是运行在内核态.&lt;/p&gt;
+&lt;p&gt;如果是计算机系的学生,或者对计算机技术有着兴趣的人,都会知道计算机操作系统的一些概念,也知道一个程序的执行其实到底是怎么一回事.无非就是将一段在硬盘上的二进制代码加载到内存中,然后由CPU执行相关的指令.程序的执行简单来说就是这么一回事,所以一个软件的启动和执行,也就是在这个简单的基础上再加上一些复杂的操作.
+更深入点,我们知道操作系统也是软件,计算机关闭的时候操作系统的编译后的可执行对象也是保存在硬盘上.在计算机启动的时候,将操作系统加载到内存上,之后,操作系统就会一直运行直至计算机重新关闭.一般来说,我们将程序运行分为两种状态,用户的应用程序运行在用户态,而操作系统则是运行在内核态.&lt;/p&gt;
 &lt;h3&gt;操作系统的抽象&lt;/h3&gt;
 &lt;p&gt;计算机系统中的抽象其实应该是涉及两个方面.一个是处理器方面的,处理器的指令集对于硬件的抽象;而另一方面则是操作系统方面的抽象.&lt;/p&gt;
 &lt;p&gt;正如上面提及到的,程序运行于两种状态,这是为了安全的考虑,用户态的用户程序是无法直接进行一些直接操作硬件的指令的.比如创建保存一个文件的操作,涉及到了IO操作,而保存在硬盘上也涉及到磁盘的寻道.这些操作完全交由用户来进行一方面是非常的不安全,另一方面,每个人都有自己的实现方式,那将会导致各种混乱的代码.所以,操作系统一般会通过提供一些系统调用函数给用户程序,用户程序通过系统API从而实现对系统代码的调用.而这些系统代码将会进行相关的底层操作.通过系统API,操作系统作为硬件和用户应用程序的中间层,对用户应用程序隐藏了对硬件的操作,将硬件的操作细节抽象为一个个系统调用.&lt;/p&gt;
@@ -2980,8 +2956,6 @@ max realtime timeout      unlimited            unlimited            us
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;结果是抛出了错误,提示 &lt;lambda&gt;() 函数只接受一个参数缺给了两个参数.所以在 reduce 内部中,我们可以知道对于作为参数的 function ,接受了两个值作为参数的.&lt;/p&gt;
-&lt;!--more--&gt;
-
 &lt;h4&gt;深入&lt;/h4&gt;
 &lt;p&gt;第一个例子中, reduce 函数返回的是 list 变量元素的和,那 reduce 函数是如何实现将这个 list 变量元素相加起来呢?考虑到定义的匿名函数体中将 x 的值和 y 的值加起来了,所以应该和这个函数是相关的,那 reduce 函数给赋给这个 lambda 函数的两个参数分别是什么呢?&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;l&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
@@ -3024,7 +2998,7 @@ max realtime timeout      unlimited            unlimited            us
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://docs.python.org/2/library/functions.html#reduce"&gt;[1]官网: python build-in function reduce&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.secnetix.de/olli/Python/lambda_functions.hawk"&gt;[2]Python 函数式编程: python functional programming&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><category term="python"></category><category term="reduce"></category></entry><entry><title>SQL 反模式读书笔记-AS</title><link href="https://blog.tonychow.me/antipattern-sql-as.html" rel="alternate"></link><published>2013-01-11T00:00:00+08:00</published><updated>2013-01-11T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2013-01-11:/antipattern-sql-as.html</id><summary type="html"></summary><content type="html">&lt;p&gt;P16&lt;/p&gt;
+&lt;/ul&gt;</content><category term="python"></category></entry><entry><title>SQL 反模式读书笔记-AS</title><link href="https://blog.tonychow.me/antipattern-sql-as.html" rel="alternate"></link><published>2013-01-11T00:00:00+08:00</published><updated>2013-01-11T00:00:00+08:00</updated><author><name>tonychow</name></author><id>tag:blog.tonychow.me,2013-01-11:/antipattern-sql-as.html</id><summary type="html"></summary><content type="html">&lt;p&gt;P16&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="k"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;product_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;COUNT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="n"&gt;products_per_account&lt;/span&gt;
 &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;Contacts&lt;/span&gt;
 &lt;span class="k"&gt;GROUP&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="n"&gt;account_id&lt;/span&gt;
@@ -3039,8 +3013,6 @@ max realtime timeout      unlimited            unlimited            us
 &lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="k"&gt;c&lt;/span&gt;
 &lt;span class="k"&gt;HAVING&lt;/span&gt; &lt;span class="k"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;accounts_per_product&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;MAX&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;c&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;accounts_per_product&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;!--more--&gt;
 
 &lt;p&gt;这个 SQL 查询语句的作用是查询相关账号最多的产品。在这两个查询语句中我注意到的是 accounts_per_product 和 products_per_account 这两个本来不存在的字段。很明显这两个是通过 AS 得到的字段。AS 也就是 Alias (别名)，通过 Alias 可以方便组织多表查询特别是在涉及到自身对应自身表的时候，比如评论表如果想要父级和子级的结果查询，同时也可以用 Alias 给表的字段起一个别名，便于输出，比如上面的两个 SQL 查询。&lt;/p&gt;
 &lt;p&gt;第一个 SQL 查询语句中，通过将 c.product_id，COUNT(*) 这个要查询的字段 alias 成 products_per_account，这样输出的结果类似于：&lt;/p&gt;
@@ -3066,7 +3038,7 @@ max realtime timeout      unlimited            unlimited            us
 &lt;p&gt;Programs Are Translated By Other Programs into Different Forms.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;程序由其他程序翻译成不同的形式，其实看下面这张图应该可以很清晰地了解上面这一句：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="c程序编译" src="http://om3cpjyz4.bkt.clouddn.com/articles/c-program-compilation.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="c程序编译" src="../images/c-program-compilation.webp"&gt;&lt;/p&gt;
 &lt;p&gt;上图是一个 hello 的 C 程序由 GCC 编译器从源码文件 hello.c 中读取内容并将其翻译成为一个可执行的对象文件 hello 的过程。这个过程包含了几个阶段：&lt;/p&gt;
 &lt;p&gt;首先是源文件，此时是处于文本类型：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="c1"&gt;// C 代码&lt;/span&gt;

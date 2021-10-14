@@ -5,28 +5,28 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://blog.tonychow.me/</loc>
-<lastmod>2021-08-25T23:09:54-00:00</lastmod>
+<lastmod>2021-10-14T11:17:41-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
 
 <url>
 <loc>https://blog.tonychow.me/archives.html</loc>
-<lastmod>2021-08-25T23:09:54-00:00</lastmod>
+<lastmod>2021-10-14T11:17:41-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
 
 <url>
 <loc>https://blog.tonychow.me/tags.html</loc>
-<lastmod>2021-08-25T23:09:54-00:00</lastmod>
+<lastmod>2021-10-14T11:17:41-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
 
 <url>
 <loc>https://blog.tonychow.me/categories.html</loc>
-<lastmod>2021-08-25T23:09:54-00:00</lastmod>
+<lastmod>2021-10-14T11:17:41-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
@@ -333,13 +333,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>https://blog.tonychow.me/tag/class.html</loc>
-<lastmod>2013-04-06T00:00:00+08:06</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.6</priority>
-</url>
-
-<url>
 <loc>https://blog.tonychow.me/tag/csapp.html</loc>
 <lastmod>2013-04-05T00:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
@@ -349,13 +342,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://blog.tonychow.me/tag/abstract.html</loc>
 <lastmod>2013-04-05T00:00:00+08:06</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.6</priority>
-</url>
-
-<url>
-<loc>https://blog.tonychow.me/tag/reduce.html</loc>
-<lastmod>2013-03-18T00:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>

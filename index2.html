@@ -94,6 +94,63 @@
 
 <article>
   <header>
+    <h2><a href="https://blog.tonychow.me/thoughts-about-python-iterator.html#thoughts-about-python-iterator">关于 Python iterator 协议的一点思考</a></h2>
+    <p>
+      Posted on 一 06 四月 2015 in <a href="https://blog.tonychow.me/category/python.html">python</a>
+
+          &#8226; Tagged with
+              <a href="https://blog.tonychow.me/tag/python.html">python</a>,              <a href="https://blog.tonychow.me/tag/iterator.html">iterator</a>,              <a href="https://blog.tonychow.me/tag/thoughts.html">thoughts</a>
+        &#8226; 1 min read
+    </p>
+  </header>
+  <div>
+      <p>Python 中有好几种容器或者序列类型：<code>list</code> <code>tuple</code> <code>dict</code> <code>set</code> <code>str</code>，对于这些类型中的内容，往往需要一种方式去遍历获取它们来进行操作。所以 Python 提供了迭代器的类型来对这些类型的内容进行迭代遍历，迭代类型新增于 Python 2.2。</p>
+<p>迭代器类型指的是遵循迭代器协议的类型，对于 Python2.x 版本来说就是实现了 <code>__iter__</code> 和 <code>next</code> 函数的对象类型。如果一个对象实现了迭代器协议，则可以用 <code>for</code> 语句遍历这个对象的内容。其中 <code>__iter__</code> 函数返回一个迭代器对象，而 <code>next</code> 函数则需要返回容器的下一个内容，如果没有下一个则抛出 StopIteration 异常，这个异常在 <code>for ... in</code> 语句中将会被捕获然后结束迭代。迭代器协议详细内容可以查看 <a href="https://www.python.org/dev/peps/pep-0234/">PEP234</a> 。Python3.x 将 <code>next</code> 函数改成了 <code>__next__</code> 函数，以和其他内置的函数保持一致的双下划线风格。</p>
+<p>以前看迭代器协议的时候，经常可以看到这样一个实现：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Reverse</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+</code></pre></div>
+
+<p>最近看到了这么一个写法：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">IterObj</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
+
+<p>这个写法没有 <code>next</code> 函数了，初看起来好像没有完全实现迭代器协议的样子，但是仔细考虑下的话，<code>__iter__</code> 函数内部调用了内置函数 <code>iter</code> ，实际上是返回了一个迭代器对象，而这个迭代器对象当然是实现了迭代器协议的。所以第二种写法也是完全可以的，并且对比第一种写法来说更加简单。</p>
+<p>在官方文档 <a href="https://docs.python.org/2/library/stdtypes.html?highlight=iterator#iterator-types">迭代器类型</a> 中可以看到，对于 <code>list</code> <code>dict</code> 等容器对象来说，它们的 <code>__iter__</code> 函数返回的不是其自身，而是一个迭代器对象： <code>container.__iter__()</code> 。所以当一个容器对象需要提供迭代的功能的时候，不是把这个容器对象变成一个迭代器对象，而是返回一个迭代器对象，将迭代的功能委托给这个迭代器对象。所以上面两种写法的区别在于一个是实现了迭代器对象，一个是实现了可迭代的容器对象。所以第二种写法如果稍稍微修改下：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">IterObj</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Reverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
+
+<p>这样就利用了之前定义的迭代器对象 <code>Reverse</code> 来给对象 <code>IterObj</code> 提供了反向迭代的功能。可以看到，这样的处理方式将迭代的逻辑和容器对象分离了，更加的灵活，容器对象本身也更加精简。</p>
+<p>Python 的迭代器协议统一了  Python 中容器对象进行迭代的方式，另一方面来说，也为用户自定义类型添加迭代的功能添加了方便的实现方式，所以无论是从语言的标准化来说还是从用户使用角度的来说都是非常有用的一个协议。</p>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
     <h2><a href="https://blog.tonychow.me/corepython-reading-notes-how-day7.html#corepython-reading-notes-how-day7">Python 核心编程读书笔记 Day7</a></h2>
     <p>
       Posted on 五 18 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
@@ -257,42 +314,6 @@
 <p>7.函数内部是一个局部空间；</p>
 <p>8.装饰器函数接受一个函数返回另外一个装饰后的函数；</p>
 <p>9.装饰器利用 <code>@</code> 来装饰函数，相当于：<code>foo = deco(foo)</code>；</p>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://blog.tonychow.me/corepython-reading-notes-how-day3.html#corepython-reading-notes-how-day3">Python 核心编程读书笔记 Day3</a></h2>
-    <p>
-      Posted on 日 13 七月 2014 in <a href="https://blog.tonychow.me/category/readings.html">readings</a>
-
-          &#8226; Tagged with
-              <a href="https://blog.tonychow.me/tag/corepython.html">corepython</a>,              <a href="https://blog.tonychow.me/tag/reading-notes.html">reading-notes</a>,              <a href="https://blog.tonychow.me/tag/python.html">python</a>
-        &#8226; 1 min read
-    </p>
-  </header>
-  <div>
-      <p>今天阅读的章节是 8 和 9 章，前面的章节已经介绍了 Python 的基本的数据类型，这两章分别介绍了 Python 的条件
-循环语句和文件类型。</p>
-<h3>第八章：条件和循环</h3>
-<p>这章主要就是介绍 Python 中的条件和循环语句，Python 中的条件语句有 if-else，而循环则有 while 和 for。要点：</p>
-<p>1.if 语句有 if-else 和 if-elif-elif-else 模式；</p>
-<p>2.Python 中也存在条件表达式，和其他语言的不同，是利用 if 实现的：X if C else Y；</p>
-<p>3.Python 中的 while 和其他语言的类似，而 for 循环则不一样，for 循环可以遍历可迭代对象；</p>
-<p>4.在遍历迭代器的时候，for 循环会调用迭代器的 next 方法，并且在遇到 StopIteration 异常结束遍历；</p>
-<p>5.range(start, stop, step=1) 函数可以生成一个列表；</p>
-<p>6.sorted 和 zip 函数返回一个列表，而 reversed 和 enumerate 函数则返回一个迭代器；</p>
-<p>7.else 同样可以用在 while 和 for 循环语句中，在循环结束后执行，break 则会跳出这个 else；</p>
-<p>8.迭代器对象需要实现 next 和 <code>__iter__</code> 方法；</p>
-<p>9.列表解释：[expr for iter_var in iterable]，返回列表；</p>
-<p>10.生成器表达式：(expr for iter_var in iterable)；</p>
-<h3>第九章：文件和输入输出</h3>
-<p>本章主要关注 Python 中的文件对象及输入和输出方面，下面是要点：</p>
-<p>1.文件只是连续的字节序列；</p>
-<p>2.可以用 open 或者 file 函数打开或者创建文件，这两个函数类似；</p>
-<p>3.文件对象的 readlines 方法将会将该文件所有行都加载到内存中，打开大文件不太友好；</p>
-<p>4.xreadlines 是以迭代的方式每次读取文件的一行，不过现在可以直接对文件对象进行迭代达到一样的效果；</p>
-<p>5.readline 函数不会去除读取到的行的换行符，writelines 也不会自动添加换行符；</p>
   </div>
 </article>
 

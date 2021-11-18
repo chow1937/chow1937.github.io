@@ -5,29 +5,36 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://blog.tonychow.me/</loc>
-<lastmod>2021-11-01T19:20:40-00:00</lastmod>
+<lastmod>2021-11-18T11:04:37-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
 
 <url>
 <loc>https://blog.tonychow.me/archives.html</loc>
-<lastmod>2021-11-01T19:20:40-00:00</lastmod>
+<lastmod>2021-11-18T11:04:37-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
 
 <url>
 <loc>https://blog.tonychow.me/tags.html</loc>
-<lastmod>2021-11-01T19:20:40-00:00</lastmod>
+<lastmod>2021-11-18T11:04:37-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
 
 <url>
 <loc>https://blog.tonychow.me/categories.html</loc>
-<lastmod>2021-11-01T19:20:40-00:00</lastmod>
+<lastmod>2021-11-18T11:04:37-00:00</lastmod>
 <changefreq>daily</changefreq>
+<priority>0.6</priority>
+</url>
+
+<url>
+<loc>https://blog.tonychow.me/mit6.824-letcture5-notes-raft2.html</loc>
+<lastmod>2021-11-18T00:00:00+08:00</lastmod>
+<changefreq>monthly</changefreq>
 <priority>0.6</priority>
 </url>
 
@@ -194,7 +201,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://blog.tonychow.me/category/course.html</loc>
-<lastmod>2021-11-01T00:00:00+08:06</lastmod>
+<lastmod>2021-11-18T00:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
@@ -229,28 +236,28 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://blog.tonychow.me/tag/mit6824.html</loc>
-<lastmod>2021-11-01T00:00:00+08:06</lastmod>
+<lastmod>2021-11-18T00:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
 
 <url>
 <loc>https://blog.tonychow.me/tag/distributed-system.html</loc>
-<lastmod>2021-11-01T00:00:00+08:06</lastmod>
+<lastmod>2021-11-18T00:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
 
 <url>
 <loc>https://blog.tonychow.me/tag/raft.html</loc>
-<lastmod>2021-11-01T00:00:00+08:06</lastmod>
+<lastmod>2021-11-18T00:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
 
 <url>
 <loc>https://blog.tonychow.me/tag/paper-reading.html</loc>
-<lastmod>2021-11-01T00:00:00+08:06</lastmod>
+<lastmod>2021-11-18T00:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
@@ -383,7 +390,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://blog.tonychow.me/author/tonychow.html</loc>
-<lastmod>2021-11-01T00:00:00+08:06</lastmod>
+<lastmod>2021-11-18T00:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
